@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>My Diary | Welcome</title>
+    <link rel="stylesheet" type="text/css" media="screen" href="UI/css/app.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="UI/css/dashboard.css" />
+</head>
+<body>
+    <div class="wrapper" >
+        <div id="right-section">
+            <header>
+                    <span class="icon-bar" id="menu-icon"></span>
+                    <div id="top-bar">
+                        <div class="brand">
+                            My Dairy
+                        </div>
+                        <nav>
+                            <ul class="navbar">
+                                <li class="nav-link" >
+                                    <img class="profile-img" src="UI/images/avatar.png" alt="">
+                                    <div class="dropdown">
+                                        <div class="dropdown-content">
+
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </nav>  
+                    </div>
+            </header>
+            <main>
+                <section id="main-section">
+                    <div id="diary" class="tab-pane selected container">
+                        Diary
+                    </div>
+                    <div id="settings" class="tab-pane">
+                        Sttings
+                    </div>
+                    <div id="profile" class="tab-pane">
+                        Profile
+                    </div>
+                </section>
+            </main>
+        </div>
+        <div id="left-section">
+            <div id="profile-image">
+                    <img src="">
+            </div>
+            <ul class="nav-tabs" role="tablist">
+                <li><a class="nav-it" data-target="login" role="tab" ><img src="UI/images/icons8-home.svg" class="home-icon">Home</a></li>
+                <li><a class="nav-it active"  data-target="diary"  role="tab" >My Diary</a></li>
+                <li><a class="nav-it" data-target="settings" role="tab" >Settings</a></li>
+                <li><a class="nav-it"  data-target="profile" role="tab" >Profile</a></li>
+                <li><a class="nav-it" id="last-item">Logout</a></li>
+            </ul>
+        </div>
+    </div>
+    <script src="UI/js/app.js"></script>
+    <script src="UI/js/dashboard.js"></script>
+</body>
+</html>
