@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>My Diary | Welcome</title>
+    <link rel="stylesheet" type="text/css" media="screen" href="css/app.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="css/dashboard.css" />
+</head>
+<body>
+    <div class="wrapper" >
+        <div id="right-section">
+            <header>
+                    <span class="icon-bar" id="menu-icon"></span>
+                    <div id="top-bar">
+                        <div class="brand">
+                            My Dairy
+                        </div>
+                        <nav>
+                            <ul class="navbar">
+                                <li class="nav-link" ><a href="index.html">Home</a></li>
+                                <li class="nav-link" data-toggle="logout" data-target="sign-up-login"><a href="#">logout</a></li>
+                            </ul>
+                        </nav>  
+                    </div>
+            </header>
+            <main>
+                <section id="main-section">
+                    <div id="diary" class="tab-pane selected container">
+                       <div id="add-entry">
+                            <button class="btn btn-primary add-entry">Add New Entry</button>
+                       </div>
+                       <div id="dairy-content">
+                            <div id="diary-heading">
+                                <h4 id="title">Diary Entry</h4>
+                                <h4 class="entry-head">Date Cretated</h4>
+                                <h4 class="entry-head">Action</h4>
+                            </div>
+                            <ul id="dairy-entries">
+                                <li class="entry-item">
+                                    <div>
+                                        <h4>The story of a village girl</h4>
+                                        <p>There lived a poor girl...</p>
+                                    </div>
+                                    <p class="created-at">12/18/2018</p>
+                                    <a class="action"><span class="btn btn-primary action-btn">Edit</span> | <span class="btn btn-danger action-btn">Delete</span></a>
+                                </li>
+                                <li class="entry-item">
+                                    <div>
+                                        <h4>why I am writing</h4>
+                                        <p>This is because I have come to...</p>
+                                    </div>
+                                    <p class="created-at">12/18/2018</p>
+                                    <a class="action"><span class="btn btn-primary action-btn">Edit</span> | <span class="btn btn-danger action-btn">Delete</span></a>
+                                </li>
+                            </ul>
+                       </div>
+                    </div>
+                    <div id="settings" class="tab-pane">
+                        Sttings
+                    </div>
+                    <div id="profile" class="tab-pane">
+                        Profile
+                    </div>
+                </section>
+            </main>
+        </div>
+        <div id="left-section">
+            <div id="profile-image">
+                    <img src="">
+            </div>
+            <ul class="nav-tabs" role="tablist">
+                <li><a class="nav-it" data-target="login" role="tab" >Home</a></li>
+                <li><a class="nav-it active"  data-target="diary"  role="tab" >My Diary</a></li>
+                <li><a class="nav-it" data-target="settings" role="tab" >Settings</a></li>
+                <li><a class="nav-it"  data-target="profile" role="tab" >Profile</a></li>
+                <li><a class="nav-it" id="last-item">Logout</a></li>
+            </ul>
+        </div>
+    </div>
+    <script src="js/dashboard.js"></script>
+</body>
+</html>
