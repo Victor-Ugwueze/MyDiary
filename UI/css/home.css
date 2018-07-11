@@ -115,7 +115,7 @@ header #intro{
     border-left: 1px solid transparent;  
 }
 
-#signup{
+#login,#signup{
     width: 80%;
     margin: 0 auto;
 }
