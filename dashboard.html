@@ -34,7 +34,34 @@
             <main>
                 <section id="main-section">
                     <div id="diary" class="tab-pane selected container">
-                        Diary
+                        <div id="add-entry">
+                                <button class="btn btn-primary add-entry">Add New Entry</button>
+                        </div>
+                        <div id="dairy-content">
+                            <div id="diary-heading">
+                                <h4 id="title">Diary Entry</h4>
+                                <h4 class="entry-head" id="created-at">Date Cretated</h4>
+                                <h4 class="entry-head" id="action">Action</h4>
+                            </div>
+                            <ul id="dairy-entries">
+                                <li class="entry-item">
+                                    <div>
+                                        <h4>The story of a village girl</h4>
+                                        <p>There lived a poor girl...</p>
+                                    </div>
+                                    <p class="created-at">12/18/2018</p>
+                                    <a class="action"><span class="btn btn-primary action-btn">Edit</span> | <span class="btn btn-danger action-btn">Delete</span></a>
+                                </li>
+                                <li class="entry-item">
+                                    <div>
+                                        <h4>why I am writing</h4>
+                                        <p>This is because I have come to...</p>
+                                    </div>
+                                    <p class="created-at">12/18/2018</p>
+                                    <a class="action"><span class="btn btn-primary action-btn">Edit</span> | <span class="btn btn-danger action-btn">Delete</span></a>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                     <div id="settings" class="tab-pane">
                         Sttings
