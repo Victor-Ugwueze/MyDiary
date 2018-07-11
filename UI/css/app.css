@@ -65,7 +65,43 @@ h3{
     width: 80%;
     margin: auto;
 }
+.brand{
+    padding: 20px;
+}
 
+nav .navbar{
+    list-style: none;
+    display: flex;
+}
+
+.navbar .nav-link{
+    padding: 20px;
+}
+.navbar .nav-link a {
+    text-decoration: none;
+    color: #000;
+}
+.nav-tabs .nav-item{
+    flex: auto;
+    padding: 20px;
+    text-decoration: none;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 14px;
+    cursor: pointer;
+    font-weight: 600;
+    color: #7d97ad;
+    background:#fafbfc; 
+    border-left: 1px solid #dbe2e8;
+}
+.nav-tabs .active{
+    cursor: default;
+    background: #fff;
+    font-weight: bold;
+    color: #2e3d49; 
+    border-left: 1px solid transparent;  
+}
 .btn{
     padding: 10px 20px;
     columns: #fff;
@@ -80,6 +116,12 @@ h3{
 .btn-danger{
     background: var(--danger);
     color:  #fff;
+}
+.tab-pane{
+    display: none;
+}
+.selected{
+    display: block;
 }
 .row{
     width: 100%;
@@ -136,6 +178,13 @@ h3{
     background-color: black;
     margin-top: 0;
 }
+.home-icon{
+    width: 25px;
+    height: 25px;
+    color: #fff;
+}
+
 .active-modal-background{
     opacity: 0.3;
 }
+
