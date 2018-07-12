@@ -8,11 +8,16 @@ window.SelectElement = function (toAddClass,toRemoveclass,className){
     if(toRemoveclass == null){
         toAddClass.classList.toggle(className);
         return;
-    }
-    toRemoveclass.length<2 ? toRemoveclass[0].classList.remove(className) :
-    toRemoveclass.forEach((element)=>{
+    }else{
+        toRemoveclass.length<2 ? toRemoveclass[0].classList.remove(className) :
+        toRemoveclass.forEach((element)=>{
         if(element.classList.contains(className)) element.classList.remove(className)
-        return;
-    });
-    toAddClass.classList.add(className);
+            return;
+        });
+        toAddClass.classList.add(className);
+    }
+}
+
+window.isElementDesendant = function(parent, child){
+    console.log(parent,child);
 }

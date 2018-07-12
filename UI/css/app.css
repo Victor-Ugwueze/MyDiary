@@ -189,6 +189,12 @@ textarea{
 .modal .close{
     cursor: pointer;
 }
+.hide{
+    display: none;
+}
+.show{
+    display: block;
+}
 .close{
     position: absolute;
     right: 0;
@@ -229,7 +235,4 @@ textarea{
     color: #fff;
 }
 
-.active-modal-background{
-    opacity: 0.3;
-}
 

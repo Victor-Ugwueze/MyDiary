@@ -61,28 +61,6 @@ header #top-bar{
         height: 90px;
     }
 }
-
-.show{
-    display: block !important;
-    -moz-animation-delay:0.5s;
-    -moz-animation-name: slidemenu;
-    animation-name: slidemenu;
-    animation-duration: 0.5s;
-    -moz-animation-duration: 0.5s;
-    -moz-animation-iteration-count: 1;
-    -moz-animation-fill-mode: forwards;
-
-    -webkit-animation-delay:0.5s;
-    -webkit-animation-name: slideDown;
-    animation-delay:0.5s;
-    -webkit-animation-timing-function: ease-out;
-    -webkit-animation-duration: 0.5s;
-    -webkit-animation-iteration-count: 1;
-    -webkit-animation-fill-mode: forwards;
-}
-.hide{
-    display: none;
-}
 .nav-tabs li{
     display: flex;
     flex-direction: column;
