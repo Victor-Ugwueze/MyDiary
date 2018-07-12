@@ -99,21 +99,7 @@ header #intro{
     line-height: 0.9cm;
     font-size: 14px;
 }
-input[type='text'],input[type='password']{
-    padding: 10px;
-    border-radius: 4px;
-    border: 1px solid #dbe2e8;
-    font-size: 14px;
-    padding-left: 15px;
-    padding-right: 15px;
-    width: 100%;
-    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12)!important;
-    margin-top: 20px;
-}
-.form-row .form-input{
-    width: 100%;
-    margin-bottom: 10px;
-}
+
 .form-input:focus{
     border: 1px solid var(--primary);
 }

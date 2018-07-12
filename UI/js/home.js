@@ -3,10 +3,10 @@
     [...document.querySelectorAll('.nav-link')].forEach((element)=>{
         element.addEventListener('click',function(){
            document.querySelector('#'+this.dataset.target).style.display = 'block';
-        const header =  document.querySelector('header');
-        const main = document.querySelector('main')
-           header.classList.add('active-modal-background');
-           main.classList.add('active-modal-background');
+            const header =  document.querySelector('header');
+            const main = document.querySelector('main')
+            header.classList.add('active-modal-background');
+            main.classList.add('active-modal-background');
     
     
            const elements = document.querySelectorAll('.modal .tab-pane');
