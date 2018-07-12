@@ -146,6 +146,22 @@ header #top-bar{
     padding: 2px 4px;
 }
 
+#confirm-delete .modal-content{
+    margin-top: 15%;
+    width: 30%;
+    height: 200px;
+}
+#confirm-delete .modal-body{
+    margin-bottom: 100px;
+}
+#confirm-delete .modal-footer{
+    border-top: 1px solid #ccc;
+    width: 100%;
+}
+.modal-footer div{
+    display: flex;
+    justify-content: space-between;
+}
 @media only screen and (max-width : 1245px){
     #right-section{
         margin-left: 22%;
