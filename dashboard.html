@@ -107,6 +107,27 @@
                 </form>
             </div>
         </div>
+    <div class="modal" id="edit-diary-entry" >
+            <div class="modal-content col-2">
+                <div class="modal-heading">
+                    <div id="title"><h4>Edit Entry</h4></div>
+                    <div class="close close-btn" data-target="add-new-entry">X</div>
+                </div>
+                <form enctype="application/x-www-form-urlencoded">
+                    <div class="form-row">
+                        <div class="row">
+                            <input type="text" class="form-input" placeholder="Title...">
+                        </div>
+                        <div class="row">
+                            <textarea name="" id="diary-body" cols="30" rows="10"></textarea>
+                        </div>
+                        <div>
+                            <input id="btn-login" type="submit" value="Create Entry" class="btn btn-primary">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
     </section>
     <script src="UI/js/app.js"></script>
     <script src="UI/js/dashboard.js"></script>
