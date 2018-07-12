@@ -44,21 +44,21 @@
                                 <h4 class="entry-head" id="action">Action</h4>
                             </div>
                             <ul id="dairy-entries">
-                                <li class="entry-item">
+                                <li class="entry-item" id="diary-1">
                                     <div>
-                                        <h4>The story of a village girl</h4>
-                                        <p>There lived a poor girl...</p>
+                                        <h4 class="sing-diary-title">The story of a village girl</h4>
+                                        <p class="sing-diary-body">It is a long established fact that a reader will be distracted ...</p>
                                     </div>
                                     <p class="created-at">12/18/2018</p>
-                                    <a class="action"><span class="btn btn-primary action-btn">Edit</span> | <span class="btn btn-danger action-btn">Delete</span></a>
+                                    <a class="action"><span data-id="diary-1" data-target="edit-diary-entry" class="btn btn-primary action-edit">Edit</span> | <span class="btn btn-danger action-delete">Delete</span></a>
                                 </li>
-                                <li class="entry-item">
+                                <li class="entry-item" id="diary-2">
                                     <div>
-                                        <h4>why I am writing</h4>
-                                        <p>This is because I have come to...</p>
+                                        <h4 class="sing-diary-title">why I am writing</h4>
+                                        <p class="sing-diary-body">This is because I have come to...</p>
                                     </div>
                                     <p class="created-at">12/18/2018</p>
-                                    <a class="action"><span class="btn btn-primary action-btn">Edit</span> | <span class="btn btn-danger action-btn">Delete</span></a>
+                                    <a class="action"><span data-id="diary-2" data-target="edit-diary-entry" class="btn btn-primary action-edit">Edit</span> | <span class="btn btn-danger action-delete">Delete</span></a>
                                 </li>
                             </ul>
                         </div>
@@ -95,7 +95,7 @@
                 <form enctype="application/x-www-form-urlencoded">
                     <div class="form-row">
                         <div class="row">
-                            <input type="text" class="form-input" placeholder="Title...">
+                            <input type="text" id="diary-title" class="form-input" placeholder="Title...">
                         </div>
                         <div class="row">
                             <textarea name="" id="diary-body" cols="30" rows="10"></textarea>
@@ -111,18 +111,18 @@
             <div class="modal-content col-2">
                 <div class="modal-heading">
                     <div id="title"><h4>Edit Entry</h4></div>
-                    <div class="close close-btn" data-target="add-new-entry">X</div>
+                    <div class="close close-btn" data-target="edit-diary-entry">X</div>
                 </div>
                 <form enctype="application/x-www-form-urlencoded">
                     <div class="form-row">
                         <div class="row">
-                            <input type="text" class="form-input" placeholder="Title...">
+                            <input type="text" id="diary-title" class="form-input" placeholder="Title...">
                         </div>
                         <div class="row">
                             <textarea name="" id="diary-body" cols="30" rows="10"></textarea>
                         </div>
                         <div>
-                            <input id="btn-login" type="submit" value="Create Entry" class="btn btn-primary">
+                            <input id="btn-login" type="submit" value="Update Entry" class="btn btn-primary">
                         </div>
                     </div>
                 </form>
