@@ -50,7 +50,7 @@
                                         <p class="sing-diary-body">It is a long established fact that a reader will be distracted ...</p>
                                     </div>
                                     <p class="created-at">12/18/2018</p>
-                                    <a class="action"><span data-id="diary-1" data-target="edit-diary-entry" class="btn btn-primary action-edit">Edit</span> | <span class="btn btn-danger action-delete">Delete</span></a>
+                                    <a class="action"><span data-id="diary-1" data-target="edit-diary-entry" class="btn btn-primary action-edit">Edit</span> | <span data-target="diary-1" class="btn btn-danger action-delete">Delete</span></a>
                                 </li>
                                 <li class="entry-item" id="diary-2">
                                     <div>
@@ -58,7 +58,7 @@
                                         <p class="sing-diary-body">This is because I have come to...</p>
                                     </div>
                                     <p class="created-at">12/18/2018</p>
-                                    <a class="action"><span data-id="diary-2" data-target="edit-diary-entry" class="btn btn-primary action-edit">Edit</span> | <span class="btn btn-danger action-delete">Delete</span></a>
+                                    <a class="action"><span data-id="diary-2" data-target="edit-diary-entry" class="btn btn-primary action-edit">Edit</span> | <span data-target="diary-2" class="btn btn-danger action-delete">Delete</span></a>
                                 </li>
                             </ul>
                         </div>
@@ -128,6 +128,23 @@
                 </form>
             </div>
         </div>
+
+        <div class="modal" id="confirm-delete" >
+                <div class="modal-content col-2">
+                    <div class="modal-heading">
+                        <div id="title"><h4>Are you sure you want to delete</h4></div>
+                        <!-- <div class="close close-btn" data-target="add-new-entry">X</div> -->
+                    </div>
+                    <div class="modal-body">
+
+                    </div>
+                    <div class="modal-footer">
+                        <div>
+                           <button class="btn btn-primary dailog-ok">Ok</button><button data-target="confirm-delete"  class="close btn btn-secondary">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
     </section>
     <script src="UI/js/app.js"></script>
     <script src="UI/js/dashboard.js"></script>

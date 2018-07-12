@@ -189,6 +189,10 @@ textarea{
 .modal .close{
     cursor: pointer;
 }
+.modal-footer{
+    position: relative;
+    bottom: 0;
+}
 .hide{
     display: none;
 }
