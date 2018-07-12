@@ -20,3 +20,19 @@ iconbar.addEventListener('click',function(){
         SelectElement(el,[...all],'selected');
     })
 })
+
+const addNewEntry = document.querySelector('.add-entry');
+
+addNewEntry.addEventListener('click',function(){
+    const modalToshow = document.querySelector('#'+this.dataset.target);
+    SelectElement(modalToshow,null,'show');
+})
+
+
+
+closeModal = function(){
+    const modalToshow = document.querySelector('#'+this.dataset.target);
+    SelectElement(modalToshow,null,'show');
+}
+//close modal function
+document.querySelector('.modal .close').addEventListener('click',closeModal);
