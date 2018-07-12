@@ -32,7 +32,42 @@ addNewEntry.addEventListener('click',function(){
 
 closeModal = function(){
     const modalToshow = document.querySelector('#'+this.dataset.target);
-    SelectElement(modalToshow,null,'show');
+    modal.hide(modalToshow,'show');
 }
 //close modal function
-document.querySelector('.modal .close').addEventListener('click',closeModal);
+const modalCloseButton = document.querySelectorAll('.modal .close');
+[...modalCloseButton].map((closeButton)=>{
+    closeButton.addEventListener('click',closeModal)
+});
+
+//Edit dairy entry 
+
+const editButtons = document.querySelectorAll('.action-edit');
+
+
+[...editButtons].map((editButton)=>{
+    editButton.addEventListener('click',function(event){
+        const EditDiaryModal = document.querySelector('#'+this.dataset.target);
+        SelectElement(EditDiaryModal,null,'show');
+        populateModalFoEdit(this,EditDiaryModal)
+    })
+})
+
+const populateModalFoEdit = (targetEditButton,EditModal)=>{
+    //get the diary content
+    const dairyItem = document.querySelector("#"+targetEditButton.dataset.id);
+    const dairyTitle = dairyItem.querySelector('.sing-diary-title');
+    const diaryBody = dairyItem.querySelector('.sing-diary-body');
+
+    //get refrence to modal and ppulate content
+    
+    const EditModalTitle = EditModal.querySelector('#diary-title');
+    const EditModalBody = EditModal.querySelector('#diary-body');
+    // console.log(EditModalTitle,dairyTitle)
+    EditModalTitle.value = dairyTitle.innerHTML;
+    EditModalBody.textContent = diaryBody.innerHTML;
+}
+
+
+
+

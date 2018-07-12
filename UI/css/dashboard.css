@@ -141,7 +141,7 @@ header #top-bar{
     line-height: 31px;
     font-family: Arial, Helvetica, Sans-serif;
 }
-.action-btn{
+.action-edit,.action-delete{
     font-size: 12px;
     padding: 2px 4px;
 }
