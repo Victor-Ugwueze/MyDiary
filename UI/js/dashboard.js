@@ -69,5 +69,24 @@ const populateModalFoEdit = (targetEditButton,EditModal)=>{
 }
 
 
+//Delete a modal Entry
+const deleteEntryButtons = document.querySelectorAll('.action-delete');
 
-
+[...deleteEntryButtons].map((deleteEntryButton)=>{
+    deleteEntryButton.addEventListener('click',function(event){
+        deleteModalItem(event.target)
+    })
+})
+const deleteModalItem = function (targetDeleteButton){
+    
+    const diaryList = document.querySelector('#dairy-entries');
+    const confirmDeleteBox = document.querySelector('#confirm-delete');
+    confirmDelete = confirmDeleteBox.querySelector('.dailog-ok');
+    modal.show(confirmDeleteBox,'show');
+    confirmDeleteBox.addEventListener('click',()=>{
+        const diaryItem = diaryList.querySelector('#'+targetDeleteButton.dataset.target);
+        diaryList.removeChild(diaryItem);
+        modal.hide(confirmDeleteBox,'show');
+    })
+   
+}
