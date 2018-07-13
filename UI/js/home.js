@@ -49,16 +49,6 @@ const toggleLoginForm = {
     closeLoginModal : function(clickedMenu){
       const  loginModal = document.querySelector('#sign-up-login.modal');
       const homeMenu = document.querySelectorAll('.navbar .nav-link');
-      let isMenu = false;
-      
-        if(clickedMenu == homeMenu[0] || clickedMenu == homeMenu[1] || clickedMenu == homeMenu[2]){
-            // 
-            // 
-            console.log(clickedMenu,homeMenu[1]);
-        } else{
-            console.log(loginModal);
-            // SelectElement(null,[loginModal],'show')
-        } 
     }
 }
 
