@@ -153,8 +153,10 @@ header #top-bar{
     margin-bottom: 100px;
 }
 #confirm-delete .modal-footer{
-    border-top: 1px solid #ccc;
     width: 100%;
+}
+#confirm-delete .modal-heading h4{
+    text-align: center;
 }
 .modal-footer div{
     display: flex;
@@ -283,10 +285,16 @@ header #top-bar{
     #right-section{
         margin-left: 28%;
     }
+    #confirm-delete .modal-body{
+        margin-bottom: 70px;
+    }
 }
 @media only screen and (max-width: 890px){
     .modal-content{
         width: 80%;
+    }
+    #confirm-delete .modal-content{
+        width: 50%;
     }
     .dropdown-content{
         right: 3%;
@@ -313,6 +321,26 @@ header #top-bar{
     #diary-heading  #created-at{
         margin-right: 8%;
     }
+    #confirm-delete .modal-content{
+        width: 70%;
+    }
+    #diary-heading {
+        display: none;
+    }
+    .entry-item{
+        flex-direction: column;
+        justify-content: space-around;
+    }
+    .entry-item a,.entry-item p{
+        padding: 10px 4%;
+    }
+    .entry-item div h4{
+        padding-left: 4%;
+    }
+    #dairy-entries .arrow-up{
+        display: block;
+    }
+    
     .dropdown-content{
         right: 4%;
     }
@@ -342,7 +370,7 @@ header #top-bar{
 }
 @media only screen and (max-width: 480px){
     .dropdown-content{
-        /* right: 8%; */
+        right: 8%;
     }
 }
 @media only screen and (max-width: 280px){

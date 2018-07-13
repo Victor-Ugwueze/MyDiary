@@ -117,13 +117,15 @@ const showDiaryEntry = (containerDiv)=>{
 const dropDownImage = document.querySelector('.nav-link img');
 dropDownImage.addEventListener('click',()=>{
     window.addEventListener('click',(event)=>{
+        //Click away to close logout box
         if(event.clientX<648 || event.clientY>81){
-            console.log(event)
-            dropDownImage.nextElementSibling.firstElementChild.classList.remove('show');
+
+            // dropDownImage.nextElementSibling.firstElementChild.classList.remove('show');
+            // window.removeEventListener('click',event=>event);
         }
         console.log(event)
     })
    modal.show(dropDownImage.nextElementSibling.firstElementChild,'show');
 
 })
-//Click away to close logout box
+
