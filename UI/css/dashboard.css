@@ -39,7 +39,7 @@ header #top-bar{
     left: 0;
 }
 
-#menu-icon{
+.menu-icon{
     display: none;
     margin-top: 24px;
 }
@@ -51,6 +51,9 @@ header #top-bar{
 }
 .navbar-toggle:before{
     background-color: white;
+}
+.nav-show{
+    display: block !important;
 }
 @-moz-keyframes slidemenu {
     0% {
@@ -349,7 +352,7 @@ header #top-bar{
         padding-left: 1%;
         padding-right: 4%;
     }
-    #menu-icon{
+    .menu-icon{
         display: inline-block;
     }
     #left-section{
