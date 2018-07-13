@@ -39,11 +39,22 @@ header #top-bar{
     left: 0;
 }
 
-#menu-icon{
+.menu-icon{
     display: none;
     margin-top: 24px;
 }
-
+.navbar-toggle{
+    background-color: white;
+}
+.navbar-toggle:after{
+    background-color: white;
+}
+.navbar-toggle:before{
+    background-color: white;
+}
+.nav-show{
+    display: block !important;
+}
 @-moz-keyframes slidemenu {
     0% {
         height: 0px;
@@ -143,6 +154,14 @@ header #top-bar{
     font-size: 12px;
     padding: 2px 4px;
 }
+.action-edit:hover .icon-edit{
+    /* display: inline; */
+}
+/* .action-edit:hover .edit-text{
+    display: none;
+} */
+
+
 
 #confirm-delete .modal-content{
     margin-top: 15%;
@@ -232,11 +251,38 @@ header #top-bar{
     border-left: 2px solid #fff;
     box-shadow: 0 2px 4px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12)!important;
 }
-#settings .user-profile{
+#settings ul {
+    list-style: none;
+    padding: 10px 4%;
+    width: 90%;
+}
+#settings ul li{
+    cursor: pointer;
+    border-bottom: 1px solid #ccc;
     display: flex;
     justify-content: space-between;
 }
-
+.setting-current{
+    color: var(--primary);
+}
+.icon-edit {
+    width: 24px;
+    height: 24px;
+    margin-top: 5px;
+    display: none;
+}
+.settings-change:hover .icon-edit{
+  display: inline-block;
+}
+.settings-change:hover{
+    text-decoration: underline;
+}
+#settings ul>li{
+    padding-bottom: 20px;
+}
+#setting ul:last-child{
+    padding-top: 0;
+}
  #account img{
     width: 200px;
     height: 200px;
@@ -306,7 +352,7 @@ header #top-bar{
         padding-left: 1%;
         padding-right: 4%;
     }
-    #menu-icon{
+    .menu-icon{
         display: inline-block;
     }
     #left-section{
@@ -326,6 +372,27 @@ header #top-bar{
     }
     #diary-heading {
         display: none;
+    }
+    .settings-change .icon-edit{
+        display: inline;
+    }
+    .change-text{
+        display: none;
+    }
+    .btn.action-edit{
+        background: #fff;
+    }
+    .btn.action-edit .edit-text{
+        display: none;
+    }
+    .btn.action-delete{
+        background: #fff; 
+    }
+    .btn.action-edit .delete-text{
+        display: none;
+    }
+    .diary-edit{
+        display: inline;
     }
     .entry-item{
         flex-direction: column;
