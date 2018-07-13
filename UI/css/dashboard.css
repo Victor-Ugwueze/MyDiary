@@ -245,7 +245,34 @@ header #top-bar{
 #account #full-name{
     padding-top:20px;
     padding-bottom: 20px;
-} 
+}
+.dropdown-content{
+    width: 55px;
+    height: 50px;
+    position: fixed;
+    top:8%;
+    background: rgb(255, 255, 255);
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    right: 2%;
+    z-index: 6000;
+}
+.arrow-up {
+    width: 0; 
+    height: 0; 
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 5px solid #ccc;
+    position: absolute;
+    right: 1%;
+    top: -14%;
+  }
+  .dropdown-content a{
+      position: absolute;
+     margin-left: 20%;
+     font-size: 12px;
+     top: 30%;
+  }
 @media only screen and (max-width : 1245px){
     #right-section{
         margin-left: 22%;
@@ -260,6 +287,9 @@ header #top-bar{
 @media only screen and (max-width: 890px){
     .modal-content{
         width: 80%;
+    }
+    .dropdown-content{
+        right: 3%;
     }
     header #top-bar{
         padding-left: 0;
@@ -282,6 +312,9 @@ header #top-bar{
 @media only screen and (max-width: 640px){
     #diary-heading  #created-at{
         margin-right: 8%;
+    }
+    .dropdown-content{
+        right: 4%;
     }
     #diary-heading #action{
         margin-right: 10%;
@@ -307,7 +340,15 @@ header #top-bar{
     }
 
 }
+@media only screen and (max-width: 480px){
+    .dropdown-content{
+        /* right: 8%; */
+    }
+}
 @media only screen and (max-width: 280px){
+    .dropdown-content{
+        right: 8%;
+    }
     #account img{
         width: 150px;
         height: 150px;
