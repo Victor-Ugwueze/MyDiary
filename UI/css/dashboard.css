@@ -186,9 +186,66 @@ header #top-bar{
     color: var(--primary);
     text-decoration: underline;
 }
-#date{
+.date{
     font-size: 12px;
 }
+
+
+.dashboard-section{
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+.profile-section{
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+#settings{
+    margin-top: 20px;
+    border: 2px solid #ccc;
+}
+#profile{
+    justify-content: center;
+}
+#activity-breakdown ul {
+    list-style: none;
+    display: flex;
+}
+.profie-details{
+    margin-left: 10%;
+    display: flex;
+    width: 80%;
+    margin-top: 20px;
+    padding-top: 10px;
+    justify-content: space-around;
+}
+.profie-details p,.profie-details h4,.profie-details button{
+    margin-top: 20px;
+}
+#account{
+    height: 250px;
+    background: #1c262f;
+    margin-left: 2.8%;
+    border-left: 2px solid #fff;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12)!important;
+}
+#settings .user-profile{
+    display: flex;
+    justify-content: space-between;
+}
+
+ #account img{
+    width: 200px;
+    height: 200px;
+    margin-left: 15%;
+    margin-top: 6%;
+    border-radius: 4px;
+} 
+#account #full-name{
+    padding-top:20px;
+    padding-bottom: 20px;
+} 
 @media only screen and (max-width : 1245px){
     #right-section{
         margin-left: 22%;
@@ -201,6 +258,9 @@ header #top-bar{
     }
 }
 @media only screen and (max-width: 890px){
+    .modal-content{
+        width: 80%;
+    }
     header #top-bar{
         padding-left: 0;
     }
@@ -229,5 +289,27 @@ header #top-bar{
     .entry-item div{
         flex-basis: 40%;
     }
+    .modal-content{
+        width: 90%;
+    }
+    #user-profile-name{
+        left:10%; 
+    }
 
+     .user-profile{
+        flex-direction: column;
+    }
+    .user-profile #account,.user-profile #diary-entries{
+        justify-content: center;
+        margin: 2px auto;
+        padding-top: 10px;
+        text-align: center;
+    }
+
+}
+@media only screen and (max-width: 280px){
+    #account img{
+        width: 150px;
+        height: 150px;
+    }
 }
