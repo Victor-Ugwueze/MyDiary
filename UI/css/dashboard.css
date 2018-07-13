@@ -151,6 +151,14 @@ header #top-bar{
     font-size: 12px;
     padding: 2px 4px;
 }
+.action-edit:hover .icon-edit{
+    /* display: inline; */
+}
+/* .action-edit:hover .edit-text{
+    display: none;
+} */
+
+
 
 #confirm-delete .modal-content{
     margin-top: 15%;
@@ -361,6 +369,27 @@ header #top-bar{
     }
     #diary-heading {
         display: none;
+    }
+    .settings-change .icon-edit{
+        display: inline;
+    }
+    .change-text{
+        display: none;
+    }
+    .btn.action-edit{
+        background: #fff;
+    }
+    .btn.action-edit .edit-text{
+        display: none;
+    }
+    .btn.action-delete{
+        background: #fff; 
+    }
+    .btn.action-edit .delete-text{
+        display: none;
+    }
+    .diary-edit{
+        display: inline;
     }
     .entry-item{
         flex-direction: column;
