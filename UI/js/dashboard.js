@@ -87,7 +87,6 @@ const deleteModalItem = function (targetDeleteButton){
     modal.show(confirmDeleteBox,'show');
     confirmDeleteBox.addEventListener('click',()=>{
         const diaryItem = diaryList.querySelector('#'+targetDeleteButton.dataset.target);
-        diaryList.removeChild(diaryItem);
         modal.hide(confirmDeleteBox,'show');
     })
    
