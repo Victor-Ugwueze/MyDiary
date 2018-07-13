@@ -105,6 +105,7 @@ nav .navbar{
 .btn{
     padding: 10px 20px;
     columns: #fff;
+    cursor: pointer;
     border-radius: 4px;
     border: 1px solid transparent;
 }
@@ -237,6 +238,18 @@ textarea{
     width: 25px;
     height: 25px;
     color: #fff;
+}
+
+@media only screen and (max-width: 890px){
+    .modal-content{
+        width: 80%;
+    }
+    .row{
+        flex-direction: column;
+    }
+    .form-row div{
+        display: block !important;
+    }
 }
 
 
