@@ -69,3 +69,12 @@ document.querySelector('.modal')
     .addEventListener('click',(event)=>{
             toggleLoginForm.closeLoginModal(event.target.parentNode);
         })
+
+//Toggle menu bar
+
+const iconbar = document.querySelector('.icon-bar');
+iconbar.addEventListener('click',function(){
+    const naMenu = document.querySelector('header nav');
+    naMenu.classList.toggle('show');
+
+})

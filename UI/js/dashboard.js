@@ -1,9 +1,11 @@
 const iconbar = document.querySelector('#menu-icon');
 
 iconbar.addEventListener('click',function(){
-   let a =  document.querySelector('#left-section');
-   a.classList.contains('show') ? a.classList.remove('show') :
-   a.classList.add('show')
+   let navigationMenu =  document.querySelector('#left-section');
+   console.log(navigationMenu)
+   navigationMenu.style.display = "block";
+//    navigationMenu.classList.contains('show') ? modal.hide(navigationMenu,'hide') :
+   modal.show(navigationMenu,'show');
 });
 
 [...document.querySelectorAll('.nav-it')].forEach((element)=>{
