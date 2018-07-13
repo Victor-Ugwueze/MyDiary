@@ -111,3 +111,19 @@ const showDiaryEntry = (containerDiv)=>{
     
     modal.show(viewEntryModal,'show');
 }
+
+//Show logout box
+
+const dropDownImage = document.querySelector('.nav-link img');
+dropDownImage.addEventListener('click',()=>{
+    window.addEventListener('click',(event)=>{
+        if(event.clientX<648 || event.clientY>81){
+            console.log(event)
+            dropDownImage.nextElementSibling.firstElementChild.classList.remove('show');
+        }
+        console.log(event)
+    })
+   modal.show(dropDownImage.nextElementSibling.firstElementChild,'show');
+
+})
+//Click away to close logout box
