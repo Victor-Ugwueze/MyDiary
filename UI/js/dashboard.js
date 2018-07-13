@@ -90,3 +90,24 @@ const deleteModalItem = function (targetDeleteButton){
     })
    
 }
+
+//show a single Diary Entry
+
+const showEntryButtons = document.querySelectorAll('.diary-text');
+[...showEntryButtons].map((showEntryButton)=>{
+    showEntryButton.addEventListener('click',function(event){
+        showDiaryEntry(event.target.parentNode)
+    })
+})
+
+const showDiaryEntry = (containerDiv)=>{
+    //Make network request with entry id
+    const itemId = containerDiv.dataset.id;
+    const viewEntryModal = document.querySelector("#"+containerDiv.dataset.target);
+    //get refrence to elements 
+    const titleContainer = viewEntryModal.querySelector('#diary-content h4');
+    const bodyContainer = viewEntryModal.querySelector('#diary-content p');
+    const DateContainer = viewEntryModal.querySelector('#date');
+    
+    modal.show(viewEntryModal,'show');
+}
