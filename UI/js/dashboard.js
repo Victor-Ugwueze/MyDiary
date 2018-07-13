@@ -1,18 +1,20 @@
-const iconbar = document.querySelector('#menu-icon');
 
-iconbar.addEventListener('click',function(){
-   let navigationMenu =  document.querySelector('#left-section');
-   console.log(navigationMenu)
-   navigationMenu.style.display = "block";
-//    navigationMenu.classList.contains('show') ? modal.hide(navigationMenu,'hide') :
-   modal.show(navigationMenu,'show');
+
+//Hide or show Menu bar
+const iconbars = document.querySelectorAll('.menu-icon');
+const navigationMenu =  document.querySelector('#left-section');
+
+[...iconbars].map((iconbar)=>{
+    iconbar.addEventListener('click',function(){
+        navigationMenu.classList.toggle('nav-show')
+     });
 });
+
 
 [...document.querySelectorAll('.nav-it')].forEach((element)=>{
     element.addEventListener('click',function(){
         let el = document.querySelector('.nav-it.active');
         let all = document.querySelectorAll('.nav-it');
-        // console.log(el,all);
         //Change Active Navigation tab
         SelectElement(this,[...all],'active');
 
@@ -121,12 +123,16 @@ dropDownImage.addEventListener('click',()=>{
         //Click away to close logout box
         if(event.clientX<648 || event.clientY>81){
 
-            // dropDownImage.nextElementSibling.firstElementChild.classList.remove('show');
-            // window.removeEventListener('click',event=>event);
+            dropDownImage.nextElementSibling.firstElementChild.classList.remove('show');
         }
-        console.log(event)
     })
    modal.show(dropDownImage.nextElementSibling.firstElementChild,'show');
 
 })
+
+// const navbarToggle = document.querySelector('.navbar-toggle');
+
+// navbarToggle.addEventListener('click',()=>{
+//     console.log("fnnjnjk")
+// })
 
