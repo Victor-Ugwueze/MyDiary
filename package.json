@@ -6,7 +6,7 @@
   "scripts": {
     "start": "nodemon server/server.js --exec babel-node",
     "build": "npm run clean && npm run build-server",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha --require babel-register test/* --exit"
   },
   "repository": {
     "type": "git",
@@ -26,6 +26,7 @@
     "babel-preset-airbnb": "^2.5.1",
     "babel-register": "^6.26.0",
     "chai": "^4.1.2",
+    "chai-http": "^4.0.0",
     "eslint": "^4.19.1",
     "eslint-config-airbnb-base": "^13.0.0",
     "eslint-plugin-import": "^2.13.0",
