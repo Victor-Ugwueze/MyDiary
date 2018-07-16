@@ -5,6 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "nodemon server/server.js --exec babel-node",
+    "dev": "nodemon ./bin/dev",
     "build": "npm run clean && npm run build-server",
     "test": "mocha --require babel-register test/* --exit"
   },
