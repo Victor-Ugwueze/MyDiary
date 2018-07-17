@@ -75,6 +75,6 @@ const form = document.querySelectorAll('form');
 [...form].forEach((element) => {
   element.addEventListener('submit', (event) => {
     event.preventDefault();
-    window.location = 'UI/dashboard.html';
+    window.location.href = 'UI/dashboard.html';
   })
 })
