@@ -1,11 +1,14 @@
 
 import express from 'express';
 import logger from 'morgan';
+import bodyParser from 'body-parser';
 import mountRouter from './route';
 
 const app = express();
 
-mountRouter(app);
 app.use(logger('dev'));
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+mountRouter(app);
 
-module.exports = app;
+export default app;

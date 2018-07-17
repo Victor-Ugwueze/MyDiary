@@ -62,10 +62,10 @@ describe('Entries', () => {
         .send(entry)
         .end((err, req) => {
           req.should.have.status(201);
-          req.body.be.a('object');
-          req.body.should.have.property('id');
-          req.body.should.have.property('title').not.eql('');
-          req.body.should.have.property('body');
+          req.body.should.be.a('object');
+          req.body.should.have.property('result').be.a('object');
+          req.body.result.should.have.property('title').not.eql('');
+          req.body.result.should.have.property('id').be.a('number');
           req.body.should.have.property('message').eql('success');
           done(err);
         });
@@ -82,10 +82,10 @@ describe('Entries', () => {
         .send(entry)
         .end((err, req) => {
           req.should.have.status(200);
-          req.body.be.a('object');
+          req.body.should.be.a('object');
           req.body.should.have.property('errors');
           req.body.errors.should.have.property('fields');
-          req.body.errors.fields.should.have.property('title').eql('required');
+          req.body.errors.fields.should.have.property('title').eql('title is required');
           done(err);
         });
     });
