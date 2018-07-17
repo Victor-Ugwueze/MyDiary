@@ -50,4 +50,44 @@ describe('Entries', () => {
         });
     });
   });
+  describe('POST api/v1/entries', () => {
+    it('Should create a single entry on api/v1/entries returns status code 200', (done) => {
+      const entry = {
+        id: 3,
+        title: 'The man',
+        body: 'It happened yesteday',
+      };
+      chai.request(server)
+        .post('/api/v1/entries')
+        .send(entry)
+        .end((err, req) => {
+          req.should.have.status(201);
+          req.body.be.a('object');
+          req.body.should.have.property('id');
+          req.body.should.have.property('title').not.eql('');
+          req.body.should.have.property('body');
+          req.body.should.have.property('message').eql('success');
+          done(err);
+        });
+    });
+
+    it('Should not create an entry with tite field missing or empty, returns status code 200', (done) => {
+      // body field is missing, no entry will be created
+      const entry = {
+        id: 3,
+        body: 'That is it',
+      };
+      chai.request(server)
+        .post('/api/v1/entries')
+        .send(entry)
+        .end((err, req) => {
+          req.should.have.status(200);
+          req.body.be.a('object');
+          req.body.should.have.property('errors');
+          req.body.errors.should.have.property('fields');
+          req.body.errors.fields.should.have.property('title').eql('required');
+          done(err);
+        });
+    });
+  });
 });
