@@ -1,0 +1,151 @@
+header{
+    min-height: 100vh;
+}
+
+header{
+    padding-bottom: 0;
+}
+header .container-fluid{
+    min-height: 5vw;
+    background: #fff;
+    -webkit-box-shadow: 0 2px 4px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
+    -moz-box-shadow: 0 2px 4px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
+    display: flex;
+    z-index: 1;
+    justify-content: space-between;
+}
+header .brand{
+    display: flex;
+    justify-content: space-between;
+}
+header nav ul li a:hover{
+    padding-bottom: 2px;
+    border-bottom: 1px solid var(--primary);
+}
+.navbar .nav-link:last-child a{
+    background-color: var(--primary);
+    padding: 10px 20px;
+    border-radius: 4px;
+    color: #fff;
+}
+
+header #intro{
+    background-image: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,3)), url('../images/background.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 90vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: space-between;
+    padding-bottom: 0;
+}
+#home-text{
+    color: #fff;
+    margin-left:10%;
+}
+#home-text p,#home-text h1{
+    padding-top:20px;
+}
+.how-it-works-btn{
+    margin-top: 20px;
+    display: inline-block;
+    text-decoration: none;
+}
+#home-text button:hover{
+    background: #0e84ac;
+    cursor: pointer;
+    transition: background-color 0.7s, color 0.7, border 0.7s;
+}
+.how-it-works h2::after{
+    display:block;
+    height:1px;
+    background-color:#e67e22;
+    content: " ";
+    width:100px;
+    margin: 0 auto;
+    margin-top:10px;
+    margin-bottom: 0;
+}
+.form-col:first-of-type{
+    margin-right: 1%;
+}
+#sign-up-login{
+   box-shadow: 0 2px 4px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12)!important;
+    margin: 0 auto;
+    z-index: 2;
+    margin-bottom: 10px;
+    padding-bottom: 20px;
+    border-radius: 4px;
+}
+#sign-up-login .nav-tabs{
+    display: flex;
+}
+.modal-content{
+    padding: 0;
+}
+#login,#signup{
+    width: 80%;
+    margin: 0 auto;
+}
+.form-row div{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+.form-heading{
+    font-weight: 300;
+    line-height: 1.3cm;
+    font-size: 28px;
+    text-align: left;
+}
+
+.form-heading p{
+    line-height: 0.9cm;
+    font-size: 14px;
+}
+
+.form-input:focus{
+    border: 1px solid var(--primary);
+}
+footer{
+    text-align: center;
+    height: 50px;
+    padding: 8px 0;
+    background: gray;
+}
+.login-small-signup{
+    text-align: center;
+}
+@media only screen and (max-width: 640px){
+    header .container-fluid{
+        flex-direction: column;
+    }
+    .form-heading h4{
+        font-size: 14px;
+        text-align: center;
+    }
+    .form-heading{
+        line-height: 1cm;
+        text-align: center;
+        font-weight: 100;
+    }
+    #login,#signup{
+        width: 100%;
+    }
+    header nav ul{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        border-top: 1px solid #ccc;
+    }
+    header nav{
+        display: none;
+    }
+    .icon-bar{
+        display: block;
+    }
+}
