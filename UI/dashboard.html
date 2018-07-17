@@ -12,7 +12,7 @@
     <div class="wrap">
         <div id="right-section">
             <header>
-                    <span class="icon-bar" id="menu-icon"></span>
+                    <span class="icon-bar menu-icon"></span>
                     <div id="top-bar">
                         <div class="brand">
                             My Dairy
@@ -51,7 +51,7 @@
                                         <p class="sing-diary-body diary-text">It is a long established fact that a reader will be distracted ...</p>
                                     </div>
                                     <p class="created-at">12/18/2018</p>
-                                    <a class="action"><span data-id="diary-1" data-target="edit-diary-entry" class="btn btn-primary action-edit">Edit</span> | <span data-target="diary-1" class="btn btn-danger action-delete">Delete</span></a>
+                                    <a class="action"><span data-id="diary-1" data-target="edit-diary-entry" class="btn btn-primary action-edit"><span> <img class="diary-edit icon-edit" src="UI/images/edit.png"></span><span class="edit-text">Edit</span></span> | <span data-target="diary-1" class="btn btn-danger action-delete"><span> <img class="diary-edit icon-edit" src="UI/images/delete-button.png"></span><span class="delete-text">Delete</span></a>
                                     <div class="arrow-up"></div>
                                 </li>
                                 <li class="entry-item" id="diary-2">
@@ -60,27 +60,57 @@
                                         <p class="sing-diary-body diary-text">This is because I have come to...</p>
                                     </div>
                                     <p class="created-at">12/18/2018</p>
-                                    <a class="action"><span data-id="diary-2" data-target="edit-diary-entry" class="btn btn-primary action-edit">Edit</span> | <span data-target="diary-2" class="btn btn-danger action-delete">Delete</span></a>
+                                    <a class="action"><span data-id="diary-2" data-target="edit-diary-entry" class="btn btn-primary action-edit"><span> <img class="diary-edit icon-edit" src="UI/images/edit.png"></span><span class="edit-text">Edit</span></span> | <span data-target="diary-2" class="btn btn-danger action-delete"><span> <img class="diary-edit icon-edit" src="UI/images/delete-button.png"></span><span class="delete-text">Delete</span></span></a>
                                 </li>
                             </ul>
                         </div>
                     </div>
                     <div id="settings" class="dashboard-section tab-pane">
-                            <div class="user-profile row">
-                                <div id="account">
-                                    <img src="UI/images/profile.jpg">
-                                    <input type="file" placeholder="change Photo">
-
-                                    <input type="text" name="name" placeholder="Full Name">
-
-                                </div>
-                                <div class="notifications">
-                                    <h4>Notifications</h4>
-                                    <label>Receive</label>
-                                    <input type="checkbox">
-                                </div>
-                            </div>
-                            
+                        <div class="setting-page row">
+                            <ul>
+                                    <li>
+                                        <h4>Notifications</h4>
+                                        <div>
+                                            <label>Receive Reminder</label>
+                                            <input type="checkbox">
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <h4>News Letter</h4>
+                                        <div>
+                                            <label>Receive Weekly Letter</label>
+                                            <input type="checkbox">
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div>
+                                        <h5>First Name </h5>
+                                        <span class="setting-current">Victor</span>
+                                        </div>
+                                        <div>
+                                            <p class="settings-change"><span><img class="icon-edit" src="UI/images/edit.png"></span><span class="change-text">change</span></p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div>
+                                            <h5>Last Name </h5>
+                                            <span class="setting-current">Ugwueze</span>
+                                            </div>
+                                        <div>
+                                            <p class="settings-change"><span><img class="icon-edit" src="UI/images/edit.png"></span><span class="change-text">change</span></p>
+                                        </div>
+                                        </li>
+                                    <li>
+                                        <div>
+                                            <h5>Primary Email</h5> 
+                                            <span class="setting-current">victorugwueze@gmail.com</span>
+                                        </div>
+                                        <div>
+                                            <p class="settings-change"><span><img class="icon-edit" src="UI/images/edit.png"><span class="change-text">change</span></span></p>
+                                        </div>
+                                    </li>
+                                </ul>
+                        </div>   
                     </div>
                     <div id="profile" class="profile-section tab-pane">
                             <div class="user-profile">
@@ -110,14 +140,12 @@
             </main>
         </div>
         <div id="left-section">
-            <div class="top-bar">
-
-            </div>
+                <span class="icon-bar navbar-toggle menu-icon"></span>
             <div id="profile-image">
                     <img src="">
             </div>
             <ul class="nav-tabs" role="tablist">
-                <li><a href="index.html" class="nav-it" data-target="login" role="tab" ><img src="UI/images/icons8-home.svg" class="home-icon">Home</a></li>
+                <li><a  data-target="login" role="tab" >Home</a></li>
                 <li><a class="nav-it active"  data-target="diary"  role="tab" >My Diary</a></li>
                 <li><a class="nav-it" data-target="settings" role="tab" >Settings</a></li>
                 <li><a class="nav-it"  data-target="profile" role="tab" >Profile</a></li>

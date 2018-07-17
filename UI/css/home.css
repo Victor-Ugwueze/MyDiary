@@ -15,8 +15,14 @@ header .container-fluid{
     z-index: 1;
     justify-content: space-between;
 }
-
-
+header .brand{
+    display: flex;
+    justify-content: space-between;
+}
+header nav ul li a:hover{
+    padding-bottom: 2px;
+    border-bottom: 1px solid var(--primary);
+}
 .navbar .nav-link:last-child a{
     background-color: var(--primary);
     padding: 10px 20px;
@@ -78,7 +84,9 @@ header #intro{
 #sign-up-login .nav-tabs{
     display: flex;
 }
-
+.modal-content{
+    padding: 0;
+}
 #login,#signup{
     width: 80%;
     margin: 0 auto;
@@ -108,4 +116,36 @@ footer{
     height: 50px;
     padding: 8px 0;
     background: gray;
+}
+.login-small-signup{
+    text-align: center;
+}
+@media only screen and (max-width: 640px){
+    header .container-fluid{
+        flex-direction: column;
+    }
+    .form-heading h4{
+        font-size: 14px;
+        text-align: center;
+    }
+    .form-heading{
+        line-height: 1cm;
+        text-align: center;
+        font-weight: 100;
+    }
+    #login,#signup{
+        width: 100%;
+    }
+    header nav ul{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        border-top: 1px solid #ccc;
+    }
+    header nav{
+        display: none;
+    }
+    .icon-bar{
+        display: block;
+    }
 }
