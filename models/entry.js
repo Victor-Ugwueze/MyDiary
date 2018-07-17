@@ -1,22 +1,22 @@
-class Entry {
-  contructor(id, title, body) {
-    this.id = id;
-    this.title = title;
-    this.body = body;
-    this.created_at = new Date();
-  }
+// class Entry {
+//   contructor(id, title, body) {
+//     this.id = id;
+//     this.title = title;
+//     this.body = body;
+//     this.created_at = new Date();
+//   }
 
-  setEntry(id, title, body) {
-    this.id = id;
-    this.title = title;
-    this.body = body;
-    this.created_at = new Date();
-  }
+//   setEntry(id, title, body) {
+//     this.id = id;
+//     this.title = title;
+//     this.body = body;
+//     this.created_at = new Date();
+//   }
 
-  getEntry() {
-    return this;
-  }
-}
+//   getEntry() {
+//     return this;
+//   }
+// }
 
 const entries = [
   {
@@ -33,4 +33,14 @@ const entries = [
   },
 ];
 
-module.exports = entries;
+const Entry = {
+  entries,
+  find(id) {
+    return this.entries[id];
+  },
+  getAll() {
+    return this.entries;
+  },
+};
+
+module.exports = Entry;
