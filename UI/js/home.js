@@ -68,3 +68,13 @@ iconbar.addEventListener('click',function(){
     naMenu.classList.toggle('show');
 
 })
+
+//Login or sign up should redirect to dashboard
+
+const form = document.querySelectorAll('form');
+[...form].forEach((element) => {
+  element.addEventListener('submit', (event) => {
+    event.preventDefault();
+    window.location = 'UI/dashboard.html';
+  })
+})
