@@ -50,6 +50,7 @@ describe('Entries', () => {
         });
     });
   });
+
   describe('POST api/v1/entries', () => {
     it('Should create a single entry on api/v1/entries returns status code 200', (done) => {
       const entry = {
@@ -86,6 +87,21 @@ describe('Entries', () => {
           req.body.should.have.property('errors');
           req.body.errors.should.have.property('fields');
           req.body.errors.fields.should.have.property('title').eql('title is required');
+          done(err);
+        });
+    });
+  });
+
+  describe('PUT api/v1/entries/:id', () => {
+    it('Should modify an entry on api/v1/entries/:id returns status code 200', (done) => {
+      const id = 1;
+      chai.request(server)
+        .put(`/api/v1/entries/${id}`)
+        .send({ title: 'the man' })
+        .end((err, req) => {
+          req.should.have.status(200);
+          req.body.should.be.a('object');
+          req.body.should.have.property('message').eql('success');
           done(err);
         });
     });
