@@ -4,10 +4,11 @@
   "description": "MyDiary is an online journal where users can pen down their thoughts and feelings. ",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon server/server.js --exec babel-node",
-    "dev": "nodemon ./bin/dev",
-    "build": "npm run clean && npm run build-server",
-    "test": "mocha --require babel-register test/* --exit"
+    "start": "node bin/production",
+    "start-dev": "nodemon bin/dev",
+    "test": "nyc --reporter=text --reporter=html mocha --require babel-register test/* --exit",
+    "coverage": "nyc --reporter=html --reporter=text --reporter=lcov mocha --reporter spec --require babel-register test/* --exit",
+    "coveralls": "npm run coverage -- --report lcovonly && cat coverage/lcov.info | coveralls"
   },
   "repository": {
     "type": "git",
@@ -31,7 +32,8 @@
     "eslint": "^4.19.1",
     "eslint-config-airbnb-base": "^13.0.0",
     "eslint-plugin-import": "^2.13.0",
-    "mocha": "^5.2.0"
+    "mocha": "^5.2.0",
+    "nyc": "^12.0.2"
   },
   "dependencies": {
     "airbnb-browser-shims": "^3.0.0",
