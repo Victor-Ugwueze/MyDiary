@@ -1,29 +1,10 @@
 import entriesDb from '../database/entriesDb';
 
-// class Entry {
-//   contructor(id, title, body) {
-//     this.id = id;
-//     this.title = title;
-//     this.body = body;
-//     this.created_at = new Date();
-//   }
-
-//   setEntry(id, title, body) {
-//     this.id = id;
-//     this.title = title;
-//     this.body = body;
-//     this.created_at = new Date();
-//   }
-
-//   getEntry() {
-//     return this;
-//   }
-// }
 
 const EntryDb = {
   entries: entriesDb,
   find(id) {
-    return this.entries[id];
+    return this.entries[id - 1];
   },
   getAll() {
     return this.entries;
@@ -38,13 +19,13 @@ const EntryDb = {
     });
     return this.entries[this.entries.length - 1];
   },
-  validate({ title }) {
-    return new Promise((resolve, reject) => {
-      if (title !== '' && title !== undefined) {
-        resolve(EntryDb);
-      }
-      reject(new Error('title is required'));
-    });
+  update(request) {
+    const entryToUpdate = {
+      id: request.id,
+      title: request.title,
+      body: request.body,
+    };
+    this.entries[request.id - 1] = entryToUpdate;
   },
 };
 

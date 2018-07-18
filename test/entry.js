@@ -82,22 +82,23 @@ describe('Entries', () => {
         .post('/api/v1/entries')
         .send(entry)
         .end((err, req) => {
-          req.should.have.status(200);
+          req.should.have.status(400);
           req.body.should.be.a('object');
-          req.body.should.have.property('errors');
-          req.body.errors.should.have.property('fields');
-          req.body.errors.fields.should.have.property('title').eql('title is required');
+          req.body.should.have.property('error').be.a('array');
+          req.body.should.have.property('error');
+          req.body.error[0].should.have.property('param').eql('title');
+          req.body.error[0].should.have.property('msg').eql('title is required');
           done(err);
         });
     });
   });
 
-  describe('PUT api/v1/entries/:id', () => {
+  describe('PUT api/v1/entries', () => {
     it('Should modify an entry on api/v1/entries/:id returns status code 200', (done) => {
       const id = 1;
       chai.request(server)
-        .put(`/api/v1/entries/${id}`)
-        .send({ title: 'the man' })
+        .put('/api/v1/entries/')
+        .send({ title: 'the man', body: 'yes', id })
         .end((err, req) => {
           req.should.have.status(200);
           req.body.should.be.a('object');
