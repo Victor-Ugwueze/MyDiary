@@ -16,7 +16,7 @@ after_success:
 - npm run coveralls
 deploy:
   provider: heroku
-  app: my-diary-main
+  app: my-diary-dev
   api_key:
     secure: ia3BLWyFqtT4X6rSLQkAGQCGaQB46P9aoArgCp1CPleQOQLS+4AQYSe3NqOn4wwqOijiPOPEftwo1oNvtn5vAZ16Yt7nXVTPQsrdUJDIbDvvKE0dHpod1q54UJ4+zmJZBv6qszMVnnSraGjo2BgxmvUAWfs6sFbzTILgzrk7DIUFn+BI9rmTlKZfIPf2oG+z9a1/9j3x7AqvOMxQZrEf4RAxqpdIL/4mWBsIQpw+f8lsg4/bWdc7yyZtrUN3P4ebVWdzgOKnvLK+pBxRHmD/GXqURdw3n3pkp0hI3v7uCcGpOHwefM705/KpvVgT+1dSNcCkzQDi6iceHoJ1p83qOengAUS6CcP/iZtXH4sTajBRNMHQj+d6Fpk4Zz6DDwdzcLhtK9iUUq9vQ8Cf8U+YzGG3c1gYTNV6DrJ8/AS0o1G73IfMSsxe71dtNUU79vKBzCVqZvzxIl0mI+Dol5zVec0OnzKM0xSCbf+XXiE72mUcKFyJlEd3mCEP6DAt1rWOIUOa7EHpCbIZGYoX9tsurGuekoXH/XY8l67SAwLpdt7pjulFtYAo2and/wJo7RZTQSEhJRHXNclAQIitgloov1NGtpzE4gR0TbwvUQIvOfjuOtrJAGCXembTN+mGUjLta9lKGEpvPPW5O53WQ8elwX4eWtW6lm/ojo1oucYfmpE=
   on:
