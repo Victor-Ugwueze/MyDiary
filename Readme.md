@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/Victor-Ugwueze/MyDiary.svg?branch=develop)](https://travis-ci.org/Victor-Ugwueze/MyDiary) [![Coverage Status](https://coveralls.io/repos/github/Victor-Ugwueze/MyDiary/badge.svg?branch=master)](https://coveralls.io/github/Victor-Ugwueze/MyDiary?branch=master)
+[![Build Status](https://travis-ci.org/Victor-Ugwueze/MyDiary.svg?branch=develop)](https://travis-ci.org/Victor-Ugwueze/MyDiary) [![Coverage Status](https://coveralls.io/repos/github/Victor-Ugwueze/MyDiary/badge.svg?branch=develop)](https://coveralls.io/github/Victor-Ugwueze/MyDiary?branch=develop)
 
 MyDiary is an online journal where users can pen down their thoughts and feelings. 
 
