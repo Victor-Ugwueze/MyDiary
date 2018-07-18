@@ -1,0 +1,21 @@
+language: node_js
+node_js:
+- 8.11.1
+cache:
+  directories:
+    - node_modules
+before_install:
+- npm install -g mocha
+- npm install
+script:
+- npm run test
+after_success:
+- npm run coveralls
+deploy:
+  provider: heroku
+  app: test-myci
+  api_key:
+    secure: VfjRHB4YctX+Fk4l+QyCycnsyPIekgRSZ2F72/Ne/AUjkB8b54vbw7PiHHORYlcAfSpqR9nOhAei6kb/bYr5vEll8+Szm/YdzvYPzkHI5H+FqaYOH459JRTtmURFUyj7iYjGgSXh7ZGPcVPZWHXTmvJtPTQH5x5wqd3f21XmHsnlqRqYnTTJB+bw++uAWGge2ff4M65YijkfId2oUwF3nxLwf0iqo2lvpJARqgWs9lMCdK6heQmr2szTJTc/HloxQPBI+10ocYmr1UJa5m/qs4WrGktMfhI6+VNlrQbIccPy4P2OW87cb2hgKQXLHLP6aHN1hB9Xsk+Yt7UMjSZUWt5zO/Ki+3xzfW34ZmZvyZog8TezF4nw7vMUUJN1z3Si0EHlLGLNsWo/OmC8vezYhT7dIZj0rzP97eLowmjx8i/bGv6ABXrU49KxGEuGJJeHCQ46J/GHHNsrl514HPUHhrPF8+o9SQKWMkzYV0VfdcRwkQ2GxLKRvOWHGPxxSuKcAUXaEPaUPJ04YUTRC6HscfEzax0WdnsVEhyDF0SDmC5pzGjlVuLCD6Pz+aXaC+SE41Wx/iW9bfFkTegP/mA8gKI0zMdPdhrp75w7JOguaXbzFiO13SiWDHVLvKGaeks+9ej93RmUJNC8rZ+JYllzMMubT6Y4MAVT5r9N4aktpf4=
+  on:
+    repo: Victor-Ugwueze/MyDia
+    branch: develop
