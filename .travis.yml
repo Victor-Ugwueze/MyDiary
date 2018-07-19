@@ -12,11 +12,11 @@ before_install:
 - npm install
 script:
 - npm run test
+after_success:
+- npm run coveralls
 after_script:
 - npm install -g codeclimate-test-reporter
 - codeclimate-test-reporter < coverage/lcov.info
-after_success:
-- npm run coveralls
 deploy:
   provider: heroku
   app: my-diary-dev
