@@ -26,6 +26,15 @@ const EntryDb = {
       body: request.body,
     };
     this.entries[request.id - 1] = entryToUpdate;
+    return this.entries[request.id - 1];
+  },
+  delete(requestId) {
+    const item = this.entries[requestId - 1];
+    if (item) {
+      this.entries = this.entries.filter(entry => item.id !== entry.id);
+      return true;
+    }
+    return false;
   },
 };
 
