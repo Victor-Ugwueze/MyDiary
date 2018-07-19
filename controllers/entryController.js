@@ -37,7 +37,7 @@ router.post('/api/v1/entries',
     if (errors.isEmpty()) {
       const entry = EntryDb.save({
         title: req.body.title,
-        body: req.body.body || '',
+        body: req.body.body,
       });
       res.status(201).json({ message: 'success', result: entry });
     } else {
@@ -45,7 +45,9 @@ router.post('/api/v1/entries',
     }
   });
 
-router.put('/api/v1/entries', [
+// Update entry
+
+router.put('/api/v1/entries/:id', [
   check('title', 'title is required')
     .isLength({ min: 1 }),
   check('body', 'body is required')
@@ -54,17 +56,28 @@ router.put('/api/v1/entries', [
 (req, res) => {
   const errors = validationResult(req);
   if (errors.isEmpty()) {
-    const entry = EntryDb.find(req.body.id);
+    const entry = EntryDb.find(req.params.id);
     if (entry) {
       entry.title = req.body.title;
       entry.body = req.body.body;
       EntryDb.update(entry);
-      res.status(200).json({ message: 'success', entry });
+      res.status(200).json({ message: 'success' });
     } else {
-      res.status(400).json({ message: 'erro', error: 'request not found' });
+      res.status(404).json({ message: 'error' });
     }
   } else {
-    res.status(400).json({ message: 'erro', error: errors.array() });
+    res.status(400).json({ message: 'error', error: errors.array() });
   }
 });
+
+// Delete entry
+router.delete('/api/v1/entries/:id', (req, res) => {
+  const result = EntryDb.delete(req.params.id);
+  if (result) {
+    res.status(200).json({ message: 'success' });
+  } else {
+    res.status(404).json({ message: 'error' });
+  }
+});
+
 export default router;

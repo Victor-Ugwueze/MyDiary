@@ -93,16 +93,66 @@ describe('Entries', () => {
     });
   });
 
-  describe('PUT api/v1/entries', () => {
-    it('Should modify an entry on api/v1/entries/:id returns status code 200', (done) => {
+  describe('PUT api/v1/entries/:id', () => {
+    it('Should modify an entry on api/v1/entries/ returns status code 200', (done) => {
       const id = 1;
       chai.request(server)
-        .put('/api/v1/entries/')
-        .send({ title: 'the man', body: 'yes', id })
+        .put(`/api/v1/entries/${id}`)
+        .send({ title: 'the man', body: 'yes' })
         .end((err, req) => {
           req.should.have.status(200);
           req.body.should.be.a('object');
           req.body.should.have.property('message').eql('success');
+          done(err);
+        });
+    });
+    it('Should not modify an entry on api/v1/entries/:id returns status code 404', (done) => {
+      const id = 30;
+      chai.request(server)
+        .put(`/api/v1/entries/${id}`) // tying to update not found
+        .send({ title: 'the man', body: 'yes' })
+        .end((err, req) => {
+          req.should.have.status(404);
+          req.body.should.be.a('object');
+          req.body.should.have.property('message').eql('error');
+          done(err);
+        });
+    });
+
+    it('Should not modify an entry on api/v1/entries/:id returns status code 400', (done) => {
+      const id = 1;
+      chai.request(server)
+        .put(`/api/v1/entries/${id}`)
+        .send({ title: '', body: '' }) // tying to update entry with empty value
+        .end((err, req) => {
+          req.should.have.status(400);
+          req.body.should.be.a('object');
+          req.body.should.have.property('message').eql('error');
+          done(err);
+        });
+    });
+  });
+
+  describe('DELETE /api/v1/entries/:id', () => {
+    it('Should delete an entry returns status code 200', (done) => {
+      const id = 1;
+      chai.request(server)
+        .delete(`/api/v1/entries/${id}`)
+        .end((err, req) => {
+          req.should.have.status(200);
+          req.body.should.be.a('object');
+          req.body.should.have.property('message').eql('success');
+          done(err);
+        });
+    });
+    it('Should not delete an entry returns status code 404', (done) => {
+      const id = 20;
+      chai.request(server)
+        .delete(`/api/v1/entries/${id}`)
+        .end((err, req) => {
+          req.should.have.status(404);
+          req.body.should.be.a('object');
+          req.body.should.have.property('message').eql('error');
           done(err);
         });
     });
