@@ -15,7 +15,7 @@ const EntryDb = {
       id: this.entries.length + 1,
       title,
       body,
-      created_at: '12/24/18',
+      created_at: new Date().toDateString(),
     });
     return this.entries[this.entries.length - 1];
   },
