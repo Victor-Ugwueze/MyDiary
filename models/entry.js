@@ -1,41 +1,67 @@
 import entriesDb from '../database/entriesDb';
 
+class Entry {
+  constructor(entry = {}) {
+    this.title = entry.title;
+    this.dataStore = entriesDb;
+    this.body = entry.body;
+  }
 
-const EntryDb = {
-  entries: entriesDb,
-  find(id) {
-    return this.entries[id - 1];
-  },
-  getAll() {
-    return this.entries;
-  },
+  find(requestId) {
+    const db = this.dataStore;
+    return new Promise((resolve, reject) => {
+      let result = null;
+
+      db.forEach((item) => {
+        if (Math.trunc(requestId) === item.id) {
+          result = item;
+        }
+      });
+
+      if (result) resolve(result);
+      reject(new Error('error'));
+    });
+  }
+
+  update(item, request) {
+    const upDateEntry = {
+      id: item.id,
+      title: request.title,
+      body: request.body,
+    };
+    this.dataStore = this.dataStore.map((entry) => {
+      if (item.id === entry.id) {
+        return upDateEntry;
+      }
+      return entry;
+    });
+    return true;
+  }
+
+  findAll() {
+    return this.dataStore;
+  }
+
   save(input) {
     const { title, body } = input;
-    this.entries.push({
-      id: this.entries.length + 1,
+    this.dataStore.push({
+      id: this.dataStore.length + 1,
       title,
       body,
       created_at: new Date().toDateString(),
     });
-    return this.entries[this.entries.length - 1];
-  },
-  update(request) {
-    const entryToUpdate = {
-      id: request.id,
-      title: request.title,
-      body: request.body,
-    };
-    this.entries[request.id - 1] = entryToUpdate;
-    return this.entries[request.id - 1];
-  },
+    return this.dataStore[this.dataStore.length - 1];
+  }
+
   delete(requestId) {
-    const item = this.entries[requestId - 1];
+    const item = this.dataStore[requestId - 1];
     if (item) {
-      this.entries = this.entries.filter(entry => item.id !== entry.id);
+      this.dataStore = this.dataStore.filter(entry => item.id !== entry.id);
       return true;
     }
     return false;
-  },
-};
+  }
+}
 
-export default EntryDb;
+
+export default Entry;
