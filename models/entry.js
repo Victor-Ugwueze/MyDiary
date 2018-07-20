@@ -1,10 +1,10 @@
 import entriesDb from '../database/entriesDb';
 
 class Entry {
-  constructor(entry = {}) {
-    this.title = entry.title;
+  constructor() {
+    this.title = null;
     this.dataStore = entriesDb;
-    this.body = entry.body;
+    this.body = null;
   }
 
   find(requestId) {
@@ -54,12 +54,17 @@ class Entry {
   }
 
   delete(requestId) {
-    const item = this.dataStore[requestId - 1];
-    if (item) {
-      this.dataStore = this.dataStore.filter(entry => item.id !== entry.id);
-      return true;
-    }
-    return false;
+    const entryObj = this;
+    return new Promise((resolve, reject) => {
+      entryObj.find(requestId)
+        .then((item) => {
+          entryObj.dataStore = entryObj.dataStore.filter(entry => item.id !== entry.id);
+          resolve(true);
+        })
+        .catch(() => {
+          reject(new Error('not found'));
+        });
+    });
   }
 }
 

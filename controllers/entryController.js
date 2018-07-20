@@ -23,10 +23,10 @@ router.get('/api/v1/entries/:id', (req, res) => {
   // const entry = new Entry();
   entry.find(req.params.id)
     .then((result) => {
-      res.status(200).json({ result, request_url: req.url, message: 'success' });
+      res.status(200).json({ result, message: 'success' });
     })
     .catch((err) => {
-      res.status(404).json({ entry: {}, request_url: req.url, message: err.message });
+      res.status(404).json({ entry: {}, message: err.message });
     });
 });
 
@@ -77,12 +77,13 @@ router.put('/api/v1/entries/:id', [
 
 // Delete entry
 router.delete('/api/v1/entries/:id', (req, res) => {
-  const result = entry.delete(req.params.id);
-  if (result) {
-    res.status(200).json({ message: 'success' });
-  } else {
-    res.status(404).json({ message: 'error' });
-  }
+  entry.delete(req.params.id)
+    .then(() => {
+      res.status(200).json({ message: 'success' });
+    })
+    .catch(() => {
+      res.status(404).json({ message: 'error' });
+    });
 });
 
 export default router;
