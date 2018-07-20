@@ -18,7 +18,8 @@ It allows you to easily organise and manage your journal.
 
   ### API  EndPoint Functionality
    
-ET /entries Fetch all entries
-ET /entries/<entryId> Fetch a single entry
-OST /entries Create an entry
-UT /​entries​ /<​entryId​ > Modify an entry
+1. GET /entries Fetch all entries
+2. GET /entries/<entryId> Fetch a single entry
+3. POST /entries Create an entry
+4. PUT /​entries​/<entryId> Modify an entry
+5. DELETE /entries/<entryId> Delete an entry
