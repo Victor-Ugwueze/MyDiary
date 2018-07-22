@@ -9,151 +9,150 @@
     <link rel="stylesheet" type="text/css" media="screen" href="css/dashboard.css" />
 </head>
 <body>
-    <div class="wrap">
-        <div id="right-section">
-            <header>
-                    <span class="icon-bar menu-icon"></span>
-                    <div id="top-bar">
-                        <div class="brand">
-                            My Dairy
-                        </div>
-                        <nav>
-                            <ul class="navbar">
-                                <li class="nav-link" >
-                                    <img class="profile-img" src="images/avatar.png" alt="">
-                                    <div class="dropdown">
-                                        <div class="dropdown-content hide">
-                                            <div class="arrow-up"></div>
-                                            <a href="#">Logout</a>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </nav>  
+  <header>
+    <span class="icon-bar menu-icon"></span>
+    <div id="top-bar">
+      <div class="brand">
+          <img src="images/logo.png" id="logo">
+      </div>
+      <nav>
+          <ul class="navbar">
+              <li class="nav-link" >
+                  <div class="dropdown">
+                    <div class="user-img">
+                        <img class="profile-img" src="images/avatar.png" alt="">
                     </div>
-            </header>
-            <main>
-                <section id="main-section">
-                    <div id="diary" class="dashboard-section tab-pane selected container">
-                        <div id="add-entry">
-                            <button class="btn btn-primary add-entry" data-toggle="login" data-target="add-new-entry">Add New Entry</button>
-                        </div>
-                        <div id="dairy-content">
-                            <div id="diary-heading">
-                                <h4 id="title">Diary Entry</h4>
-                                <h4 class="entry-head" id="created-at">Date Cretated</h4>
-                                <h4 class="entry-head" id="action">Action</h4>
-                            </div>
-                            <ul id="dairy-entries">
-                                <li class="entry-item" id="diary-1">
-                                    <div class="" data-id="diary-1" data-target="view-single-diary">
-                                        <h4 class="sing-diary-title diary-text">The story of a village girl</h4>
-                                        <p class="sing-diary-body diary-text">It is a long established fact that a reader will be distracted ...</p>
-                                    </div>
-                                    <p class="created-at">12/18/2018</p>
-                                    <a class="action"><span data-id="diary-1" data-target="edit-diary-entry" class="btn btn-primary action-edit"><span> <img class="diary-edit icon-edit" src="images/edit.png"></span><span class="edit-text">Edit</span></span> | <span data-target="diary-1" class="btn btn-danger action-delete"><span> <img class="diary-edit icon-edit" src="images/delete-button.png"></span><span class="delete-text">Delete</span></a>
-                                    <div class="arrow-up"></div>
-                                </li>
-                                <li class="entry-item" id="diary-2">
-                                    <div class="diary-text" data-id="diary-2" data-target="view-single-diary">
-                                        <h4 class="sing-diary-title diary-text">why I am writing</h4>
-                                        <p class="sing-diary-body diary-text">This is because I have come to...</p>
-                                    </div>
-                                    <p class="created-at">12/18/2018</p>
-                                    <a class="action"><span data-id="diary-2" data-target="edit-diary-entry" class="btn btn-primary action-edit"><span> <img class="diary-edit icon-edit" src="images/edit.png"></span><span class="edit-text">Edit</span></span> | <span data-target="diary-2" class="btn btn-danger action-delete"><span> <img class="diary-edit icon-edit" src="images/delete-button.png"></span><span class="delete-text">Delete</span></span></a>
-                                </li>
-                            </ul>
-                        </div>
+                    <span>Victor</span>
+                    <div class="dropdown-content">
+                        <div class="arrow-up"></div>
+                        <a href="#">Logout</a>
                     </div>
-                    <div id="settings" class="dashboard-section tab-pane">
-                        <div class="setting-page row">
-                            <ul>
-                                    <li>
-                                        <h4>Notifications</h4>
-                                        <div>
-                                            <label>Receive Reminder</label>
-                                            <input type="checkbox">
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <h4>News Letter</h4>
-                                        <div>
-                                            <label>Receive Weekly Letter</label>
-                                            <input type="checkbox">
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div>
-                                        <h5>First Name </h5>
-                                        <span class="setting-current">Victor</span>
-                                        </div>
-                                        <div>
-                                            <p class="settings-change"><span><img class="icon-edit" src="images/edit.png"></span><span class="change-text">change</span></p>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div>
-                                            <h5>Last Name </h5>
-                                            <span class="setting-current">Ugwueze</span>
-                                            </div>
-                                        <div>
-                                            <p class="settings-change"><span><img class="icon-edit" src="images/edit.png"></span><span class="change-text">change</span></p>
-                                        </div>
-                                        </li>
-                                    <li>
-                                        <div>
-                                            <h5>Primary Email</h5> 
-                                            <span class="setting-current">victorugwueze@gmail.com</span>
-                                        </div>
-                                        <div>
-                                            <p class="settings-change"><span><img class="icon-edit" src="images/edit.png"><span class="change-text">change</span></span></p>
-                                        </div>
-                                    </li>
-                                </ul>
-                        </div>   
-                    </div>
-                    <div id="profile" class="profile-section tab-pane">
-                            <div class="user-profile">
-                                <div id="account">
-                                    <img src="images/profile.jpg">
-                                </div>
-                                <div class="profie-details">
-                                    <div>
-                                        <h4 id="full-name">Victor Ugwueze</h4>
-                                        Location 
-                                        <p>Lagos,Nigeria</p>
-                                        <button class="btn">Edit Profile</button>
-                                    </div>
-                                    <div id="diary-entries">
-                                            <h4>Activity</h4>
-                                            7 entries created
-        
-                                            <div>
-                                                <span class="joined date">Joined Jan 2018</span>
-                                            </div>
-                                        </div>
-                                </div>
-                                
-                            </div>
-                    </div>
-                </section>
-            </main>
-        </div>
-        <div id="left-section">
-                <span class="icon-bar navbar-toggle menu-icon"></span>
-            <div id="profile-image">
-                    <img src="">
-            </div>
-            <ul class="nav-tabs" role="tablist">
-                <li><a  data-target="login" role="tab" >Home</a></li>
-                <li><a class="nav-it active"  data-target="diary"  role="tab" >My Diary</a></li>
-                <li><a class="nav-it" data-target="settings" role="tab" >Settings</a></li>
-                <li><a class="nav-it"  data-target="profile" role="tab" >Profile</a></li>
-            </ul>
-        </div>
+                  </div>
+              </li>
+          </ul>
+      </nav>  
     </div>
-    <section>
+  </header>
+  <main id="wrap" class="container-fluid">
+    <div id="left-section">
+      <span id="new-entry">
+          <button class="btn add-entry" data-target="add-new-entry">New Entry</button>
+      </span>
+      <ul class="nav-tabs" role="tablist">
+          <li><div class="nav-it active"  data-target="diary"  role="tab" >My Diary</div></li>
+          <li><div class="nav-it" data-target="settings" role="tab" >Settings</div></li>
+          <li><div class="nav-it"  data-target="profile" role="tab" >Profile</div></li>
+      </ul>
+      <div id="logout">
+          <div>Logout</div>
+      </div>
+  </div>
+  <div id="right-section">
+    <section id="main-section">
+      <div id="diary" class="dashboard-section tab-pane selected container">
+          <div id="add-entry">
+              <button class="btn btn-primary add-entry" data-target="add-new-entry">New Entry</button>
+          </div>
+          <div id="dairy-content">
+              <div id="diary-heading">
+                  <h4 id="title">Diary Entry</h4>
+                  <h4 class="entry-head" id="created-at">Date Cretated</h4>
+                  <h4 class="entry-head" id="action">Action</h4>
+              </div>
+              <ul id="dairy-entries">
+                  <li class="entry-item" id="diary-1">
+                      <div class="" data-id="diary-1" data-target="view-single-diary">
+                          <h4 class="sing-diary-title diary-text">The story of a village girl</h4>
+                          <p class="sing-diary-body diary-text">It is a long established fact that a reader will be distracted ...</p>
+                      </div>
+                      <p class="created-at">12/18/2018</p>
+                      <a class="action"><span data-id="diary-1" data-target="edit-diary-entry" class="btn btn-primary action-edit"><span> <img class="diary-edit icon-edit" src="images/edit.png"></span><span class="edit-text">Edit</span></span> | <span data-target="diary-1" class="btn btn-danger action-delete"><span> <img class="diary-edit icon-edit" src="images/delete-button.png"></span><span class="delete-text">Delete</span></a>
+                      <div class="arrow-up"></div>
+                  </li>
+                  <li class="entry-item" id="diary-2">
+                      <div class="diary-text" data-id="diary-2" data-target="view-single-diary">
+                          <h4 class="sing-diary-title diary-text">why I am writing</h4>
+                          <p class="sing-diary-body diary-text">This is because I have come to...</p>
+                      </div>
+                      <p class="created-at">12/18/2018</p>
+                      <a class="action"><span data-id="diary-2" data-target="edit-diary-entry" class="btn btn-primary action-edit"><span> <img class="diary-edit icon-edit" src="images/edit.png"></span><span class="edit-text">Edit</span></span> | <span data-target="diary-2" class="btn btn-danger action-delete"><span> <img class="diary-edit icon-edit" src="images/delete-button.png"></span><span class="delete-text">Delete</span></span></a>
+                  </li>
+              </ul>
+          </div>
+      </div>
+      <div id="settings" class="dashboard-section tab-pane">
+          <div class="setting-page row">
+              <ul>
+                  <li>
+                      <h4>Notifications</h4>
+                      <div>
+                          <label>Receive Reminder</label>
+                          <input type="checkbox">
+                      </div>
+                  </li>
+                  <li>
+                      <h4>News Letter</h4>
+                      <div>
+                          <label>Receive Weekly Letter</label>
+                          <input type="checkbox">
+                      </div>
+                  </li>
+                  <li>
+                      <div>
+                      <h5>First Name </h5>
+                      <span class="setting-current">Victor</span>
+                      </div>
+                      <div>
+                          <p class="settings-change"><span><img class="icon-edit" src="images/edit.png"></span><span class="change-text">change</span></p>
+                      </div>
+                  </li>
+                  <li>
+                    <div>
+                        <h5>Last Name </h5>
+                        <span class="setting-current">Ugwueze</span>
+                        </div>
+                    <div>
+                        <p class="settings-change"><span><img class="icon-edit" src="images/edit.png"></span><span class="change-text">change</span></p>
+                    </div>
+                  </li>
+                  <li>
+                    <div>
+                        <h5>Primary Email</h5> 
+                        <span class="setting-current">victorugwueze@gmail.com</span>
+                    </div>
+                    <div>
+                        <p class="settings-change"><span><img class="icon-edit" src="images/edit.png"><span class="change-text">change</span></span></p>
+                    </div>
+                  </li>
+              </ul>
+          </div>   
+      </div>
+      <div id="profile" class="profile-section tab-pane">
+              <div class="user-profile">
+                  <div id="account">
+                      <img src="images/profile.jpg">
+                  </div>
+                  <div class="profie-details">
+                      <div>
+                          <h4 id="full-name">Victor Ugwueze</h4>
+                          Location 
+                          <p>Lagos,Nigeria</p>
+                          <button class="btn">Edit Profile</button>
+                      </div>
+                      <div id="diary-entries">
+                          <h4>Activity</h4>
+                          7 entries created
 
+                          <div>
+                              <span class="joined date">Joined Jan 2018</span>
+                          </div>
+                      </div>
+                  </div> 
+              </div>
+      </div>
+    </section>
+  </main>
+    <section>
        <div class="modal" id="add-new-entry" >
             <div class="modal-content col-2">
                 <div class="modal-heading">

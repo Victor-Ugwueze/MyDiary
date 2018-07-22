@@ -17,6 +17,7 @@ header .container-fluid{
 }
 header .brand{
     display: flex;
+    color: var(--primary);
     justify-content: space-between;
 }
 header nav ul li a:hover{
@@ -120,6 +121,36 @@ footer{
 .login-small-signup{
     text-align: center;
 }
+@-webkit-keyframes animateleft {
+  from {
+    top: -200px;
+    opacity: 0;
+  }
+
+  to {
+    top: 0;
+    opacity: 1;
+  }
+}
+@keyframes animateleft {
+  from {
+    left: -200px;
+    opacity: 0;
+  }
+
+  to {
+    left: 0;
+    opacity: 1;
+  }
+}
+
+@media only screen and (max-width: 890px){
+  .modal-content{
+    margin-left: auto !important;
+    margin-right: auto !important;
+    width: 90%;
+  }
+}
 @media only screen and (max-width: 640px){
     header .container-fluid{
         flex-direction: column;
@@ -136,6 +167,13 @@ footer{
     #login,#signup{
         width: 100%;
     }
+    #terms-of-use label{
+      font-size: 12px;
+      padding-left: 3%;
+    }
+    #terms-of-use input{
+      margin-left: 7%;
+    }
     header nav ul{
         display: flex;
         flex-direction: column;
@@ -143,7 +181,12 @@ footer{
         border-top: 1px solid #ccc;
     }
     header nav{
-        display: none;
+      display: none;
+      position: relative;
+      -webkit-animation-name: animateleft; 
+      -webkit-animation-duration: 0.7s; 
+      animation-name: animateleft;
+      animation-duration: 0.7s;
     }
     .icon-bar{
         display: block;

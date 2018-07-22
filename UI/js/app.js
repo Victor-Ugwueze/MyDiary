@@ -6,7 +6,6 @@ Remove class from the current element and add class to another element
 */
 window.SelectElement = function (toAddClass,toRemoveclass,className){
     if(toRemoveclass == null){
-        this.console.log('fbjdbfj')
         toAddClass.classList.toggle(className);
         return;
     }else{
@@ -19,9 +18,9 @@ window.SelectElement = function (toAddClass,toRemoveclass,className){
     }
 }
 
-window.isElementDesendant = function(parent, child){
-    console.log(parent,child);
-}
+// window.isElementDesendant = function(parent, child){
+   
+// }
 
 modal = {
     show : (element,className)=>{

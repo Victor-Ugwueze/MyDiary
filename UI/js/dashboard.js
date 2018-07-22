@@ -3,15 +3,17 @@
 //Hide or show Menu bar
 const iconbars = document.querySelectorAll('.menu-icon');
 const navigationMenu =  document.querySelector('#left-section');
+const rightSection = document.querySelector('#right-section');
 
-[...iconbars].map((iconbar)=>{
+[...iconbars].forEach((iconbar) => {
     iconbar.addEventListener('click',function(){
         navigationMenu.classList.toggle('nav-show')
+        rightSection.classList.toggle('full-width');
      });
 });
 
 
-[...document.querySelectorAll('.nav-it')].forEach((element)=>{
+[...document.querySelectorAll('.nav-it')].forEach((element) => {
     element.addEventListener('click',function(){
         let el = document.querySelector('.nav-it.active');
         let all = document.querySelectorAll('.nav-it');
@@ -25,22 +27,26 @@ const navigationMenu =  document.querySelector('#left-section');
     })
 })
 
-const addNewEntry = document.querySelector('.add-entry');
+//Show add entry modal
+const addNewEntry = document.querySelectorAll('.add-entry');
+const addNewEntryButtons = [...addNewEntry];
 
-addNewEntry.addEventListener('click',function(){
+addNewEntryButtons.forEach((button) => {
+  button.addEventListener('click',function() {
     const modalToshow = document.querySelector('#'+this.dataset.target);
     SelectElement(modalToshow,null,'show');
-})
+  });
+});
 
 
 
-closeModal = function(){
+closeModal = function() {
     const modalToshow = document.querySelector('#'+this.dataset.target);
     modal.hide(modalToshow,'show');
 }
 //close modal function
 const modalCloseButton = document.querySelectorAll('.modal .close');
-[...modalCloseButton].map((closeButton)=>{
+[...modalCloseButton].forEach((closeButton)=> {
     closeButton.addEventListener('click',closeModal)
 });
 
@@ -49,7 +55,7 @@ const modalCloseButton = document.querySelectorAll('.modal .close');
 const editButtons = document.querySelectorAll('.action-edit');
 
 
-[...editButtons].map((editButton)=>{
+[...editButtons].forEach((editButton)=> {
     editButton.addEventListener('click',function(event){
         const EditDiaryModal = document.querySelector('#'+this.dataset.target);
         SelectElement(EditDiaryModal,null,'show');
@@ -57,7 +63,7 @@ const editButtons = document.querySelectorAll('.action-edit');
     })
 })
 
-const populateModalFoEdit = (targetEditButton,EditModal)=>{
+const populateModalFoEdit = (targetEditButton,EditModal)=> {
     //get the diary content
     const dairyItem = document.querySelector("#"+targetEditButton.dataset.id);
     const dairyTitle = dairyItem.querySelector('.sing-diary-title');
@@ -67,7 +73,7 @@ const populateModalFoEdit = (targetEditButton,EditModal)=>{
     
     const EditModalTitle = EditModal.querySelector('#diary-title');
     const EditModalBody = EditModal.querySelector('#diary-body');
-    // console.log(EditModalTitle,dairyTitle)
+
     EditModalTitle.value = dairyTitle.innerHTML;
     EditModalBody.textContent = diaryBody.innerHTML;
 }
@@ -76,7 +82,7 @@ const populateModalFoEdit = (targetEditButton,EditModal)=>{
 //Delete a modal Entry
 const deleteEntryButtons = document.querySelectorAll('.action-delete');
 
-[...deleteEntryButtons].map((deleteEntryButton)=>{
+[...deleteEntryButtons].forEach((deleteEntryButton)=> {
     deleteEntryButton.addEventListener('click',function(event){
         deleteModalItem(event.target)
     })
@@ -97,7 +103,7 @@ const deleteModalItem = function (targetDeleteButton){
 //show a single Diary Entry
 
 const showEntryButtons = document.querySelectorAll('.diary-text');
-[...showEntryButtons].map((showEntryButton)=>{
+[...showEntryButtons].forEach((showEntryButton)=>{
     showEntryButton.addEventListener('click',function(event){
         showDiaryEntry(event.target.parentNode)
     })
@@ -127,12 +133,6 @@ dropDownImage.addEventListener('click',()=>{
         }
     })
    modal.show(dropDownImage.nextElementSibling.firstElementChild,'show');
-
 })
 
-// const navbarToggle = document.querySelector('.navbar-toggle');
-
-// navbarToggle.addEventListener('click',()=>{
-//     console.log("fnnjnjk")
-// })
 
