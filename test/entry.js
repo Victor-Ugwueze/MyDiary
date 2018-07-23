@@ -1,4 +1,4 @@
-/* global describe, it, describe */
+/* global describe, it */
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 

@@ -8,7 +8,7 @@ const router = express.Router();
 
 const entry = new Entry();
 // get all diary entry
-router.get('/api/v1/entries', (req, res) => {
+router.get('/entries', (req, res) => {
   // const entry = new Entry();
   res.status(200).json({
     entries: entry.findAll(),
@@ -19,7 +19,7 @@ router.get('/api/v1/entries', (req, res) => {
 
 // get a single entry
 
-router.get('/api/v1/entries/:id', (req, res) => {
+router.get('/entries/:id', (req, res) => {
   // const entry = new Entry();
   entry.find(req.params.id)
     .then((result) => {
@@ -32,7 +32,7 @@ router.get('/api/v1/entries/:id', (req, res) => {
 
 // Create a single entry
 
-router.post('/api/v1/entries',
+router.post('/entries',
   [
     check('title', 'title is required')
       .isLength({ min: 1 }),
@@ -52,7 +52,7 @@ router.post('/api/v1/entries',
 
 // Update entry
 
-router.put('/api/v1/entries/:id', [
+router.put('/entries/:id', [
   check('title', 'title is required')
     .isLength({ min: 1 }),
   check('body', 'body is required')
@@ -76,7 +76,7 @@ router.put('/api/v1/entries/:id', [
 });
 
 // Delete entry
-router.delete('/api/v1/entries/:id', (req, res) => {
+router.delete('/entries/:id', (req, res) => {
   entry.delete(req.params.id)
     .then(() => {
       res.status(200).json({ message: 'success' });
