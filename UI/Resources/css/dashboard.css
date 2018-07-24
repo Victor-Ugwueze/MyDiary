@@ -294,7 +294,7 @@ header #top-bar{
     margin-right: auto;
 }
 #settings{
-    margin-top: 20px;
+    margin-top: 10%;
     border: 2px solid #ccc;
 }
 #profile{
@@ -326,10 +326,25 @@ header #top-bar{
     padding: 10px 4%;
     width: 90%;
 }
+#setting-title{
+  border-bottom: 1px solid #ccc;
+}
+.Notification-list .title, #news-letter .title{
+  display: inline;
+  margin-right: 2%;
+  color: #898f97;
+}
+#news-letter{
+  margin: 10px 0;
+}
+.Notification-list #add-notification-item{
+  margin: 10px 0;
+}
 #settings ul li{
     cursor: pointer;
     border-bottom: 1px solid #ccc;
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
 }
 .setting-current{
@@ -462,7 +477,6 @@ header #top-bar{
     }
     .menu-icon{
         display: inline-block;
-        /* margin-top: 8px; */
     }
 }
 
@@ -494,12 +508,6 @@ header #top-bar{
         width: 70%;
     }
     #diary-heading {
-        display: none;
-    }
-    .settings-change .icon-edit{
-        display: inline;
-    }
-    .change-text{
         display: none;
     }
     .btn.action-edit{
@@ -562,6 +570,9 @@ header #top-bar{
 @media only screen and (max-width: 480px){
     .dropdown-content{
         right: 8%;
+    }
+    #settings ul li{
+      flex-direction: column;
     }
 }
 @media only screen and (max-width: 280px){
