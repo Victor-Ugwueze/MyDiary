@@ -18,15 +18,16 @@ window.SelectElement = function (toAddClass,toRemoveclass,className){
     }
 }
 
-// window.isElementDesendant = function(parent, child){
-   
-// }
+
 
 modal = {
-    show : (element,className)=>{
+    show : (element,className) => {
         element.classList.add(className);
     },
-    hide : (element,className) =>{
+    hide : (element,className) => {
         element.classList.remove(className)
+    },
+    closeModal : (event) => {
+      // console.log(event);
     }
 }

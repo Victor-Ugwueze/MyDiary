@@ -22,6 +22,14 @@
         });
     })
 })();
+
+// Click outside modal to close it
+document.addEventListener('click', (event) => {
+  const loginmodal = document.querySelector('#sign-up-login');
+  if(event.target === loginmodal){
+    modal.hide(loginmodal, 'show');
+  }
+})
 const toggleLoginForm = {
     init : function(){
         this.countClick = 0;
