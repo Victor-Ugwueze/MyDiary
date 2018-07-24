@@ -56,12 +56,17 @@ header #intro{
     display: inline-block;
     text-decoration: none;
 }
+#how-it-works p{
+  line-height:145%;
+  padding-bottom: 25px;
+  text-align: center;
+}
 #home-text button:hover{
     background: #0e84ac;
     cursor: pointer;
     transition: background-color 0.7s, color 0.7, border 0.7s;
 }
-.how-it-works h2::after{
+#how-it-works h2::after{
     display:block;
     height:1px;
     background-color:#e67e22;

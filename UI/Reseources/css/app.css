@@ -138,6 +138,9 @@ nav .navbar{
 .col-2{
     width: 50%;
 }
+.col-md{
+  width: 70%;
+}
 .col-4{
     width: 25%;
 }
