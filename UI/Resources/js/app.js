@@ -5,6 +5,7 @@ Remove class from the current element and add class to another element
  @param className to add or remove
 */
 window.SelectElement = function (toAddClass,toRemoveclass,className){
+  // this.console.log(toAddClass,toRemoveclass,className)
     if(toRemoveclass == null){
         toAddClass.classList.toggle(className);
         return;

@@ -12,27 +12,27 @@ const rightSection = document.querySelector('#right-section');
      });
 });
 
-
-[...document.querySelectorAll('.nav-it')].forEach((element) => {
+const navigationMenuButtons = document.querySelectorAll('.nav-it');
+[...navigationMenuButtons].forEach((element) => {
     element.addEventListener('click',function(){
-        let el = document.querySelector('.nav-it.active');
-        let all = document.querySelectorAll('.nav-it');
+      
+        const  allItems = document.querySelectorAll('.nav-it');
         //Change Active Navigation tab
-        SelectElement(this,[...all],'active');
+        SelectElement(this,[...allItems],'active');
 
         //Select tab content
-        el = document.querySelector('#main-section #'+this.dataset.target);
-        all = document.querySelectorAll('.tab-pane');
-        SelectElement(el,[...all],'selected');
+        const targetPageSection = document.querySelector('#main-section #'+this.dataset.target);
+        const allPageSections = document.querySelectorAll('.tab-pane');
+        SelectElement(targetPageSection,[...allPageSections],'selected');
     })
 })
 
 //Show add entry modal
-const addNewEntry = document.querySelectorAll('.add-entry');
-const addNewEntryButtons = [...addNewEntry];
+const addNewEntryButtons = document.querySelectorAll('.add-entry');
+const newEntrybuttons = [...addNewEntryButtons];
 
-addNewEntryButtons.forEach((button) => {
-  button.addEventListener('click',function() {
+newEntrybuttons.forEach((button) => {
+  button.addEventListener('click', function(){
     const modalToshow = document.querySelector('#'+this.dataset.target);
     SelectElement(modalToshow,null,'show');
   });
