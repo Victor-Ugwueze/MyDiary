@@ -90,7 +90,8 @@ header #top-bar{
   color: #cecece; 
   border-left: 1px solid transparent;  
 }
-#left-section .nav-tabs .nav-item-row div{
+#left-section .nav-tabs .nav-item-row img,
+#left-section .nav-tabs .nav-item-row h3{
  display: inline-block;
 }
 #left-section .nav-item-row{

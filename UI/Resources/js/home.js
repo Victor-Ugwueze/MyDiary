@@ -1,88 +1,82 @@
 
-(function showLoginModal(){
-    [...document.querySelectorAll('.nav-link')].forEach((element)=>{
-        element.addEventListener('click',function(){
-           document.querySelector('#'+this.dataset.target).classList.toggle('show');
-            const header =  document.querySelector('header');
-            const main = document.querySelector('main')
-            header.classList.add('active-modal-background');
-            main.classList.add('active-modal-background');
-    
-    
-           const elements = document.querySelectorAll('.modal .tab-pane');
-           let elementToshow = document.querySelector("#"+this.dataset.toggle);
-           SelectElement(elementToshow,[...elements],'selected');
-    
-           
-           elementToshow = document.querySelector('.modal #select-tab-'+this.dataset.toggle);
-           const hideFormElement = document.querySelector('.modal .active');
-    
-           SelectElement(elementToshow,[hideFormElement],'active');
-    
-        });
-    })
-})();
-
-// Click outside modal to close it
-document.addEventListener('click', (event) => {
-  const loginmodal = document.querySelector('#sign-up-login');
-  if(event.target === loginmodal){
-    modal.hide(loginmodal, 'show');
-  }
-})
-const toggleLoginForm = {
-    init : function(){
-        this.countClick = 0;
+class LoginForm {
+    constructor () {
         this.initalizeDomVars();
         this.bindDomVars();
-    },
-    initalizeDomVars: function(){
+    }
+
+    initalizeDomVars(){
         this.selectLogin = document.querySelectorAll('.nav-item');
-    },
-    bindDomVars : function(){
-        [...this.selectLogin].forEach((loginTuggleButton)=>{
+        this.closeLoginForm();
+        this.loginOrSignup();
+        this.showLoginModal();
+    }
+
+    bindDomVars(){
+        [...this.selectLogin].forEach((loginTuggleButton) => {
             loginTuggleButton.addEventListener('click',this.changeForm)
         });
-    },
-    changeForm : function(){
+    }
+
+    changeForm (event){
         //select form tab
        const  hideFormElement = document.querySelector('.modal .active');
-       SelectElement(this,[hideFormElement],'active'); 
+       SelectElement(event.target, [hideFormElement],'active'); 
        
-       //Select Tab content
+      //  Select Tab content
         const elements = document.querySelectorAll('.modal .tab-pane');
-        const elementToshow = document.querySelector("#"+this.dataset.target);
+        const elementToshow = document.querySelector("#"+event.target.dataset.target);
        SelectElement(elementToshow,[...elements],'selected');
-    },
-    closeLoginModal : function(clickedMenu){
-      const  loginModal = document.querySelector('#sign-up-login.modal');
-      const homeMenu = document.querySelectorAll('.navbar .nav-link');
+    }
+
+      showLoginModal(){
+        [...document.querySelectorAll('.nav-link')].forEach((element)=>{
+          element.addEventListener('click', (event) => {
+            const showModalButton = event.target.parentNode;
+            document.querySelector(`#${showModalButton.dataset.target}`).classList.toggle('show');
+              
+            const elements = document.querySelectorAll('.modal .tab-pane');
+            let elementToshow = document.querySelector(`#${showModalButton.dataset.toggle}`);
+            SelectElement(elementToshow,[...elements],'selected');
+      
+            elementToshow = document.querySelector(`.modal #select-tab-${showModalButton.dataset.toggle}`);
+            const hideFormElement = document.querySelector('.modal .active');
+            SelectElement(elementToshow,[hideFormElement],'active');
+      
+          });
+      })
+    }
+
+    closeLoginForm() {
+        // Click outside modal to close it
+      document.addEventListener('click', (event) => {
+        const loginmodal = document.querySelector('#sign-up-login');
+        if(event.target === loginmodal){
+          modal.hide(loginmodal, 'show');
+        }
+      })
+    }
+
+    loginOrSignup(){
+      //Login or sign up should redirect to dashboard
+      const form = document.querySelectorAll('form');
+      [...form].forEach((element) => {
+        element.addEventListener('submit', (event) => {
+          event.preventDefault();
+          window.location.href = 'dashboard.html';
+        })
+      })
     }
 }
 
-toggleLoginForm.init();
+new LoginForm();
 
-//clicking on the window should close the login form if it's open
-document.querySelector('.modal')
-    .addEventListener('click',(event)=>{
-            toggleLoginForm.closeLoginModal(event.target.parentNode);
-        })
 
 //Toggle menu bar
 
 const iconbar = document.querySelector('.icon-bar');
-iconbar.addEventListener('click',function(){
+iconbar.addEventListener('click', () => {
     const naMenu = document.querySelector('header nav');
     naMenu.classList.toggle('show');
 
-})
-
-//Login or sign up should redirect to dashboard
-
-const form = document.querySelectorAll('form');
-[...form].forEach((element) => {
-  element.addEventListener('submit', (event) => {
-    event.preventDefault();
-    window.location.href = 'dashboard.html';
-  })
 })
