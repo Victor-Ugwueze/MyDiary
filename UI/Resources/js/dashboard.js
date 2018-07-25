@@ -2,7 +2,7 @@
 
 //Hide or show Menu bar
 const iconbars = document.querySelectorAll('.menu-icon');
-const navigationMenu =  document.querySelector('#left-section');
+const navigationMenu =  document.querySelector('#left-section .nav-tabs');
 const rightSection = document.querySelector('#right-section');
 
 [...iconbars].forEach((iconbar) => {
@@ -134,5 +134,22 @@ dropDownImage.addEventListener('click',()=>{
     })
    modal.show(dropDownImage.nextElementSibling.firstElementChild,'show');
 })
+
+//update profile details
+
+const profileInputItems = document.querySelectorAll('.profile-details input');
+const inputs = [...profileInputItems];
+const saveButton = document.querySelector('.profile-details #save');
+
+inputs.forEach((input) => {
+  input.addEventListener('keyup',() => {
+    saveButton.removeAttribute('disabled');
+  });
+});
+ 
+//make network request to update profile
+saveButton.addEventListener('click', () => {
+//
+});
 
 

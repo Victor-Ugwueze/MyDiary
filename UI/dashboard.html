@@ -60,11 +60,12 @@
                 <div class="text" role="tab" ><h3>Profile</h3></span>
             </div>
           </li>
+          <div id="logout" class="nav-item-row nav-it">
+              <div class="icon"><img src="Resources/images/icons/logout.png"></div>
+              <div>Log out</div>
+          </div>
       </ul>
-      <div id="logout" class="nav-item-row nav-it">
-          <div class="icon"><img src="Resources/images/icons/logout.png"></div>
-          <div>Log out</div>
-      </div>
+      
   </div>
   <div id="right-section">
     <section id="main-section">
@@ -126,30 +127,50 @@
           </div>   
       </div>
       <div id="profile" class="profile-section tab-pane">
-              <div class="user-profile">
-                  <div id="account">
-                      <img src="images/profile.jpg">
+          <div class="user-profile">
+            <div id="account">
+                <div class="picture">
+                    <img src="Resources/images/profile.jpg" id="profile-picture">
+                    <div id="upload-input-icon">
+                        <img src="Resources/images/icons/add_photo_white.png">
+                        <input type="file" class="profile-upload" accept="image/*">
                   </div>
-                  <div class="profie-details">
-                      <div>
-                          <h4 id="full-name">Victor Ugwueze</h4>
-                          Location 
-                          <p>Lagos,Nigeria</p>
-                          <button class="btn">Edit Profile</button>
-                      </div>
-                      <div id="diary-entries">
-                          <h4>Activity</h4>
-                          7 entries created
-
-                          <div>
-                              <span class="joined date">Joined Jan 2018</span>
-                          </div>
-                      </div>
-                  </div> 
-              </div>
-      </div>
-    </section>
-  </main>
+                </div>
+            </div>
+              <div class="profile-details">
+                <div>
+                  <h4>Profile Details</h4>
+                    <div class="item">
+                      <label for="firstname">First Name</label>
+                      <input id="firstname"  type="text" class="form-input" name="firstname" value="Victor">
+                    </div>
+                    <div class="item">
+                        <label for="lastname">Last Name</label>
+                      <input id="lastname"  type="text" class="form-input" name="firstname" value="Ugwueze">
+                    </div>
+                    <div class="item">
+                        <label for="email">Email</label>
+                        <input id="email"  type="text" class="form-input" name="firstname" value="victorugwueze@gmail.com">
+                    </div>
+                    <div class="item">
+                        <label for="location">Location</label>
+                        <input id="location"  type="text" class="form-input" name="firstname" value="Lagos,Nigeria">
+                    </div>
+                    <button id="change-password" class="btn btn-primary">Change password</button>
+                    <button id="save" class="btn btn-primary" disabled>Save</button>
+                </div>
+                <div id="total-entry-created">
+                    <h4>Activity</h4>
+                    2 entries created
+                    <div>
+                        <p class="joined date">Joined Jan, 2018</p>
+                    </div>
+                </div>
+            </div> 
+          </div>
+    </div>
+  </section>
+</main>
     <section>
        <div class="modal" id="add-new-entry" >
             <div class="modal-content col-2">

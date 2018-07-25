@@ -1,3 +1,4 @@
+
 #wrap{
     display: flex;
     width: 100%;
@@ -37,13 +38,8 @@ header #top-bar{
 }
 #right-section{
     flex:1;
+    background: #f7f7f7;
 }
-
-#left-section {
-  background: #1c262f;
-  min-width: 300px;
-}
-
 
 @keyframes animateleft {
   from {
@@ -56,15 +52,20 @@ header #top-bar{
     opacity: 1;
   }
 }
-
+#left-section{
+  width: 250px;
+}
 #left-section .nav-tabs{
-  -webkit-animation-name: animateleft; 
-    -webkit-animation-duration: 0.6s; 
-    animation-name: animateleft;
     position: fixed;
+    background: #1c262f;
     color: #eff3f7; 
-    min-width: 290px;
-    animation-duration: 0.6s;
+    height: 100%;
+    z-index: 1;
+    top:4%;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+    width: 250px;
 }
 
 #left-section .nav-tabs .active{
@@ -90,11 +91,12 @@ header #top-bar{
   font-size: 14px;
 }
 #left-section #logout{
-  position: absolute;
+  position: relative;
   display: none;
   bottom: 8%;
   color: #cecece;
   left: 4%;
+  top: 30%;
   width: 100%;
   font-size: .875rem;
   line-height: 3.0625rem;
@@ -142,12 +144,11 @@ header #top-bar{
   }
 }
 .nav-show{
-  -webkit-animation-name: animatetop; 
+    width: 250px !important;
+    -webkit-animation-name: animatetop; 
     -webkit-animation-duration: 0.6s; 
     animation-name: animatetop;
-    /* position: fixed; */
     animation-duration: 0.6s;
-    display: block !important;
 }
 .nav-tabs{
   margin-top: 40px;
@@ -165,13 +166,14 @@ header #top-bar{
     margin-top: auto;
 }
 
-
-
-
 #add-entry{
     display: flex;
     margin-top:30px;
+    margin-right: 4%;
     justify-content: flex-end;
+}
+#add-entry button{
+  margin-top:10px;
 }
 #dairy-content{
     border: 2px solid #ececec;
@@ -252,6 +254,7 @@ header #top-bar{
     display: flex;
     justify-content: space-between;
 }
+
 #diary-content{
     padding: 3%;
 }
@@ -279,7 +282,7 @@ header #top-bar{
     text-decoration: underline;
 }
 .date{
-    font-size: 12px;
+    font-size: 14px;
 }
 
 
@@ -293,33 +296,86 @@ header #top-bar{
     margin-left: auto;
     margin-right: auto;
 }
+#diary{
+  background: #fff;
+}
 #settings{
     margin-top: 10%;
     border: 2px solid #ccc;
+    background: #fff;
 }
 #profile{
+  background: #f7f7f7;
     justify-content: center;
 }
+
 #activity-breakdown ul {
     list-style: none;
     display: flex;
 }
-.profie-details{
-    margin-left: 10%;
+.profile-details{
+    margin: 10px auto;
     display: flex;
     width: 80%;
-    margin-top: 20px;
     padding-top: 10px;
-    justify-content: space-around;
 }
-.profie-details p,.profie-details h4,.profie-details button{
+.profile-details>div{
+  border: 1px solid #ccc;
+  background: #fff;
+  border-radius: 4px;
+  padding: 4px 4%;
+}
+.profile-details .item:first-child{
+  margin-top: 20px;
+}
+.profile-details #total-entry-created{
+  margin-left: 10%;
+  height: fit-content;
+}
+.profile-details #total-entry-created h4{
+  margin-bottom: 20px;
+}
+ .profile-details input[type='text']{
+   margin: 4px 0;
+ }
+
+.profile-details button:disabled {
+  background: #dddddd;
+  cursor: unset;
+}
+.profile-details p,.profile-details h4,.profile-details button{
     margin-top: 20px;
 }
 #account{
-    height: 250px;
-    background: #1c262f;
+    height: 200px;
+    background-image: url('../images/profile/victor_ugwueze_profile_background.jpg');
+    background-position: center;
     border-left: 2px solid #fff;
     box-shadow: 0 2px 4px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12)!important;
+}
+
+#account .picture{
+  margin-left: 40%;
+  position: absolute;
+  margin-right: auto;
+  margin-top: 4%;
+  border-radius: 4px;
+} 
+.picture .profile-upload{
+  display: none;
+}
+.picture>img{
+  width: 150px;
+  border-radius: 100%;
+  height: 150px;
+}
+.picture #upload-input-icon{
+  position: absolute;
+  top: 40%;
+}
+.picture #upload-input-icon img{
+  position: absolute;
+  margin-bottom: 40px;
 }
 #settings ul {
     list-style: none;
@@ -368,20 +424,7 @@ header #top-bar{
 #setting ul:last-child{
     padding-top: 0;
 }
-#account{
-  margin-top:18px;
-}
- #account img{
-    width: 200px;
-    height: 200px;
-    margin-left: 15%;
-    margin-top: 6%;
-    border-radius: 4px;
-} 
-#account #full-name{
-    padding-top:20px;
-    padding-bottom: 20px;
-}
+
 .dropdown{
   position: relative;
 }
@@ -460,13 +503,10 @@ header #top-bar{
      margin-top: 50px;
     }
     #left-section{
-      display: none;
-      position: fixed;
-      z-index: 1;
-      min-width: 300px;
-      top: 10%;
-      bottom: 0;
-
+      width: 0;
+    }
+    #left-section .nav-tabs{
+      width: 0;
     }
     #main-section #diary,
     #main-section #settings{
@@ -558,12 +598,16 @@ header #top-bar{
      .user-profile{
         flex-direction: column;
     }
-    .profie-details{
+    .profile-details{
       flex-direction: column;
       justify-content: center;
     }
     .user-profile #diary-entries{
         padding-top: 10px;
+    }
+    .profile-details #total-entry-created{
+      margin-left: 0;
+      margin-top: 18px;
     }
 
 }
