@@ -5,22 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>My Diary | Welcome</title>
-    <link rel="stylesheet" type="text/css" media="screen" href="css/app.css" />
-    <link rel="stylesheet" type="text/css" media="screen" href="css/dashboard.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="Resources/css/app.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="Resources/css/dashboard.css" />
 </head>
 <body>
   <header>
     <span class="icon-bar menu-icon"></span>
     <div id="top-bar">
       <div class="brand">
-          <img src="images/logo.png" id="logo">
+          <img src="Resources/images/logo.png" id="logo">
       </div>
       <nav>
           <ul class="navbar">
+            <li id="notification-icon">
+              <img src="Resources/images/icons/notification_white_1.png">
+              <span id="number-of-notifications">7</span>
+            </li>
               <li class="nav-link" >
                   <div class="dropdown">
                     <div class="user-img">
-                        <img class="profile-img" src="images/avatar.png" alt="">
+                        <img class="profile-img" src="Resources/images/avatar.png" alt="">
                     </div>
                     <span>Victor</span>
                     <div class="dropdown-content">
@@ -35,17 +39,37 @@
   </header>
   <main id="wrap" class="container-fluid">
     <div id="left-section">
-      <span id="new-entry">
-          <button class="btn add-entry" data-target="add-new-entry">New Entry</button>
-      </span>
       <ul class="nav-tabs" role="tablist">
-          <li><div class="nav-it active"  data-target="diary"  role="tab" >My Diary</div></li>
-          <li><div class="nav-it" data-target="settings" role="tab" >Settings</div></li>
-          <li><div class="nav-it"  data-target="profile" role="tab" >Profile</div></li>
+          <li class="add-entry" data-target="add-new-entry">
+            <div class="nav-item-row"> 
+                <div class="icon"><img src="Resources/images/icons/diary_add_white.png"></div> 
+                <div class="text"><h3 class="add-entry" >New Entry</h3></div>
+            </div>
+          </li>
+          <li>
+            <div class="nav-item-row nav-it active" data-target="diary">
+                <img class="icon" src="Resources/images/icons/diary_icon_list_white.png"> 
+                <h3 class="text" role="tab" >My Diary</h3>
+            </div>
+          </li>
+          <li>
+            <div class="nav-item-row nav-it" data-target="settings" >
+                <img class="icon" src="Resources/images/icons/settings_icon.png">
+                 <h3 class="text" role="tab">Settings</h3>
+            </div>
+          </li>
+          <li>
+            <div class="nav-item-row nav-it" data-target="profile">
+                <img class="icon" src="Resources/images/icons/profile_icon_white.png">
+                <h3 class="text" role="tab" >Profile</h3>
+            </div>
+          </li>
+          <div id="logout" class="nav-item-row nav-it">
+              <div class="icon"><img src="Resources/images/icons/logout.png"></div>
+              <div>Log out</div>
+          </div>
       </ul>
-      <div id="logout">
-          <div>Logout</div>
-      </div>
+      
   </div>
   <div id="right-section">
     <section id="main-section">
@@ -66,7 +90,13 @@
                           <p class="sing-diary-body diary-text">It is a long established fact that a reader will be distracted ...</p>
                       </div>
                       <p class="created-at">12/18/2018</p>
-                      <a class="action"><span data-id="diary-1" data-target="edit-diary-entry" class="btn btn-primary action-edit"><span> <img class="diary-edit icon-edit" src="images/edit.png"></span><span class="edit-text">Edit</span></span> | <span data-target="diary-1" class="btn btn-danger action-delete"><span> <img class="diary-edit icon-edit" src="images/delete-button.png"></span><span class="delete-text">Delete</span></a>
+                      <a class="action">
+                        <span data-id="diary-1" data-target="edit-diary-entry" class="btn btn-primary action-edit">
+                          <span> <img class="diary-edit icon-edit" src="Resources/images/edit.png">
+                          </span><span class="edit-text">Edit</span></span> | <span data-target="diary-1" class="btn btn-danger action-delete">
+                            <span> <img class="diary-edit icon-edit" src="Resources/images/delete-button.png">
+                            </span><span class="delete-text">Delete</span>
+                          </a>
                       <div class="arrow-up"></div>
                   </li>
                   <li class="entry-item" id="diary-2">
@@ -75,7 +105,14 @@
                           <p class="sing-diary-body diary-text">This is because I have come to...</p>
                       </div>
                       <p class="created-at">12/18/2018</p>
-                      <a class="action"><span data-id="diary-2" data-target="edit-diary-entry" class="btn btn-primary action-edit"><span> <img class="diary-edit icon-edit" src="images/edit.png"></span><span class="edit-text">Edit</span></span> | <span data-target="diary-2" class="btn btn-danger action-delete"><span> <img class="diary-edit icon-edit" src="images/delete-button.png"></span><span class="delete-text">Delete</span></span></a>
+                      <a class="action"><span data-id="diary-2" data-target="edit-diary-entry" class="btn btn-primary action-edit">
+                        <span> <img class="diary-edit icon-edit" src="Resources/images/edit.png"></span>
+                        <span class="edit-text">Edit</span>
+                      </span> | <span data-target="diary-2" class="btn btn-danger action-delete">
+                        <span> <img class="diary-edit icon-edit" src="Resources/images/delete-button.png"></span>
+                        <span class="delete-text">Delete</span>
+                      </span>
+                      </a>
                   </li>
               </ul>
           </div>
@@ -84,74 +121,73 @@
           <div class="setting-page row">
               <ul>
                   <li>
-                      <h4>Notifications</h4>
-                      <div>
-                          <label>Receive Reminder</label>
-                          <input type="checkbox">
+                      <h4 id="setting-title">Notifications</h4>
+                     
+                      <div class="Notification-list">
+                            <div id="add-notification-item">
+                              <a href="">+ Add new reminnder</a>
+                            </div>
+                            <div class="Notification-item">
+                                <p class="title">We will remind you to write your journal</p>
+                                <input type="checkbox">
+                            </div>
                       </div>
                   </li>
                   <li>
                       <h4>News Letter</h4>
-                      <div>
-                          <label>Receive Weekly Letter</label>
+                      <div id="news-letter">
+                          <p class="title">Receive monthly news Letter</p>
                           <input type="checkbox">
                       </div>
-                  </li>
-                  <li>
-                      <div>
-                      <h5>First Name </h5>
-                      <span class="setting-current">Victor</span>
-                      </div>
-                      <div>
-                          <p class="settings-change"><span><img class="icon-edit" src="images/edit.png"></span><span class="change-text">change</span></p>
-                      </div>
-                  </li>
-                  <li>
-                    <div>
-                        <h5>Last Name </h5>
-                        <span class="setting-current">Ugwueze</span>
-                        </div>
-                    <div>
-                        <p class="settings-change"><span><img class="icon-edit" src="images/edit.png"></span><span class="change-text">change</span></p>
-                    </div>
-                  </li>
-                  <li>
-                    <div>
-                        <h5>Primary Email</h5> 
-                        <span class="setting-current">victorugwueze@gmail.com</span>
-                    </div>
-                    <div>
-                        <p class="settings-change"><span><img class="icon-edit" src="images/edit.png"><span class="change-text">change</span></span></p>
-                    </div>
                   </li>
               </ul>
           </div>   
       </div>
       <div id="profile" class="profile-section tab-pane">
-              <div class="user-profile">
-                  <div id="account">
-                      <img src="images/profile.jpg">
+          <div class="user-profile">
+            <div id="account">
+                <div class="picture">
+                    <img src="Resources/images/profile.jpg" id="profile-picture">
+                    <div id="upload-input-icon">
+                        <img src="Resources/images/icons/add_photo_white.png">
+                        <input type="file" class="profile-upload" accept="image/*">
                   </div>
-                  <div class="profie-details">
-                      <div>
-                          <h4 id="full-name">Victor Ugwueze</h4>
-                          Location 
-                          <p>Lagos,Nigeria</p>
-                          <button class="btn">Edit Profile</button>
-                      </div>
-                      <div id="diary-entries">
-                          <h4>Activity</h4>
-                          7 entries created
-
-                          <div>
-                              <span class="joined date">Joined Jan 2018</span>
-                          </div>
-                      </div>
-                  </div> 
-              </div>
-      </div>
-    </section>
-  </main>
+                </div>
+            </div>
+              <div class="profile-details">
+                <div>
+                  <h4>Profile Details</h4>
+                    <div class="item">
+                      <label for="firstname">First Name</label>
+                      <input id="firstname"  type="text" class="form-input" name="firstname" value="Victor">
+                    </div>
+                    <div class="item">
+                        <label for="lastname">Last Name</label>
+                      <input id="lastname"  type="text" class="form-input" name="firstname" value="Ugwueze">
+                    </div>
+                    <div class="item">
+                        <label for="email">Email</label>
+                        <input id="email"  type="text" class="form-input" name="firstname" value="victorugwueze@gmail.com">
+                    </div>
+                    <div class="item">
+                        <label for="location">Location</label>
+                        <input id="location"  type="text" class="form-input" name="firstname" value="Lagos,Nigeria">
+                    </div>
+                    <button id="change-password" class="btn btn-primary">Change password</button>
+                    <button id="save" class="btn btn-primary" disabled>Save</button>
+                </div>
+                <div id="total-entry-created">
+                    <h4>Activity</h4>
+                    2 entries created
+                    <div>
+                        <p class="joined date">Joined Jan, 2018</p>
+                    </div>
+                </div>
+            </div> 
+          </div>
+    </div>
+  </section>
+</main>
     <section>
        <div class="modal" id="add-new-entry" >
             <div class="modal-content col-2">
@@ -235,7 +271,7 @@
                 </div>
             </div>
     </section>
-    <script src="js/app.js"></script>
-    <script src="js/dashboard.js"></script>
+    <script src="Resources/js/app.js"></script>
+    <script src="Resources/js/dashboard.js"></script>
 </body>
 </html>

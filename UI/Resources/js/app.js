@@ -5,6 +5,7 @@ Remove class from the current element and add class to another element
  @param className to add or remove
 */
 window.SelectElement = function (toAddClass,toRemoveclass,className){
+  // this.console.log(toAddClass,toRemoveclass,className)
     if(toRemoveclass == null){
         toAddClass.classList.toggle(className);
         return;
@@ -18,15 +19,16 @@ window.SelectElement = function (toAddClass,toRemoveclass,className){
     }
 }
 
-// window.isElementDesendant = function(parent, child){
-   
-// }
+
 
 modal = {
-    show : (element,className)=>{
+    show : (element,className) => {
         element.classList.add(className);
     },
-    hide : (element,className) =>{
+    hide : (element,className) => {
         element.classList.remove(className)
+    },
+    closeModal : (event) => {
+      // console.log(event);
     }
 }
