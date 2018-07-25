@@ -21,6 +21,21 @@ header #top-bar{
 #top-bar nav{
   min-width: 100px;
 }
+#notification-icon{
+  margin-top: 20px;
+  position: relative;
+}
+#notification-icon img{
+  color: #fff;
+}
+#notification-icon #number-of-notifications{
+  position: absolute;
+  background: red;
+  color: white;
+  padding: 2px 5px;
+  left: 4%;
+  font-size: 12px;
+}
 #logo{
   width: 48px;
   height: 48px;
@@ -530,6 +545,10 @@ header #top-bar{
     #top-bar .brand{
       position: absolute;
       right: 0;
+    }
+    #logo{
+      width: 36px;
+      height: 36px;
     }
     #left-section #logout{
       display: flex;
