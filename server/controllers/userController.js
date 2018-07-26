@@ -1,61 +1,50 @@
 import express from 'express';
 import jwt from 'jsonwebtoken';
-import { check, validationResult } from 'express-validator/check';
+// import { check, validationResult } from 'express-validator/check';
+import validator from '../helpers/validate';
 import User from '../models/user';
 
 
 const router = express.Router();
 
 // Create a single entry
-const valideteLoginRule = [
-  check('email', 'email is required')
-    .isLength({ min: 1 }),
-  check('password', 'password is required')
-    .isLength({ min: 6 }),
-];
-router.post('/login', valideteLoginRule, (req, res) => {
-  const errors = validationResult(req);
+
+router.post('/login', validator.login, (req, res) => {
+  const errors = validator.validationResult(req);
   if (errors.isEmpty()) {
     const user = new User();
     user.email = req.body.email;
     user.password = req.body.password;
     user.doLogin()
       .then((result) => {
-        const payload = {
-          userId: result.id,
-        };
-        const token = jwt.sign(payload, 'secret', { expiresIn: '1hr' });
-        res.status(200).json({ message: 'success', token });
+        switch (result.code) {
+          case 1:
+            res.status(401).json({ message: 'credentials mismatch' });
+            break;
+          case 2:
+            {
+              const payload = {
+                userId: result.id,
+              };
+              const token = jwt.sign(payload, 'secret', { expiresIn: '1hr' });
+              res.status(200).json({ message: 'success', token });
+            }
+            break;
+          default:
+            res.status(401).json({ message: 'credentials mismatch' });
+        }
       })
       .catch((err) => {
-        res.status(400).json({ message: err });
+        res.status(500).json({ message: 'internal server error' });
       });
   } else {
-    res.status(400).json({ message: 'error', errors: errors.array() });
+    res.status(401).json({ message: 'error', errors: errors.array() });
   }
 });
 
-// Update entry
-const validateSignupRule = [
-  check('firstName', 'firstaname is required')
-    .isLength({ min: 1 }),
-  check('lastName', 'lastname is required')
-    .isLength({ min: 1 }),
-  check('email', 'email is required')
-    .isLength({ min: 1 }),
-  check('password', 'invalid password')
-    .isLength({ min: 6 })
-    .custom((value, { req, loc, path }) => {
-      if (value !== req.body.confirmPassword) {
-        throw new Error("Passwords don't match");
-      } else {
-        return value;
-      }
-    }),
-];
 
-router.post('/signup', validateSignupRule, (req, res) => {
-  const errors = validationResult(req);
+router.post('/signup', validator.login, (req, res) => {
+  const errors = validator.validationResult(req);
 
   if (errors.isEmpty()) {
     const user = new User();

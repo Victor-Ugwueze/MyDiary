@@ -16,17 +16,21 @@ class User {
       text: 'SELECT * FROM users WHERE email = $1',
       values: [this.email],
     };
+
     const thisObj = this;
     return new Promise((resolve, reject) => {
       thisObj.pool.query(query)
         .then((result) => {
+          // User not found
+          if (!result.rows[0]) resolve({ code: 1, id: null });
+          // User found
           const passwordMatch = bcrypt.compareSync(thisObj.password, result.rows[0].password);
           if (passwordMatch) {
-            resolve(result.rows[0].id);
+            resolve({ code: 2, id: result.rows[0].id });
           }
-          reject(new Error('credentials mismatch'));
+          resolve({ code: 3, id: null });
         })
-        .catch(err => err);
+        .catch(err => reject(err));
     });
   }
 
