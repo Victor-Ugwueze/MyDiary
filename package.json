@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "start": "node server/helpers/www",
-    "start-dev": "nodemon server/helpers/www",
+    "create-table": "node --require babel-register server/helpers/table_schemas/createTable",
+    "start-dev": "npm run create-table && nodemon server/helpers/www",
     "test": "nyc --reporter=text --reporter=html mocha --require babel-register test/* --exit",
     "coverage": "nyc --reporter=html --reporter=text --reporter=lcov mocha --reporter spec --require babel-register test/* --exit",
     "coveralls": "npm run coverage -- --report lcovonly && cat coverage/lcov.info | coveralls"
