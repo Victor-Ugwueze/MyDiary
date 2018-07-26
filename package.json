@@ -4,8 +4,8 @@
   "description": "MyDiary is an online journal where users can pen down their thoughts and feelings. ",
   "main": "server.js",
   "scripts": {
-    "start": "node bin/production",
-    "start-dev": "nodemon bin/dev",
+    "start": "node server/helpers/www",
+    "start-dev": "nodemon server/helpers/www",
     "test": "nyc --reporter=text --reporter=html mocha --require babel-register test/* --exit",
     "coverage": "nyc --reporter=html --reporter=text --reporter=lcov mocha --reporter spec --require babel-register test/* --exit",
     "coveralls": "npm run coverage -- --report lcovonly && cat coverage/lcov.info | coveralls"
@@ -41,6 +41,7 @@
     "coveralls": "^3.0.2",
     "express": "^4.16.3",
     "express-validator": "^5.2.0",
-    "morgan": "^1.9.0"
+    "morgan": "^1.9.0",
+    "pg": "^7.4.3"
   }
 }
