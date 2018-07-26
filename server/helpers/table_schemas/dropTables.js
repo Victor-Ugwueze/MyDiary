@@ -1,9 +1,14 @@
 import pool from '../dbHelper';
 
 
-export default class CreateTableSchema {
+class SetupTestDb {
   constructor() {
     this.pool = pool;
+    this.dropEntreiesTable = 'DROP TABLE IF EXISTS entries';
+
+    this.dropNotificationsTable = 'DROP TABLE IF EXISTS notifications';
+
+    this.dropUsersTable = 'DROP TABLE IF EXISTS users';
     this.createEntriesTable = `CREATE TABLE IF NOT EXISTS entries(
       id serial PRIMARY KEY NOT NULL,
       title varchar(255) NOT NULL,
@@ -30,13 +35,22 @@ export default class CreateTableSchema {
     )`;
   }
 
-  run() {
-    return this.pool.query(this.createUsersTable)
+  up() {
+    this.pool.query(this.createUsersTable)
       .then(() => this.pool.query(this.createEntriesTable))
       .then(() => this.pool.query(this.createNotificationsTable))
       .then(() => this.pool.end())
       .catch(err => err);
   }
-}
 
-new CreateTableSchema().run();
+  down() {
+    return this.pool.query(this.dropUsersTable)
+      .then(() => this.pool.query(this.dropEntreiesTable))
+      .then(() => this.pool.query(this.dropNotificationsTable))
+      .then(() => this.up())
+      .catch(err => err);
+  }
+}
+const testDb = new SetupTestDb();
+
+testDb.down();
