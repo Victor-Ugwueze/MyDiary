@@ -5,9 +5,10 @@
   "main": "server.js",
   "scripts": {
     "start": "node server/helpers/www",
-    "create-table": "node --require babel-register server/helpers/table_schemas/createTable",
+    "create-table": "node --require babel-register server/helpers/table_schemas/createTables",
     "start-dev": "npm run create-table && nodemon server/helpers/www",
-    "test": "nyc --reporter=text --reporter=html mocha --require babel-register test/* --exit",
+    "drop-test-table": "node --require babel-register server/helpers/table_schemas/dropTables",
+    "test": "npm run drop-test-table && nyc --reporter=text --reporter=html mocha --require babel-register server/test/* --exit",
     "coverage": "nyc --reporter=html --reporter=text --reporter=lcov mocha --reporter spec --require babel-register test/* --exit",
     "coveralls": "npm run coverage -- --report lcovonly && cat coverage/lcov.info | coveralls"
   },
@@ -38,10 +39,12 @@
   },
   "dependencies": {
     "airbnb-browser-shims": "^3.0.0",
+    "bcrypt": "^3.0.0",
     "body-parser": "^1.18.3",
     "coveralls": "^3.0.2",
     "express": "^4.16.3",
     "express-validator": "^5.2.0",
+    "jsonwebtoken": "^8.3.0",
     "morgan": "^1.9.0",
     "pg": "^7.4.3"
   }
