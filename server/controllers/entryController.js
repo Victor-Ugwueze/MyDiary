@@ -1,11 +1,12 @@
 import express from 'express';
-import { check, validationResult } from 'express-validator/check';
 import Entry from '../models/entry';
-
+import validateEntry from '../helpers/validateEntry';
+import verifyToken from '../helpers/verifyAuthentication';
 
 const router = express.Router();
 // get a refrence of Entry model
-
+// Middleware to check token
+verifyToken(router);
 const entry = new Entry();
 // get all diary entry
 router.get('/entries', (req, res) => {
@@ -32,34 +33,29 @@ router.get('/entries/:id', (req, res) => {
 
 // Create a single entry
 
-router.post('/entries',
-  [
-    check('title', 'title is required')
-      .isLength({ min: 1 }),
-  ],
-  (req, res) => {
-    const errors = validationResult(req);
-    if (errors.isEmpty()) {
-      const result = entry.save({
-        title: req.body.title,
-        body: req.body.body,
+router.post('/entries', validateEntry.addEntry, (req, res) => {
+  const errors = validateEntry.validationResult(req);
+  if (errors.isEmpty()) {
+    entry.save({
+      title: req.body.title,
+      body: req.body.body,
+    }).then((result) => {
+      const createdEntry = result.rows[0];
+      createdEntry.created_at = new Date(createdEntry.created_at).toDateString();
+      res.status(200).json({ message: 'success', createdEntry });
+    })
+      .catch(() => {
+        res.status(500).json({ message: 'error' });
       });
-      res.status(201).json({ message: 'success', result });
-    } else {
-      res.status(400).json({ message: req.body.title, error: errors.array() });
-    }
-  });
+  } else {
+    res.status(400).json({ message: 'error', error: errors.array() });
+  }
+});
 
 // Update entry
 
-router.put('/entries/:id', [
-  check('title', 'title is required')
-    .isLength({ min: 1 }),
-  check('body', 'body is required')
-    .isLength({ min: 1 }),
-],
-(req, res) => {
-  const errors = validationResult(req);
+router.put('/entries/:id', validateEntry.updateEntry, (req, res) => {
+  const errors = validateEntry.validationResult(req);
   if (errors.isEmpty()) {
     // const entry = new Entry();
     entry.find(req.params.id)
