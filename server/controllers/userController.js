@@ -1,6 +1,5 @@
 import express from 'express';
 import jwt from 'jsonwebtoken';
-// import { check, validationResult } from 'express-validator/check';
 import validator from '../helpers/validate';
 import User from '../models/user';
 
