@@ -27,7 +27,7 @@ describe('Entries', () => {
       });
   });
   describe('POST api/v1/entries', () => {
-    it('Token should be generated token', (done) => {
+    it('should generate token', (done) => {
       tokenObjec.should.be.a('object');
       tokenObjec.should.have.property('token').not.eql('');
       done();
