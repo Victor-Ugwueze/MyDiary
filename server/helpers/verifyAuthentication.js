@@ -8,9 +8,10 @@ const verifyToken = (router) => {
     } else {
       jwt.verify(token, 'secret', (err, decoded) => {
         if (err) {
-          res.status(401).json({ message: 'Failed to authenticate', err, decoded });
+          res.status(401).json({ message: 'Failed to authenticate', err: 'Session expired' });
           return;
         }
+        req.body.userId = decoded.userId;
         next();
       });
     }
