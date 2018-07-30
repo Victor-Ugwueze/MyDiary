@@ -1,6 +1,6 @@
 import express from 'express';
 import jwt from 'jsonwebtoken';
-import validator from '../helpers/validate';
+import validateAuth from '../helpers/validateAuth';
 import User from '../models/user';
 
 
@@ -8,8 +8,8 @@ const router = express.Router();
 
 // Create a single entry
 
-router.post('/login', validator.login, (req, res) => {
-  const errors = validator.validationResult(req);
+router.post('/login', validateAuth.login, (req, res) => {
+  const errors = validateAuth.validationResult(req);
   if (errors.isEmpty()) {
     const user = new User();
     user.email = req.body.email;
@@ -33,7 +33,7 @@ router.post('/login', validator.login, (req, res) => {
             res.status(401).json({ message: 'credentials mismatch' });
         }
       })
-      .catch((err) => {
+      .catch(() => {
         res.status(500).json({ message: 'internal server error' });
       });
   } else {
@@ -42,8 +42,8 @@ router.post('/login', validator.login, (req, res) => {
 });
 
 
-router.post('/signup', validator.login, (req, res) => {
-  const errors = validator.validationResult(req);
+router.post('/signup', validateAuth.singUp, (req, res) => {
+  const errors = validateAuth.validationResult(req);
 
   if (errors.isEmpty()) {
     const user = new User();

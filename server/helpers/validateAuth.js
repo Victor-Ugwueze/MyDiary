@@ -1,6 +1,6 @@
 import { check, validationResult } from 'express-validator/check';
 
-const validate = {
+const validateAuth = {
 
   login: [
     check('email', 'email is required')
@@ -17,7 +17,7 @@ const validate = {
       .isLength({ min: 1 }),
     check('password', 'invalid password')
       .isLength({ min: 6 })
-      .custom((value, { req, loc, path }) => {
+      .custom((value, { req }) => {
         if (value !== req.body.confirmPassword) {
           throw new Error("Passwords don't match");
         } else {
@@ -28,4 +28,4 @@ const validate = {
   validationResult,
 };
 
-export default validate;
+export default validateAuth;
