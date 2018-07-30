@@ -101,4 +101,31 @@ describe('Entries', () => {
         });
     });
   });
+
+  describe('GEt /api/entries/:id', () => {
+    it('Should not get a book with id not equall to request id', (done) => {
+      const id = 100;
+      chai.request(server)
+        .get(`/api/v1/entries/${id}`)
+        .send({ token: tokenObjec.token })
+        .end((err, res) => {
+          res.should.have.status(404);
+          res.body.should.property('message').eql('error');
+          done();
+        });
+    });
+
+    it('Should get a single diary entry on api/v1/entries/:id status code 200', (done) => {
+      const id = 1;
+      chai.request(server)
+        .get(`/api/v1/entries/${id}`)
+        .send({ token: tokenObjec.token })
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.body.should.be.a('object');
+          res.body.should.have.property('message').eql('success');
+          done();
+        });
+    });
+  });
 });
