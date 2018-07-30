@@ -86,4 +86,19 @@ describe('Entries', () => {
         });
     });
   });
+
+  describe('GET /api/v1/entries', () => {
+    it('Should list all diary entry on /api/v1/entries', (done) => {
+      chai.request(server)
+        .get('/api/v1/entries')
+        .send({ token: tokenObjec.token })
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.body.should.be.a('object');
+          res.body.should.have.property('entries').be.a('array');
+          res.body.should.have.property('message').eql('success');
+          done();
+        });
+    });
+  });
 });
