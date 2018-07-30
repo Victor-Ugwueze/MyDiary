@@ -128,4 +128,59 @@ describe('Entries', () => {
         });
     });
   });
+
+  describe('PUT api/v1/entries/:id', () => {
+    it('Should modify an entry on api/v1/entries/ returns status code 200', (done) => {
+      const id = 1;
+      const entry = {
+        token: tokenObjec.token,
+        title: 'The man',
+        body: 'It happened yesteday',
+      };
+      chai.request(server)
+        .put(`/api/v1/entries/${id}`)
+        .send(entry)
+        .end((err, req) => {
+          req.should.have.status(200);
+          req.body.should.be.a('object');
+          req.body.should.have.property('message').eql('success');
+          done(err);
+        });
+    });
+
+    it('Should not modify an entry on api/v1/entries/:id returns status code 404', (done) => {
+      const id = 30;
+      const entry = {
+        token: tokenObjec.token,
+        title: 'The man',
+        body: 'It happened yesteday',
+      };
+      chai.request(server)
+        .put(`/api/v1/entries/${id}`) // tying to update not found
+        .send(entry)
+        .end((err, req) => {
+          req.should.have.status(404);
+          req.body.should.be.a('object');
+          req.body.should.have.property('message').eql('error');
+          done(err);
+        });
+    });
+
+    it('Should not modify an entry on api/v1/entries/:id returns status code 422', (done) => {
+      const id = 1;
+      const entry = {
+        token: tokenObjec.token,
+        body: 'It happened yesteday',
+      };
+      chai.request(server)
+        .put(`/api/v1/entries/${id}`)
+        .send(entry) // tying to update entry with empty value
+        .end((err, req) => {
+          req.should.have.status(422);
+          req.body.should.be.a('object');
+          req.body.should.have.property('message').eql('failed');
+          done(err);
+        });
+    });
+  });
 });
