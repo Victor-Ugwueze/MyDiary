@@ -91,6 +91,7 @@ describe('Entries', () => {
     it('Should list all diary entry on /api/v1/entries', (done) => {
       chai.request(server)
         .get('/api/v1/entries')
+        .set({ page: 1, perpage: 5 })
         .send({ token: tokenObjec.token })
         .end((err, res) => {
           res.should.have.status(200);

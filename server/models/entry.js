@@ -31,13 +31,20 @@ class Entry {
   }
 
   findAll(req) {
-    const perPage = req.params.perPage || 5;
-    const page = req.params.page || 1;
-    const end = (page * perPage);
-    const start = (end - perPage) + 1;
+    let currentPage = req.headers.page;
+    let entryPerPage = req.headers.perpage;
+
+    if (req.headers.perpage && req.headers.page) {
+      currentPage = req.headers.page;
+      entryPerPage = req.headers.perpage;
+    }
+
+    const end = (currentPage * entryPerPage);
+    const start = (end - entryPerPage) + 1;
+
     const query = {
       text: 'SELECT * FROM entries WHERE user_id = $1 AND id >= $2 LIMIT $3',
-      values: [this.userId, start, perPage],
+      values: [this.userId, start, entryPerPage],
     };
 
     return this.pool.query(query)

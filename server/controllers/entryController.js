@@ -12,7 +12,7 @@ verifyToken(router);
 router.get('/entries', (req, res) => {
   const entry = new Entry();
   entry.userId = req.body.userId;
-  entry.findAll(req.params.page, req.params.perPage)
+  entry.findAll(req)
     .then((entries) => {
       res.status(200).json({ message: 'success', entries });
     })
