@@ -31,21 +31,19 @@ class Entry {
   }
 
   findAll(req) {
-    let currentPage = req.headers.page;
-    let entryPerPage = req.headers.perpage;
+    const currentPage = req.headers.page;
+    const entryPerPage = req.headers.perpage;
+    const query = {};
 
-    if (req.headers.perpage && req.headers.page) {
-      currentPage = req.headers.page;
-      entryPerPage = req.headers.perpage;
+    if (Math.trunc(currentPage) === 1) {
+      query.text = 'SELECT * FROM entries where user_id = $1 LIMIT $2';
+      query.values = [this.userId, entryPerPage];
+    } else {
+      const start = ((currentPage * entryPerPage) - entryPerPage);
+      query.text = 'SELECT * FROM entries where user_id = $1 LIMIT $2 OFFSET $3';
+      query.values = [this.userId, entryPerPage, start];
     }
 
-    const end = (currentPage * entryPerPage);
-    const start = (end - entryPerPage) + 1;
-
-    const query = {
-      text: 'SELECT * FROM entries WHERE user_id = $1 AND id >= $2 LIMIT $3',
-      values: [this.userId, start, entryPerPage],
-    };
 
     return this.pool.query(query)
       .then((result) => {
