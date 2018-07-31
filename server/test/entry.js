@@ -183,4 +183,32 @@ describe('Entries', () => {
         });
     });
   });
+
+  describe('DELETE /api/v1/entries/:id', () => {
+    it('Should not delete an entry returns status code 404', (done) => {
+      const id = 20;
+      chai.request(server)
+        .delete(`/api/v1/entries/${id}`)
+        .send({ token: tokenObjec.token })
+        .end((err, req) => {
+          req.should.have.status(404);
+          req.body.should.be.a('object');
+          req.body.should.have.property('message').eql('failed');
+          done(err);
+        });
+    });
+
+    it('Should delete an entry returns status code 200', (done) => {
+      const id = 1;
+      chai.request(server)
+        .delete(`/api/v1/entries/${id}`)
+        .send({ token: tokenObjec.token })
+        .end((err, req) => {
+          req.should.have.status(200);
+          req.body.should.be.a('object');
+          req.body.should.have.property('message').eql('success');
+          done(err);
+        });
+    });
+  });
 });
