@@ -12,7 +12,7 @@ verifyToken(router);
 router.get('/entries', (req, res) => {
   const entry = new Entry();
   entry.userId = req.body.userId;
-  entry.findAll()
+  entry.findAll(req.params.page, req.params.perPage)
     .then((entries) => {
       res.status(200).json({ message: 'success', entries });
     })
@@ -45,7 +45,6 @@ router.get('/entries/:id', (req, res) => {
 router.post('/entries', validateEntry.addEntry, (req, res) => {
   const errors = validateEntry.validationResult(req);
   const entry = new Entry();
-  console.log(req.body.userId);
   if (errors.isEmpty()) {
     entry.save({
       title: req.body.title,
