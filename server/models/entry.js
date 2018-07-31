@@ -20,7 +20,6 @@ class Entry {
   }
 
   update(request) {
-    console.log(request.body.body, this.userId, request.params.id);
     const query = {
       text: 'UPDATE entries SET title = $1, body = $2 WHERE user_id = $3 and id = $4',
       values: [request.body.title, request.body.body, this.userId, request.params.id],
@@ -31,11 +30,20 @@ class Entry {
       .catch(err => err);
   }
 
-  findAll() {
-    const query = {
-      text: 'SELECT * FROM entries WHERE user_id = $1',
-      values: [this.userId],
-    };
+  findAll(req) {
+    const currentPage = req.headers.page;
+    const entryPerPage = req.headers.perpage;
+    const query = {};
+
+    if (Math.trunc(currentPage) === 1) {
+      query.text = 'SELECT * FROM entries where user_id = $1 LIMIT $2';
+      query.values = [this.userId, entryPerPage];
+    } else {
+      const start = ((currentPage * entryPerPage) - entryPerPage);
+      query.text = 'SELECT * FROM entries where user_id = $1 LIMIT $2 OFFSET $3';
+      query.values = [this.userId, entryPerPage, start];
+    }
+
 
     return this.pool.query(query)
       .then((result) => {
