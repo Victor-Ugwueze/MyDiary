@@ -19,6 +19,8 @@ const hideErrors = () => {
 const showErrors = (errors, action) => {
   // const errorFlag = document.querySelector('#erro-flag');
   const emailError = document.querySelector('#email-error');
+  const singupError = document.querySelector('#signup-error');
+
   if (action === 'login') {
     if (errors.email) {
       emailError.textContent = errors.email;
@@ -26,8 +28,16 @@ const showErrors = (errors, action) => {
       inputField.classList.toggle('input-error-border');
       hideErrors();
     }
+  } else if (action === 'signup') {
+    const fieldError = errors[0][1];
+    singupError.textContent = `${fieldError.toLowerCase()} `;
+    console.log(errors);
   }
+
   if (action === 'response') {
+    emailError.textContent = errors.message;
+  }
+  if (action === 'signup') {
     emailError.textContent = errors.message;
   }
 };
@@ -68,33 +78,49 @@ const getFormInput = (input, action) => {
   return data;
 };
 
+const validateEmail = (email) => {
+  /* This regex test for email is from
+          https://forum.freecodecamp.org/t/regular-expression-is-stupid-help/100055/9
+  */
+  const regex = /^[\w.]+\w+@\w+\.com(\.(ru|cn))?$/;
+  if (!regex.test(email)) return false;
+  return true;
+};
+
 const validateInput = (data) => {
   const errors = {};
   const fields = [
-    { email: data.email },
-    { password: data.password },
     { firstName: data.firstName },
     { lastName: data.lastName },
+    { email: data.email },
+    { password: data.password },
     { confirmPassword: data.confirmPassword },
   ];
-  fields.forEach((input, index) => {
+  fields.forEach((input) => {
     const key = Object.keys(input)[0];
-    if (input[key] === '') {
+    if (input[key] === '' && key !== 'confirmPassword') {
       errors[key] = `${key} can't be empty`;
     }
     if (input[key] && key === 'email') {
-      /* This regex test for email is from
-          https://forum.freecodecamp.org/t/regular-expression-is-stupid-help/100055/9
-      */
-      const regex = /^[\w.]+\w+@\w+\.com(\.(ru|cn))?$/;
-      if (!regex.test(input[key])) {
+      if (!validateEmail(input[key])) {
         errors[key] = `Please enter a valid ${key}`;
       }
     }
+    if (input[key] && key === 'firstName' && input[key].length < 2) {
+      errors[key] = `Please ${key} should be 2 characters and above`;
+    }
+    if (input[key] && key === 'lastName' && input[key].length < 2) {
+      errors[key] = `Please ${key} should be 2 characters and above`;
+    }
+    if (input[key] === 'password' && input[key].length < 2) {
+      errors[key] = `Please enter a valid ${key}`;
+    }
   });
+  if (fields[3].password !== fields[4].confirmPassword) {
+    errors.password = "password dosen't match";
+  }
   return errors;
 };
-
 
 class AuthClient {
   static init() {
@@ -129,25 +155,24 @@ class AuthClient {
   }
 
   static doSingup() {
-    // Login or sign up should redirect to dashboard
     const form = document.querySelector('#signup');
     form.addEventListener('submit', (event) => {
       event.preventDefault();
       const url = 'https://my-diary-dev.herokuapp.com/auth/signup';
       const data = getFormInput(event.target);
       const errors = validateInput(data);
-      if (errors.length > 0) {
-        showErrors(errors);
+
+      if (Object.entries(errors).length > 0) {
+        showErrors(Object.entries(errors), 'signup');
         return;
       }
       const method = 'post';
       MakeNetworkRequest({ url, method, data })
         .then((response) => {
-          if (response.status === 200 && response.message === 'success') {
-            // redirect(response);
-            console.log(response);
+          if (response.message === 'success') {
+            redirect(response); // Successful sign up should redirect to dashboard
           } else {
-            console.log(response);
+            showErrors(response, 'response');
           }
         })
         .catch((err) => {
