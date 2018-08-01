@@ -64,6 +64,55 @@ class User {
       })
       .catch(err => err);
   }
+
+  updateUser(request) {
+    const id = this.userId;
+    const query = {
+      text: 'UPDATE users SET first_name = $1, last_name = $2, email = $3, location = $4 WHERE id = $5',
+      values: [
+        request.body.firstName,
+        request.body.lastName,
+        request.body.email,
+        request.body.location,
+        id,
+      ],
+    };
+
+    return this.pool.query(query)
+      .then(result => result)
+      .catch(err => err);
+  }
+
+  getUser() {
+    const id = this.userId;
+    return this.pool.query(
+      `SELECT email, 
+      first_name, 
+      last_name, 
+      location, 
+      created_at FROM users 
+      WHERE id = $1`, [id],
+    )
+      .then((result) => {
+        if (result.rows[0]) {
+          return result.rows[0];
+        }
+        return false;
+      })
+      .catch(err => err);
+  }
+
+  getEntryCount() {
+    const id = this.userId;
+    return this.pool.query('SELECT * FROM entries WHERE user_id = $1', [id])
+      .then((result) => {
+        if (result.rows[0]) {
+          return result.rows.length;
+        }
+        return 0;
+      })
+      .catch(err => err);
+  }
 }
 
 export default User;
