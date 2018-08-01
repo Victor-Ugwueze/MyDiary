@@ -84,38 +84,14 @@
                   <h4 class="entry-head" id="action">Action</h4>
               </div>
               <ul id="dairy-entries">
-                  <li class="entry-item" id="diary-1">
-                      <div class="" data-id="diary-1" data-target="view-single-diary">
-                          <h4 class="sing-diary-title diary-text">The story of a village girl</h4>
-                          <p class="sing-diary-body diary-text">It is a long established fact that a reader will be distracted ...</p>
-                      </div>
-                      <p class="created-at">12/18/2018</p>
-                      <a class="action">
-                        <span data-id="diary-1" data-target="edit-diary-entry" class="btn btn-primary action-edit">
-                          <span> <img class="diary-edit icon-edit" src="Resources/images/edit.png">
-                          </span><span class="edit-text">Edit</span></span> | <span data-target="diary-1" class="btn btn-danger action-delete">
-                            <span> <img class="diary-edit icon-edit" src="Resources/images/delete-button.png">
-                            </span><span class="delete-text">Delete</span>
-                          </a>
-                      <div class="arrow-up"></div>
-                  </li>
-                  <li class="entry-item" id="diary-2">
-                      <div class="diary-text" data-id="diary-2" data-target="view-single-diary">
-                          <h4 class="sing-diary-title diary-text">why I am writing</h4>
-                          <p class="sing-diary-body diary-text">This is because I have come to...</p>
-                      </div>
-                      <p class="created-at">12/18/2018</p>
-                      <a class="action"><span data-id="diary-2" data-target="edit-diary-entry" class="btn btn-primary action-edit">
-                        <span> <img class="diary-edit icon-edit" src="Resources/images/edit.png"></span>
-                        <span class="edit-text">Edit</span>
-                      </span> | <span data-target="diary-2" class="btn btn-danger action-delete">
-                        <span> <img class="diary-edit icon-edit" src="Resources/images/delete-button.png"></span>
-                        <span class="delete-text">Delete</span>
-                      </span>
-                      </a>
-                  </li>
+                  
               </ul>
           </div>
+          <div class="pagination">
+              <a href="#" id="prev">&laquo;</a>
+              <a href="#" class="active">1</a>
+              <a href="#" id="next">&raquo;</a>
+            </div>
       </div>
       <div id="settings" class="dashboard-section tab-pane">
           <div class="setting-page row">
@@ -198,10 +174,10 @@
                 <form enctype="application/x-www-form-urlencoded" id="add-entry-form">
                     <div class="form-row">
                         <div class="row">
-                            <input type="text" id="diary-title" class="form-input" placeholder="What is on your mind ?">
+                            <input type="text" name="title" id="diary-title" class="form-input" placeholder="What is on your mind ?">
                         </div>
                         <div class="row">
-                            <textarea name="" id="diary-body" cols="30" rows="10"></textarea>
+                            <textarea name="body" id="diary-body" cols="30" rows="10"></textarea>
                         </div>
                         <div>
                             <input id="btn-login" type="submit" value="Create Entry" class="btn btn-primary">

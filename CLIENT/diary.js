@@ -42,7 +42,10 @@ class DiaryClient {
     };
     makeNetworkRequest({ url, method, data })
       .then((response) => {
-        console.log(response);
+        if (response.message === 'success') {
+          console.log(response);
+          window.location.reload();
+        }
       })
       .catch(err => err);
   }
@@ -67,7 +70,7 @@ const makeNetworkRequest = (input = { url: '', method: '', data: '' }) => {
     reqObject.headers = {
       'content-type': 'application/json',
       'x-access-token': input.data.token,
-      page: 1,
+      page: 2,
       perPage: 5,
     };
   } else {
@@ -83,10 +86,18 @@ const makeNetworkRequest = (input = { url: '', method: '', data: '' }) => {
 
 
 const bindEntryData = (entry) => {
+  let EntryTitle = entry.title;
+  let EntryBody = entry.body;
+  if (entry.title.length > 40) {
+    EntryTitle = `${entry.title.substring(0, 40)} ...`;
+  }
+  if (entry.body.length > 40) {
+    EntryBody = `${entry.body.substring(0, 40)} ...`;
+  }
   const entryWrap = `<li class="entry-item" id="diary-1">
                       <div class="" data-id="diary-${entry.id}" data-target="view-single-diary">
-                          <h4 class="sing-diary-title diary-text">${entry.title}</h4>
-                          <p class="sing-diary-body diary-text">${entry.body}</p>
+                          <h4 class="sing-diary-title diary-text">${EntryTitle}</h4>
+                          <p class="sing-diary-body diary-text">${EntryBody}</p>
                       </div>
                       <p class="created-at">12/18/2018</p>
                       <a class="action">
