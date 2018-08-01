@@ -195,13 +195,13 @@
                     <div id="title"><h4>Add Entry</h4></div>
                     <div class="close close-btn" data-target="add-new-entry">X</div>
                 </div>
-                <form enctype="application/x-www-form-urlencoded">
+                <form enctype="application/x-www-form-urlencoded" id="add-entry-form">
                     <div class="form-row">
                         <div class="row">
-                            <input type="text" id="diary-title" class="form-input" placeholder="What is on your mind ?">
+                            <input type="text" name="title" id="diary-title" class="form-input" placeholder="What is on your mind ?">
                         </div>
                         <div class="row">
-                            <textarea name="" id="diary-body" cols="30" rows="10"></textarea>
+                            <textarea name="body" id="diary-body" cols="30" rows="10"></textarea>
                         </div>
                         <div>
                             <input id="btn-login" type="submit" value="Create Entry" class="btn btn-primary">
@@ -273,5 +273,6 @@
     </section>
     <script src="Resources/js/app.js"></script>
     <script src="Resources/js/dashboard.js"></script>
+    <script src="../CLIENT/diary.js"></script>
 </body>
 </html>
