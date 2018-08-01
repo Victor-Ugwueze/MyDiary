@@ -150,6 +150,19 @@ footer{
   }
 }
 
+#erro-flag{
+  color: red;
+  display: none;
+  text-align: center;
+}
+.input-error-border{
+  border: 2px solid red !important;
+}
+.errors {
+  color: red;
+  text-align: center;
+}
+
 @media only screen and (max-width: 890px){
   .modal-content{
     margin-left: auto !important;

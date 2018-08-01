@@ -216,7 +216,7 @@ textarea{
     display: none;
 }
 .show{
-    display: block;
+    display: block !important;
 }
 .close{
     position: absolute;

@@ -63,12 +63,14 @@
                     </div>
                     <div class="tab-conten row">
                         <div class="tab-pane selected"  id="login">
+                            <span id="erro-flag"><div>Inputs are not wright</div></span>
                             <form enctype="application/x-www-form-urlencoded" >
                                 <div class="form-row">
                                     <div class="form-heading">
                                         <p>Log in to your account, to acces your journals</p>
                                     </div>
                                     <div class="row">
+                                      <div class="errors" id="email-error"></div>
                                         <input type="text" class="form-input" name="email" autocomplete="username" placeholder="Email Address">
                                     </div>
                                     <div class="row">
@@ -91,10 +93,10 @@
                                 <div class="form-row">
                                     <div class="row">
                                         <div class="col-2 form-col">
-                                            <input type="text" class="form-input" name="first_name" placeholder="FIrst Name">
+                                            <input type="text" class="form-input" name="firstName" placeholder="FIrst Name">
                                         </div>
                                         <div class="col-2">
-                                            <input type="text" class="form-input" name="last_name" placeholder="Last Name">
+                                            <input type="text" class="form-input" name="lastName" placeholder="Last Name">
                                         </div>
                                     </div>
                                     <div class="row">
@@ -105,7 +107,7 @@
                                                 <input type="password" class="form-input" name="password" autocomplete="current-password" placeholder="Password">
                                             </div>
                                             <div class="col-2">
-                                                <input type="password" class="form-input" name="confirm-password" autocomplete="confirm-password" placeholder="Confirm Password">
+                                                <input type="password" class="form-input" name="confirmPassword" autocomplete="confirm-password" placeholder="Confirm Password">
                                             </div>
                                         </div>
                                         <div class="row" id="terms-of-use" >
@@ -128,5 +130,6 @@
     </footer>
     <script src="Resources/js/app.js"></script>
     <script src="Resources/js/home.js"></script>
+    <script src="../CLIENT/auth.js"></script>
 </body>
 </html>
