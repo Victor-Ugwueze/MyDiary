@@ -1,0 +1,27 @@
+language: node_js
+node_js:
+- 8.11.1
+branches:
+  only:
+  - develop
+cache:
+  directories:
+  - node_modules
+before_install:
+- npm install -g mocha
+- npm install
+script:
+- npm run test
+after_success:
+- npm run coveralls
+after_script:
+- npm install -g codeclimate-test-reporter
+- codeclimate-test-reporter < coverage/lcov.info
+deploy:
+  provider: heroku
+  app: my-diary-dev
+  api_key:
+    secure: nRBVlD2dWtOzTARfTMAU9vKBA8BvjKh2sJBtKcyscgXgfKGvyRqRfcKVsKyQ8Lk8TeP5qHUm3eCDNOFBLIr2qS8a/m8499FU8zf4IuxqqE9VHRXKAsb/TQsegn0b/+z/TQirS83TMeyZgjABzQWhI9xOEuMw9YPb7fHVDpeltnQBHixo6wwaKwHb1DlKNIO5Q3zQeo9ACJT8s/Hz22DQU+UZQs4PPkMmj+darDuQdse+PJeUtf1EmPEfmD+fElCk2L0Xn/TkL/ogsD0HOBIT/EiExfq+57WYUrLZN/ZkpbZXqyRwvIAZLmqqqyUc4Lui1iMMzKdSqoT4dYNuroC0gUoSau2Oe8dNpvy24KtSJESs0fDEZ2yLCFuDSZxiW3MpyGgrJ2/Fv2JoXku6Oso9Q1XRsVP3PaigfFk5m0Yu1mq9uKUGGgwU1wzaD3VNzTKUbsXfeptbdzMIAga/PNTohODgWGjZKT6fuCVMDwpF8OEPO1gI5X8gWS/ANYCxF9tnvnd14xLh4B14aucxtwJZdrPWIjaFezWQVyJkOSAa/47abL9iMoMYEoVGKnJopyNODFofndJ0vmX/uNbIUTY2oUQtfQjhXPuaPvr/nhkoSq71ZmD9vzsCHfZGUhaZijq7E6L5CCBHB+NT+Rupi7aTUJRJYckxeghMiQfRWksyXgY=
+  on:
+    repo: Victor-Ugwueze/MyDiary
+    branch: develop
