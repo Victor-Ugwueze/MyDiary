@@ -21,13 +21,29 @@ class Entry {
 
   update(request) {
     const query = {
-      text: 'UPDATE entries SET title = $1, body = $2 WHERE user_id = $3 and id = $4',
+      text: `UPDATE entries SET title = $1, 
+      body = $2 WHERE user_id = $3 and id = $4 
+      `,
       values: [request.body.title, request.body.body, this.userId, request.params.id],
     };
-
+    let date = null;
+    this.find(request.params.id)
+      .then((result) => {
+        date = result.created_at;
+        const date1 = new Date(date);
+        const date2 = new Date();
+        if (date1.getFullYear === date2.getFullYear
+          && date1.getMonth === date2.getMonth
+          && date1.getDay === !date2.getDay
+        ) {
+          return false;
+        }
+      });
     return this.pool.query(query)
       .then(result => result)
-      .catch(err => err);
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   findAll(req) {
@@ -36,11 +52,11 @@ class Entry {
     const query = {};
 
     if (Math.trunc(currentPage) === 1) {
-      query.text = 'SELECT * FROM entries where user_id = $1 LIMIT $2';
+      query.text = 'SELECT * FROM entries where user_id = $1 ORDER BY id ASC LIMIT $2';
       query.values = [this.userId, entryPerPage];
     } else {
       const start = ((currentPage * entryPerPage) - entryPerPage);
-      query.text = 'SELECT * FROM entries where user_id = $1 LIMIT $2 OFFSET $3';
+      query.text = 'SELECT * FROM entries where user_id = $1 ORDER BY ASC LIMIT $2 OFFSET $3';
       query.values = [this.userId, entryPerPage, start];
     }
 
