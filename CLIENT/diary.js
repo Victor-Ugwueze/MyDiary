@@ -135,9 +135,9 @@ class DiaryClient {
   }
 
   static updateEntry(event) {
-    event.preventDefault();
     const addEntryModal = document.querySelector('#edit-diary-entry');
     addEntryModal.classList.toggle('show');
+    event.preventDefault();
     const form = new FormData(event.target);
     const id = form.get('entry-id');
     const title = form.get('title');
