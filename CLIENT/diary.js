@@ -97,6 +97,8 @@ class DiaryClient {
       .addEventListener('submit', DiaryClient.updateEntry);
     document.querySelector('#logout')
       .addEventListener('click', DiaryClient.logout);
+    document.querySelector('.prof-page')
+      .addEventListener('click', DiaryClient.getUserDetails);
     // document.querySelector('.get-profile')
     DiaryClient.getAllEntries();
   }
@@ -137,7 +139,9 @@ class DiaryClient {
     const inputData = new FormData(event.target);
     const title = inputData.get('title');
     const body = inputData.get('body');
-    if (title === '') {
+    const regx = /[0-9]/;
+    if (title === '' || regx.test(title) || regx.test(body) || body === '') {
+      console.log('yes');
       return;
     }
     const token = DiaryClient.checkToken();
@@ -198,7 +202,9 @@ class DiaryClient {
     const id = form.get('entry-id');
     const title = form.get('title');
     const body = form.get('body');
-    if (title === '') {
+    const regx = /[0-9]/;
+    if (title === '' || regx.test(title) || regx.test(body) || body === '') {
+      console.log('yes');
       return;
     }
     const token = DiaryClient.checkToken();
@@ -225,6 +231,22 @@ class DiaryClient {
       return null;
     }
     return token;
+  }
+
+  static getUserDetails() {
+    const token = DiaryClient.checkToken();
+    const method = 'get';
+    const url = 'https://my-diary-dev.herokuapp.com/api/v1/users/profile';
+    const data = {
+      token,
+    };
+    makeNetworkRequest({ url, method, data })
+      .then((response) => {
+        if (response.message === 'success') {
+          console.log(response);
+        }
+      })
+      .catch(err => err);
   }
 }
 
