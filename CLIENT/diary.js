@@ -78,6 +78,9 @@ class DiaryClient {
       .then((response) => {
         console.log(response);
         //  updatePaginate(response);
+        if (response.err === 'Session expired') {
+          window.location.href = 'index.html';
+        }
         displayListEntries(response);
         addEventListenerToEditButton();
         addEventListenerToviewEntry();
@@ -89,6 +92,8 @@ class DiaryClient {
 
   static addEntry(event) {
     event.preventDefault();
+    const addEntryModal = document.querySelector('#add-new-entry');
+    addEntryModal.classList.toggle('show');
     const inputData = new FormData(event.target);
     const title = inputData.get('title');
     const body = inputData.get('body');
@@ -131,6 +136,8 @@ class DiaryClient {
 
   static updateEntry(event) {
     event.preventDefault();
+    const addEntryModal = document.querySelector('#edit-diary-entry');
+    addEntryModal.classList.toggle('show');
     const form = new FormData(event.target);
     const id = form.get('entry-id');
     const title = form.get('title');
