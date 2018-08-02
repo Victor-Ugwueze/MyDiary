@@ -112,9 +112,17 @@ header #top-bar{
   margin-left:3%;
   font-size: 14px;
 }
+
+#left-section #logout .icon{
+  margin-right: 3%;
+}
+#left-section #logout .icon img{
+  width: 18px;
+  height: 18px;
+}
 #left-section #logout{
   position: relative;
-  display: none;
+  display: flex;
   bottom: 8%;
   color: #cecece;
   left: 4%;
@@ -580,16 +588,6 @@ header #top-bar{
     #logo{
       width: 36px;
       height: 36px;
-    }
-    #left-section #logout{
-      display: flex;
-    }
-    #left-section #logout .icon{
-      margin-right: 3%;
-    }
-    #left-section #logout .icon img{
-      width: 18px;
-      height: 18px;
     }
     #diary-heading  #created-at{
         margin-right: 8%;

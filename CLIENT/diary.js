@@ -63,8 +63,15 @@ class DiaryClient {
       .addEventListener('submit', DiaryClient.addEntry);
     document.querySelector('#edit-diary-entry-form')
       .addEventListener('submit', DiaryClient.updateEntry);
+    document.querySelector('#logout')
+      .addEventListener('click', DiaryClient.logout);
     // document.querySelector('.get-profile')
     DiaryClient.getAllEntries();
+  }
+
+  static logout() {
+    localStorage.removeItem('token');
+    window.location.href = 'index.html';
   }
 
   static getAllEntries() {
