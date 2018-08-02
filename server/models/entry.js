@@ -15,7 +15,12 @@ class Entry {
       values: [this.userId, requestId],
     };
     return this.pool.query(query)
-      .then(result => formartEntry(result.rows[0]))
+      .then((result) => {
+        if (result.rows[0]) {
+          return formartEntry(result.rows[0]);
+        }
+        return false;
+      })
       .catch(err => err);
   }
 

@@ -28,6 +28,7 @@ router.get('/entries/:id', (req, res) => {
   entry.find(req.params.id)
     .then((result) => {
       if (result) {
+        console.log(result);
         res.status(200).json({ result, message: 'success' });
         return;
       }
