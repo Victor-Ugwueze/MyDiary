@@ -5,17 +5,17 @@ const validateAuth = {
   login: [
     check('email', 'email is required')
       .isLength({ min: 1 }),
-    check('password', 'password is required')
+    check('password', 'password should be at least 6 chracters')
       .isLength({ min: 6 }),
   ],
   singUp: [
-    check('firstName', 'firstaname is required')
-      .isLength({ min: 1 }),
-    check('lastName', 'lastname is required')
-      .isLength({ min: 1 }),
+    check('firstName', 'firstaname is required and should be minimum of 2 characters')
+      .isLength({ min: 2 }),
+    check('lastName', 'lastname is required and should be minimum of 2 characters')
+      .isLength({ min: 2 }),
     check('email', 'email is required')
       .isLength({ min: 1 }),
-    check('password', 'invalid password')
+    check('password', 'password should be at least 6 chracters')
       .isLength({ min: 6 })
       .custom((value, { req }) => {
         if (value !== req.body.confirmPassword) {
