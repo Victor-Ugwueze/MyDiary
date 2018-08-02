@@ -91,9 +91,9 @@ class DiaryClient {
   }
 
   static addEntry(event) {
-    event.preventDefault();
     const addEntryModal = document.querySelector('#add-new-entry');
     addEntryModal.classList.toggle('show');
+    event.preventDefault();
     const inputData = new FormData(event.target);
     const title = inputData.get('title');
     const body = inputData.get('body');
