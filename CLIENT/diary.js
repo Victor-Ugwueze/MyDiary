@@ -236,7 +236,7 @@ class DiaryClient {
   static getUserDetails() {
     const token = DiaryClient.checkToken();
     const method = 'get';
-    const url = 'https://my-diary-dev.herokuapp.com/api/v1/users/profile';
+    const url = 'http://localhost:3000/api/v1/users/profile';
     const data = {
       token,
     };
