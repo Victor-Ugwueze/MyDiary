@@ -1,5 +1,6 @@
 /* global SelectElement */
 
+const spinner = document.querySelector('.loading_spinner');
 
 // Populate Edit button
 const populateModalFoEdit = (targetEditButton, EditModal) => {
@@ -27,13 +28,42 @@ const addEventListenerToEditButton = () => {
   });
 };
 
+// show a single Diary Entry
+const showDiaryEntry = (containerDiv) => {
+  const itemId = (containerDiv.dataset.id).split('-')[1];
+  const viewEntryModal = document.querySelector(`#${containerDiv.dataset.target}`);
+  // get refrence to elements
+  const titleContainer = viewEntryModal.querySelector('#diary-content h4');
+  const bodyContainer = viewEntryModal.querySelector('#diary-content p');
+  const dateContainer = viewEntryModal.querySelector('.date');
+  DiaryClient.getSingleEntry(itemId)
+    .then((response) => {
+      titleContainer.textContent = response.result.title;
+      bodyContainer.textContent = response.result.body;
+      dateContainer.textContent = new Date(response.result.created_at).toDateString();
+    })
+    .catch(() => {
 
+    });
+
+  modal.show(viewEntryModal, 'show');
+};
+
+const addEventListenerToviewEntry = () => {
+  const showDiaryEntryClicks = document.querySelectorAll('.diary-text');
+  [...showDiaryEntryClicks].forEach((showEntryButton) => {
+    showEntryButton.addEventListener('click', (event) => {
+      showDiaryEntry(event.target.parentNode);
+    });
+  });
+};
 class DiaryClient {
   static init() {
     document.querySelector('#add-entry-form')
       .addEventListener('submit', DiaryClient.addEntry);
     document.querySelector('#edit-diary-entry-form')
       .addEventListener('submit', DiaryClient.updateEntry);
+    // document.querySelector('.get-profile')
     DiaryClient.getAllEntries();
   }
 
@@ -50,6 +80,7 @@ class DiaryClient {
         //  updatePaginate(response);
         displayListEntries(response);
         addEventListenerToEditButton();
+        addEventListenerToviewEntry();
       })
       .catch((err) => {
         console.log(err);
@@ -118,8 +149,7 @@ class DiaryClient {
     makeNetworkRequest({ url, method, data })
       .then((response) => {
         if (response.message === 'success') {
-          console.log(response);
-          // window.location.reload();
+          window.location.reload();
         }
       })
       .catch(err => err);
@@ -137,6 +167,7 @@ class DiaryClient {
 
 
 const makeNetworkRequest = (input = { url: '', method: '', data: '' }) => {
+  spinner.style.display = 'block';
   const reqObject = {
     method: input.method,
     mode: 'cors',
@@ -155,7 +186,10 @@ const makeNetworkRequest = (input = { url: '', method: '', data: '' }) => {
     reqObject.body = JSON.stringify(input.data);
   }
   return fetch(input.url, reqObject)
-    .then(response => response.json())
+    .then((response) => {
+      spinner.style.display = 'none';
+      return response.json();
+    })
     .catch(err => err);
 };
 
