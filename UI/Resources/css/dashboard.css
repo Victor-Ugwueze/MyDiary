@@ -55,7 +55,13 @@ header #top-bar{
     flex:1;
     background: #f7f7f7;
 }
-
+.loading_spinner{
+  position: absolute;
+  top: 30%;
+  z-index: 2000;
+  left: 50%;
+  display: none;
+}
 @keyframes animateleft {
   from {
     left: -200px;
@@ -256,6 +262,10 @@ header #top-bar{
     margin-top: 15%;
     width: 30%;
     height: 200px;
+}
+#view-single-diary .modal-content{
+  margin-top: 12%;
+  overflow-y: scroll;
 }
 #confirm-delete .modal-body{
     margin-bottom: 100px;
