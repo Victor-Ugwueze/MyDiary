@@ -17,21 +17,18 @@ class User {
       values: [this.email],
     };
 
-    const thisObj = this;
-    return new Promise((resolve, reject) => {
-      thisObj.pool.query(query)
-        .then((result) => {
-          // User not found
-          if (!result.rows[0]) resolve({ code: 1, id: null });
-          // User found
-          const passwordMatch = bcrypt.compareSync(thisObj.password, result.rows[0].password);
-          if (passwordMatch) {
-            resolve({ code: 2, id: result.rows[0].id });
-          }
-          resolve({ code: 3, id: null });
-        })
-        .catch(err => reject(err));
-    });
+    return this.pool.query(query)
+      .then((result) => {
+        // User not found
+        if (!result.rows[0]) return ({ code: 1, id: null });
+        // User found
+        const passwordMatch = bcrypt.compareSync(this.password, result.rows[0].password);
+        if (passwordMatch) {
+          return ({ code: 2, id: result.rows[0].id });
+        }
+        return ({ code: 3, id: null });
+      })
+      .catch(err => err);
   }
 
   doSignup() {
@@ -40,14 +37,9 @@ class User {
       text: 'INSERT INTO users(first_name, last_name,email,password) VALUES($1, $2, $3, $4) RETURNING id',
       values: [this.firstName, this.lastName, this.email, hash],
     };
-    const thisObj = this;
-    return new Promise((resolve, reject) => {
-      thisObj.pool.query(query)
-        .then((result) => {
-          resolve(result.rows[0].id);
-        })
-        .catch(err => reject(err));
-    });
+    return this.pool.query(query)
+      .then(result => result.rows[0].id)
+      .catch(err => err);
   }
 
   checkIfEmailExists(input) {

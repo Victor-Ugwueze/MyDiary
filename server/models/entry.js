@@ -15,7 +15,12 @@ class Entry {
       values: [this.userId, requestId],
     };
     return this.pool.query(query)
-      .then(result => result.rows[0])
+      .then((result) => {
+        if (result.rows[0]) {
+          return formartEntry(result.rows[0]);
+        }
+        return false;
+      })
       .catch(err => err);
   }
 
@@ -40,23 +45,28 @@ class Entry {
         }
       });
     return this.pool.query(query)
-      .then(result => result)
+      .then((result) => {
+        if (result.rowCount === 1) {
+          return this.find(request.params.id);
+        }
+        return false;
+      })
       .catch((err) => {
         console.log(err);
       });
   }
 
   findAll(req) {
-    const currentPage = req.headers.page;
-    const entryPerPage = req.headers.perpage;
+    const currentPage = req.params.page || 1;
+    const entryPerPage = req.params.perpage || 5;
     const query = {};
 
     if (Math.trunc(currentPage) === 1) {
-      query.text = 'SELECT * FROM entries where user_id = $1 ORDER BY id ASC LIMIT $2';
+      query.text = 'SELECT * FROM entries where user_id = $1 ORDER BY id DESC LIMIT $2';
       query.values = [this.userId, entryPerPage];
     } else {
       const start = ((currentPage * entryPerPage) - entryPerPage);
-      query.text = 'SELECT * FROM entries where user_id = $1 ORDER BY ASC LIMIT $2 OFFSET $3';
+      query.text = 'SELECT * FROM entries where user_id = $1 ORDER BY DESC LIMIT $2 OFFSET $3';
       query.values = [this.userId, entryPerPage, start];
     }
 

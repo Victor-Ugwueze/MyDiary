@@ -9,8 +9,7 @@ export default class CreateTableSchema {
       title varchar(255) NOT NULL,
       user_id integer NOT NULL, 
       body varchar(255) NOT NULL,
-      created_at timestamp DEFAULT NOW(),
-      updated_at timestamp, DEFAULT NOW()
+      created_at timestamp DEFAULT NOW()
     )`;
 
     this.createNotificationsTable = `CREATE TABLE IF NOT EXISTS notifications(

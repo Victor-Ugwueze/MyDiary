@@ -111,7 +111,7 @@ describe('Entries', () => {
         .send({ token: tokenObjec.token })
         .end((err, res) => {
           res.should.have.status(404);
-          res.body.should.property('message').eql('error');
+          res.body.should.property('message').eql('entry not found');
           done();
         });
     });
@@ -145,6 +145,7 @@ describe('Entries', () => {
           req.should.have.status(200);
           req.body.should.be.a('object');
           req.body.should.have.property('message').eql('success');
+          console.log(req.body);
           done(err);
         });
     });
@@ -162,7 +163,7 @@ describe('Entries', () => {
         .end((err, req) => {
           req.should.have.status(404);
           req.body.should.be.a('object');
-          req.body.should.have.property('message').eql('error');
+          req.body.should.have.property('message').eql('entry not found');
           done(err);
         });
     });
@@ -194,7 +195,7 @@ describe('Entries', () => {
         .end((err, req) => {
           req.should.have.status(404);
           req.body.should.be.a('object');
-          req.body.should.have.property('message').eql('failed');
+          req.body.should.have.property('message').eql('entry not found');
           done(err);
         });
     });

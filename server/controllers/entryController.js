@@ -5,35 +5,34 @@ import verifyToken from '../helpers/verifyAuthentication';
 
 const router = express.Router();
 // get a refrence of Entry model
-// Middleware to check token
+// Middleware to check token and append userId to req
 verifyToken(router);
-// const entry = new Entry();
+const entry = new Entry();
 // get all diary entry
 router.get('/entries', (req, res) => {
-  const entry = new Entry();
   entry.userId = req.body.userId;
   entry.findAll(req)
     .then((entries) => {
       res.status(200).json({ message: 'success', entries });
     })
     .catch(() => {
-      res.status(500).json({ message: 'error' });
+      res.status(500).json({ message: 'internal server error' });
     });
 });
 
 // get a single entry
 
 router.get('/entries/:id', (req, res) => {
-  const entry = new Entry();
   entry.userId = req.body.userId;
 
   entry.find(req.params.id)
     .then((result) => {
       if (result) {
+        console.log(result);
         res.status(200).json({ result, message: 'success' });
         return;
       }
-      res.status(404).json({ message: 'error' });
+      res.status(404).json({ message: 'entry not found' });
     })
     .catch(() => {
       res.status(500).json({ message: 'internal error' });
@@ -42,9 +41,8 @@ router.get('/entries/:id', (req, res) => {
 
 // Create a single entry
 
-router.post('/entries', validateEntry.addEntry, (req, res) => {
+router.post('/entries', validateEntry.ValidateInput, (req, res) => {
   const errors = validateEntry.validationResult(req);
-  const entry = new Entry();
   if (errors.isEmpty()) {
     entry.save({
       title: req.body.title,
@@ -56,27 +54,31 @@ router.post('/entries', validateEntry.addEntry, (req, res) => {
       res.status(200).json({ message: 'success', createdEntry });
     })
       .catch(() => {
-        res.status(500).json({ message: 'error' });
+        res.status(500).json({ message: 'internal server error' });
       });
   } else {
-    res.status(400).json({ message: 'error', error: errors.array() });
+    res.status(400).json(
+      {
+        message: 'error',
+        errors: [errors.array()[0].msg],
+      },
+    );
   }
 });
 
 // Update entry
 
-router.put('/entries/:id', validateEntry.updateEntry, (req, res) => {
+router.put('/entries/:id', validateEntry.ValidateInput, (req, res) => {
   const errors = validateEntry.validationResult(req);
   if (errors.isEmpty()) {
-    const entry = new Entry();
     entry.userId = req.body.userId;
     entry.update(req)
-      .then((result) => {
-        if (result.rowCount) {
-          res.status(200).json({ message: 'success' });
+      .then((updatedEntry) => {
+        if (updatedEntry) {
+          res.status(200).json({ message: 'success', updatedEntry });
           return;
         }
-        res.status(404).json({ message: 'error' });
+        res.status(404).json({ message: 'entry not found' });
       })
       .catch(() => {
         res.status(500).json({ message: 'failed', error: 'internal server error' });
@@ -88,7 +90,6 @@ router.put('/entries/:id', validateEntry.updateEntry, (req, res) => {
 
 // Delete entry
 router.delete('/entries/:id', (req, res) => {
-  const entry = new Entry();
   entry.userId = req.body.userId;
   entry.delete(req.params.id)
     .then((result) => {
@@ -96,10 +97,10 @@ router.delete('/entries/:id', (req, res) => {
         res.status(200).json({ message: 'success' });
         return;
       }
-      res.status(404).json({ message: 'failed' });
+      res.status(404).json({ message: 'entry not found' });
     })
     .catch(() => {
-      res.status(500).json({ message: 'error' });
+      res.status(500).json({ message: 'internal error' });
     });
 });
 
