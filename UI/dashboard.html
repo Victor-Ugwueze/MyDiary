@@ -192,14 +192,15 @@
                     <div id="title"><h4>Edit Entry</h4></div>
                     <div class="close close-btn" data-target="edit-diary-entry">X</div>
                 </div>
-                <form enctype="application/x-www-form-urlencoded">
+                <form enctype="application/x-www-form-urlencoded"  id="edit-diary-entry-form">
                     <div class="form-row">
                         <div class="row">
-                            <input type="text" id="diary-title" class="form-input" placeholder="Title...">
+                            <input type="text" name= "title" id="diary-title" class="form-input" placeholder="Title...">
                         </div>
                         <div class="row">
-                            <textarea name="" id="diary-body" cols="30" rows="10"></textarea>
+                            <textarea name="body" id="diary-body" cols="30" rows="10"></textarea>
                         </div>
+                        <input type="hidden" name="entry-id" id="entry-id">
                         <div>
                             <input id="btn-login" type="submit" value="Update Entry" class="btn btn-primary">
                         </div>
