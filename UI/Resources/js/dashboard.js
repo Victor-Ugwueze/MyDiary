@@ -54,26 +54,6 @@ const modalCloseButton = document.querySelectorAll('.modal .close');
 });
 
 
-// Delete a modal Entry
-const deleteEntryButtons = document.querySelectorAll('.action-delete');
-
-[...deleteEntryButtons].forEach((deleteEntryButton) => {
-  deleteEntryButton.addEventListener('click', (event) => {
-    deleteModalItem(event.target);
-  });
-});
-
-const deleteModalItem = (targetDeleteButton) => {
-  const diaryList = document.querySelector('#dairy-entries');
-  const confirmDeleteBox = document.querySelector('#confirm-delete');
-  // confirmDelete = confirmDeleteBox.querySelector('.dailog-ok');
-  modal.show(confirmDeleteBox, 'show');
-  confirmDeleteBox.addEventListener('click', () => {
-    const diaryItem = diaryList.querySelector(`#${targetDeleteButton.dataset.target}`);
-    modal.hide(confirmDeleteBox, 'show');
-  });
-};
-
 // Show logout box
 
 const dropDownImage = document.querySelector('.nav-link img');

@@ -1,4 +1,4 @@
-/* global SelectElement */
+/* global SelectElement, modal */
 
 const spinner = document.querySelector('.loading_spinner');
 
@@ -57,6 +57,38 @@ const addEventListenerToviewEntry = () => {
     });
   });
 };
+
+// Edit functionality block
+
+//            Delete a modal Entry
+
+const deleteModalItem = (targetDeleteButton) => {
+  const diaryList = document.querySelector('#dairy-entries');
+  const confirmDeleteBox = document.querySelector('#confirm-delete');
+  const confirmDeleteButton = confirmDeleteBox.querySelector('.dailog-ok');
+  const entryId = targetDeleteButton.dataset.target.split('-')[1];
+  modal.show(confirmDeleteBox, 'show');
+  confirmDeleteButton.addEventListener('click', () => {
+    const diaryItem = diaryList.querySelector(`#${targetDeleteButton.dataset.target}`);
+    DiaryClient.deleteEntry(entryId)
+      .then((response) => {
+        diaryItem.style.display = 'none';
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    modal.hide(confirmDeleteBox, 'show');
+  });
+};
+const addEventListenerToDeleteButton = () => {
+  const deleteEntryButtons = document.querySelectorAll('.action-delete');
+  [...deleteEntryButtons].forEach((deleteEntryButton) => {
+    deleteEntryButton.addEventListener('click', (event) => {
+      deleteModalItem(event.currentTarget);
+    });
+  });
+};
+
 class DiaryClient {
   static init() {
     document.querySelector('#add-entry-form')
@@ -91,6 +123,7 @@ class DiaryClient {
         displayListEntries(response);
         addEventListenerToEditButton();
         addEventListenerToviewEntry();
+        addEventListenerToDeleteButton();
       })
       .catch((err) => {
         console.log(err);
@@ -120,6 +153,22 @@ class DiaryClient {
         if (response.message === 'success') {
           console.log(response);
           window.location.reload();
+        }
+      })
+      .catch(err => err);
+  }
+
+  static deleteEntry(id) {
+    const token = DiaryClient.checkToken();
+    const method = 'delete';
+    const url = `https://my-diary-dev.herokuapp.com/api/v1/entries/${id}`;
+    const data = {
+      token,
+    };
+    return makeNetworkRequest({ url, method, data })
+      .then((response) => {
+        if (response.message === 'success') {
+          return response;
         }
       })
       .catch(err => err);
@@ -186,7 +235,7 @@ const makeNetworkRequest = (input = { url: '', method: '', data: '' }) => {
     method: input.method,
     mode: 'cors',
   };
-  if (input.method === 'get') {
+  if (input.method === 'get' || input.method === 'delete') {
     reqObject.headers = {
       'content-type': 'application/json',
       'x-access-token': input.data.token,

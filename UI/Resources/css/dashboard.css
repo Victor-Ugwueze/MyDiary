@@ -112,7 +112,13 @@ header #top-bar{
   margin-left:3%;
   font-size: 14px;
 }
-
+.delete-icon{
+  position: absolute;
+  width: 48px;
+  left: 40%;
+  top: 70%;
+  height: 48px;
+}
 #left-section #logout .icon{
   margin-right: 3%;
 }
@@ -273,10 +279,11 @@ header #top-bar{
 }
 #view-single-diary .modal-content{
   margin-top: 12%;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 #confirm-delete .modal-body{
     margin-bottom: 100px;
+    position: relative;
 }
 #confirm-delete .modal-footer{
     width: 100%;
