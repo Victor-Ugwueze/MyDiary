@@ -10,6 +10,9 @@ const mountRouter = (app) => {
   app.use('/api/v1', entryController);
   app.use('/auth', userController);
   app.use('/', docsController);
+  app.get('/', (req, res) => {
+    res.redirect('/api-docs');
+  });
   app.get('*', (req, res) => {
     res.status(404).json({ message: 'sorry, page not found' });
   });
