@@ -315,8 +315,9 @@ class DiaryClient {
           const showEntryCount = document.querySelector('#entries_created');
           if (response.entries > 1) {
             showEntryCount.textContent = `${response.entries} entries created`;
+          } else {
+            showEntryCount.textContent = `${response.entries} entry created`;
           }
-          showEntryCount.textContent = `${response.entries} entry created`;
         }
       })
       .catch(err => err);
