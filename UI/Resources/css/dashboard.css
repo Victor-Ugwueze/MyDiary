@@ -62,6 +62,10 @@ header #top-bar{
   left: 50%;
   display: none;
 }
+.loading_spinner_edit{
+  margin-left: 30%;
+  display: none;
+}
 @keyframes animateleft {
   from {
     left: -200px;
@@ -356,6 +360,7 @@ header #top-bar{
     width: 100%;
     margin-left: auto;
     margin-right: auto;
+    margin-top: 20px;
 }
 #diary{
   background: #fff;
@@ -375,12 +380,14 @@ header #top-bar{
     display: flex;
 }
 .profile-details{
-    margin: 10px auto;
+    margin: 40px auto;
     display: flex;
     width: 80%;
+    justify-content: space-around;
     padding-top: 10px;
 }
 .profile-details>div{
+  width: 50%;
   border: 1px solid #ccc;
   background: #fff;
   border-radius: 4px;
@@ -590,6 +597,17 @@ header #top-bar{
     .menu-icon{
         display: inline-block;
     }
+    .profile-details{
+      flex-direction: column;
+    }
+    .profile-details>div{
+      width: 100%;
+      margin-left: auto;
+    }
+    .profile-details #total-entry-created{
+      margin-top: 20px;
+      margin-left: auto !important;
+    }
 }
 
 @media only screen and (max-width: 640px){
@@ -663,10 +681,6 @@ header #top-bar{
 
      .user-profile{
         flex-direction: column;
-    }
-    .profile-details{
-      flex-direction: column;
-      justify-content: center;
     }
     .user-profile #diary-entries{
         padding-top: 10px;

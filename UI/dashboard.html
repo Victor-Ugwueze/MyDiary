@@ -26,7 +26,7 @@
                     <div class="user-img">
                         <img class="profile-img" src="Resources/images/avatar.png" alt="">
                     </div>
-                    <span>Victor</span>
+                    <span id="menu-firstname">Victor</span>
                     <div class="dropdown-content">
                         <div class="arrow-up"></div>
                         <a href="#" >Logout</a>
@@ -60,7 +60,7 @@
           <li>
             <div class="nav-item-row nav-it get-profile" data-target="profile">
                 <img class="icon prof-page" src="Resources/images/icons/profile_icon_white.png">
-                <h3 class="text prof-page" role="tab" >Profile</h3>
+                <h3 class="text prof-page" role="tab">Profile</h3>
             </div>
           </li>
           <div id="logout" class="nav-item-row nav-it">
@@ -72,8 +72,8 @@
   </div>
   <div id="right-section">
     <section id="main-section">
-      <div class="error-flash">Welcome</div>
-      <div class="success-flash">go</div>
+      <!-- <div class="error-flash">Welcome</div>
+      <div class="success-flash">go</div> -->
       <div id="diary" class="dashboard-section tab-pane selected container">
           <div id="add-entry">
               <button class="btn btn-primary add-entry" data-target="add-new-entry">New Entry</button>
@@ -123,42 +123,42 @@
       </div>
       <div id="profile" class="profile-section tab-pane">
           <div class="user-profile">
-            <div id="account">
+            <!-- <div id="account">
                 <div class="picture">
-                    <img src="Resources/images/profile.jpg" id="profile-picture">
+                    <!-- <img src="Resources/images/profile.jpg" id="profile-picture">
                     <div id="upload-input-icon">
                         <img src="Resources/images/icons/add_photo_white.png">
-                        <input type="file" class="profile-upload" accept="image/*">
+                        <input type="file" class="profile-upload" accept="image/*"> 
                   </div>
                 </div>
-            </div>
+            </div> -->
               <div class="profile-details">
                 <div>
                   <h4>Profile Details</h4>
                     <div class="item">
                       <label for="firstname">First Name</label>
-                      <input id="firstname"  type="text" class="form-input" name="firstname" value="Victor">
+                      <input id="firstname"  type="text" class="form-input" name="firstname">
                     </div>
                     <div class="item">
                         <label for="lastname">Last Name</label>
-                      <input id="lastname"  type="text" class="form-input" name="firstname" value="Ugwueze">
+                      <input id="lastname"  type="text" class="form-input" name="lastname">
                     </div>
                     <div class="item">
                         <label for="email">Email</label>
-                        <input id="email"  type="text" class="form-input" name="firstname" value="victorugwueze@gmail.com">
+                        <input id="email"  type="text" class="form-input" name="email">
                     </div>
                     <div class="item">
                         <label for="location">Location</label>
-                        <input id="location"  type="text" class="form-input" name="firstname" value="Lagos,Nigeria">
+                        <input id="location"  type="text" class="form-input" name="location">
                     </div>
                     <button id="change-password" class="btn btn-primary">Change password</button>
                     <button id="save" class="btn btn-primary" disabled>Save</button>
                 </div>
                 <div id="total-entry-created">
                     <h4>Activity</h4>
-                    2 entries created
+                    <span id="entries_created"></span>
                     <div>
-                        <p class="joined date">Joined Jan, 2018</p>
+                        <p class="joined date">Joined <span id="date-registered"></span></p>
                     </div>
                 </div>
             </div> 
@@ -194,6 +194,7 @@
                     <div id="title"><h4>Edit Entry</h4></div>
                     <div class="close close-btn" data-target="edit-diary-entry">X</div>
                 </div>
+                <img src="Resources/images/loading_spinner.gif" class="loading_spinner_edit">
                 <form enctype="application/x-www-form-urlencoded"  id="edit-diary-entry-form">
                     <div class="form-row">
                         <div class="row">
@@ -218,12 +219,13 @@
                     </div>
                     <div class="close close-btn" data-target="view-single-diary">X</div>
                 </div>
+                <img src="Resources/images/loading_spinner.gif" class="loading_spinner_edit">
                 <div id="diary-content">
                     <h4></h4>
                     <p></p>
                 </div>
                 <div>
-                    <span class="date"></span>
+                   Cretated on: <span class="date"></span>
                 </div>
             </div>
         </div>

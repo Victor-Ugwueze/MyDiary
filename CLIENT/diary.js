@@ -1,6 +1,8 @@
 /* global SelectElement, modal */
 
 const spinner = document.querySelector('.loading_spinner');
+const spinnerEdit = document.querySelector('.loading_spinner_edit');
+
 
 // Populate Edit button
 const populateModalFoEdit = (targetEditButton, EditModal) => {
@@ -88,6 +90,24 @@ const addEventListenerToDeleteButton = () => {
     });
   });
 };
+const displayUserdetails = (userDetails) => {
+  const detailsContainer = document.querySelector('.profile-details');
+  const firstName = detailsContainer.querySelector("input[name='firstname']");
+  const lasttName = detailsContainer.querySelector("input[name='lastname']");
+  const email = detailsContainer.querySelector("input[name='email']");
+  const location = detailsContainer.querySelector("input[name='location']");
+  const joinedDate = document.querySelector('#date-registered');
+  const menuFirstName = document.querySelector('#menu-firstname');
+
+  joinedDate.textContent = new Date(userDetails.user.created_at).toDateString();
+  firstName.value = userDetails.user.first_name;
+  menuFirstName.textContent = userDetails.user.first_name;
+  lasttName.value = userDetails.user.last_name;
+  email.value = userDetails.user.email;
+  location.value = userDetails.user.location;
+  spinner.style.display = 'none';
+};
+
 
 class DiaryClient {
   static init() {
@@ -97,8 +117,10 @@ class DiaryClient {
       .addEventListener('submit', DiaryClient.updateEntry);
     document.querySelector('#logout')
       .addEventListener('click', DiaryClient.logout);
-    document.querySelector('.prof-page')
-      .addEventListener('click', DiaryClient.getUserDetails);
+    [...document.querySelectorAll('.prof-page')]
+      .forEach((profilemenu) => {
+        profilemenu.addEventListener('click', DiaryClient.getUserDetails);
+      });
     // document.querySelector('.get-profile')
     DiaryClient.getAllEntries();
   }
@@ -109,6 +131,7 @@ class DiaryClient {
   }
 
   static getAllEntries() {
+    spinner.style.display = 'block';
     const token = DiaryClient.checkToken();
     const method = 'get';
     const url = 'https://my-diary-dev.herokuapp.com/api/v1/entries';
@@ -126,9 +149,12 @@ class DiaryClient {
         addEventListenerToEditButton();
         addEventListenerToviewEntry();
         addEventListenerToDeleteButton();
+        DiaryClient.getUserDetails('main');
+        spinner.style.display = 'none';
       })
       .catch((err) => {
         console.log(err);
+        spinner.style.display = 'none';
       });
   }
 
@@ -179,6 +205,7 @@ class DiaryClient {
   }
 
   static getSingleEntry(id) {
+    spinnerEdit.style.display = 'block';
     const token = DiaryClient.checkToken();
     const method = 'get';
     const url = `https://my-diary-dev.herokuapp.com/api/v1/entries/${id}`;
@@ -186,12 +213,16 @@ class DiaryClient {
       token,
     };
     return makeNetworkRequest({ url, method, data })
-      .then((response) => {
+      .then((response)=> {
         if (response.message === 'success') {
+          spinnerEdit.style.display = 'none';
           return response;
         }
       })
-      .catch(err => err);
+      .catch((err) => {
+        spinnerEdit.style.display = 'none';
+        return err;
+      });
   }
 
   static updateEntry(event) {
@@ -233,10 +264,31 @@ class DiaryClient {
     return token;
   }
 
-  static getUserDetails() {
+  static getUserDetails(page) {
+    if (page !== 'main') {
+      spinner.style.display = 'block';
+    }
     const token = DiaryClient.checkToken();
     const method = 'get';
-    const url = 'http://localhost:3000/api/v1/users/profile';
+    const url = 'https://my-diary-dev.herokuapp.com/api/v1/users/profile';
+    const data = {
+      token,
+    };
+    makeNetworkRequest({ url, method, data })
+      .then((response) => {
+        if (response.message === 'success') {
+          console.log(response);
+          displayUserdetails(response);
+          DiaryClient.getNumberEntriesCeated();
+        }
+      })
+      .catch(err => err);
+  }
+
+  static updateProfile() {
+    const token = DiaryClient.checkToken();
+    const method = 'get';
+    const url = 'https://my-diary-dev.herokuapp.com/api/v1//users/profile';
     const data = {
       token,
     };
@@ -248,11 +300,31 @@ class DiaryClient {
       })
       .catch(err => err);
   }
+
+  static getNumberEntriesCeated() {
+    const token = DiaryClient.checkToken();
+    const method = 'get';
+    const url = 'https://my-diary-dev.herokuapp.com/api/v1/users/profile/entries';
+    const data = {
+      token,
+    };
+    makeNetworkRequest({ url, method, data })
+      .then((response) => {
+        if (response.message === 'success') {
+          console.log(response);
+          const showEntryCount = document.querySelector('#entries_created');
+          if (response.entries > 1) {
+            showEntryCount.textContent = `${response.entries} entries created`;
+          }
+          showEntryCount.textContent = `${response.entries} entry created`;
+        }
+      })
+      .catch(err => err);
+  }
 }
 
 
 const makeNetworkRequest = (input = { url: '', method: '', data: '' }) => {
-  spinner.style.display = 'block';
   const reqObject = {
     method: input.method,
     mode: 'cors',
@@ -271,10 +343,7 @@ const makeNetworkRequest = (input = { url: '', method: '', data: '' }) => {
     reqObject.body = JSON.stringify(input.data);
   }
   return fetch(input.url, reqObject)
-    .then((response) => {
-      spinner.style.display = 'none';
-      return response.json();
-    })
+    .then(response => response.json())
     .catch(err => err);
 };
 
