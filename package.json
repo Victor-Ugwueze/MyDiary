@@ -10,7 +10,7 @@
     "drop-test-table": "node --require babel-register server/helpers/table_schemas/dropTables",
     "test": "npm run drop-test-table && nyc --reporter=text --reporter=html mocha --require babel-register server/test/* --exit",
     "coverage": "nyc --reporter=html --reporter=text --reporter=lcov mocha --reporter spec --require babel-register server/test/* --exit",
-    "coveralls": "npm run coverage -- --report lcovonly && cat coverage/lcov.info | coveralls"
+    "coveralls": "npm run drop-test-table && npm run coverage -- --report lcovonly && cat coverage/lcov.info | coveralls"
   },
   "repository": {
     "type": "git",
