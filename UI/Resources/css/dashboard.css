@@ -387,11 +387,11 @@ header #top-bar{
     padding-top: 10px;
 }
 .profile-details>div{
-  width: 50%;
   border: 1px solid #ccc;
   background: #fff;
   border-radius: 4px;
   padding: 4px 4%;
+  width: 50%;
 }
 .profile-details .item:first-child{
   margin-top: 20px;
