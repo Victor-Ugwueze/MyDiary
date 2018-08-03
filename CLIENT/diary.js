@@ -1,5 +1,30 @@
 /* global SelectElement, modal */
 
+// Function used to make network request
+const makeNetworkRequest = (input = { url: '', method: '', data: '' }) => {
+  const reqObject = {
+    method: input.method,
+    mode: 'cors',
+  };
+  if (input.method === 'get' || input.method === 'delete') {
+    reqObject.headers = {
+      'content-type': 'application/json',
+      'x-access-token': input.data.token,
+      page: 1,
+      perPage: 5,
+    };
+  } else {
+    reqObject.headers = {
+      'content-type': 'application/json',
+    };
+    reqObject.body = JSON.stringify(input.data);
+  }
+  return fetch(input.url, reqObject)
+    .then(response => response.json())
+    .catch(err => err);
+};
+
+
 const spinner = document.querySelector('.loading_spinner');
 const spinnerEdit = document.querySelector('.loading_spinner_edit');
 
@@ -323,30 +348,6 @@ class DiaryClient {
       .catch(err => err);
   }
 }
-
-
-const makeNetworkRequest = (input = { url: '', method: '', data: '' }) => {
-  const reqObject = {
-    method: input.method,
-    mode: 'cors',
-  };
-  if (input.method === 'get' || input.method === 'delete') {
-    reqObject.headers = {
-      'content-type': 'application/json',
-      'x-access-token': input.data.token,
-      page: 1,
-      perPage: 5,
-    };
-  } else {
-    reqObject.headers = {
-      'content-type': 'application/json',
-    };
-    reqObject.body = JSON.stringify(input.data);
-  }
-  return fetch(input.url, reqObject)
-    .then(response => response.json())
-    .catch(err => err);
-};
 
 
 const bindEntryData = (entry) => {
