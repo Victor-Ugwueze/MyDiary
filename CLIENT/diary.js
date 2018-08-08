@@ -238,7 +238,7 @@ class DiaryClient {
       token,
     };
     return makeNetworkRequest({ url, method, data })
-      .then((response)=> {
+      .then((response) => {
         if (response.message === 'success') {
           spinnerEdit.style.display = 'none';
           return response;
@@ -364,7 +364,7 @@ const bindEntryData = (entry) => {
                           <h4 class="sing-diary-title diary-text">${EntryTitle}</h4>
                           <p class="sing-diary-body diary-text">${EntryBody}</p>
                       </div>
-                      <p class="created-at">12/18/2018</p>
+                      <p class="created-at">${entry.created_at}</p>
                       <a class="action">
                         <span data-id="diary-${entry.id}" data-target="edit-diary-entry" class="btn btn-primary action-edit">
                           <img class="diary-edit icon-edit" src="Resources/images/edit.png">
