@@ -4,5 +4,9 @@ import swaggerDocument from '../docs/swagger';
 
 const router = express.Router();
 
-router.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+const options = {
+  customCss: '.swagger-ui .topbar { display: none }',
+};
+
+router.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, options));
 export default router;
