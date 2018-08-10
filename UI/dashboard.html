@@ -17,19 +17,15 @@
       </div>
       <nav>
           <ul class="navbar">
-            <li id="notification-icon">
+            <div id="notification-icon">
               <img src="Resources/images/icons/notification_white_1.png">
               <span id="number-of-notifications">7</span>
-            </li>
-              <li class="nav-link" >
+            </div>
+              <li class="nav-link">
                   <div class="dropdown">
                     <div class="user-img">
                         <img class="profile-img" src="Resources/images/avatar.png" alt="">
-                    </div>
-                    <span id="menu-firstname">Victor</span>
-                    <div class="dropdown-content">
-                        <div class="arrow-up"></div>
-                        <a href="#" >Logout</a>
+                        <span id="menu-firstname"></span>
                     </div>
                   </div>
               </li>
@@ -72,8 +68,8 @@
   </div>
   <div id="right-section">
     <section id="main-section">
-      <!-- <div class="error-flash">Welcome</div>
-      <div class="success-flash">go</div> -->
+      <div class="error-flash">Welcome</div>
+      <div class="success-flash">go</div>
       <div id="diary" class="dashboard-section tab-pane selected container">
           <div id="add-entry">
               <button class="btn btn-primary add-entry" data-target="add-new-entry">New Entry</button>
@@ -221,12 +217,14 @@
                 </div>
                 <img src="Resources/images/loading_spinner.gif" class="loading_spinner_edit">
                 <div id="diary-content">
-                    <h4></h4>
+                   <h4></h4>
                     <p></p>
+                   <div class="date-row">
+                      <span class="date"></span>
+                   </div>
                 </div>
-                <div>
-                   Cretated on: <span class="date"></span>
-                </div>
+                
+               
             </div>
         </div>
         <div class="modal" id="confirm-delete">

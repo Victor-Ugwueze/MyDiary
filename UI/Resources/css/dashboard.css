@@ -19,7 +19,7 @@ header #top-bar{
     justify-content: space-between;
 }
 #top-bar nav{
-  min-width: 100px;
+  min-width: 200px;
 }
 #notification-icon{
   margin-top: 20px;
@@ -34,6 +34,7 @@ header #top-bar{
   color: white;
   padding: 2px 5px;
   left: 4%;
+  top: -4%;
   font-size: 12px;
 }
 #logo{
@@ -112,9 +113,18 @@ header #top-bar{
   align-items: center;
 }
 #left-section .nav-item-row .text{
-  margin-top: 15px;
+  margin-top: 25px;
   margin-left:3%;
-  font-size: 14px;
+  font-size: 12px;
+}
+#left-section .nav-item-row .icon{
+  width: 18px;
+  height: 18px;
+}
+
+#left-section .nav-item-row .icon img{
+  width: 18px;
+  height: 18px;
 }
 .delete-icon{
   position: absolute;
@@ -125,10 +135,11 @@ header #top-bar{
 }
 #left-section #logout .icon{
   margin-right: 3%;
+  margin-bottom: 25px;
 }
 #left-section #logout .icon img{
-  width: 18px;
-  height: 18px;
+  width: 16px;
+  height: 16px;
 }
 #left-section #logout{
   position: relative;
@@ -142,7 +153,7 @@ header #top-bar{
   line-height: 3.0625rem;
   vertical-align: middle;
   font-weight: 600;
-  font-size: 24px;
+  font-size: 12px;
 } 
 .menu-icon{
     display: none;
@@ -346,11 +357,16 @@ header #top-bar{
     color: var(--primary);
     text-decoration: underline;
 }
+.date-row{
+  margin-top: 50px;
+}
 .date{
     font-size: 14px;
 }
-
-
+.loading-indicator {
+  width: 20px;
+  height: 20px;
+}
 .dashboard-section{
     width: 80%;
     margin-left: auto;
@@ -501,13 +517,14 @@ header #top-bar{
 }
 .dropdown .user-img{
  display: inline;
+ position: relative;
  margin-right: 60px;
 }
 
-.dropdown>span{
+.user-img span{
   position: absolute;
-  top: 25%;
-  right: 10%;
+  top: -50%;
+  left: 100%;
 }
 .dropdown-content{
     width: 55px;
