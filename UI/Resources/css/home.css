@@ -1,10 +1,9 @@
 header{
     min-height: 100vh;
+    padding-bottom: 0;
+    position: relative;
 }
 
-header{
-    padding-bottom: 0;
-}
 header .container-fluid{
     min-height: 5vw;
     background: #fff;
@@ -14,6 +13,13 @@ header .container-fluid{
     display: flex;
     z-index: 1;
     justify-content: space-between;
+}
+.loading-indicator {
+  width: 64px;
+  display: none;
+  height: 56px;
+  position: absolute;
+  left: 50%;
 }
 header .brand{
     display: flex;
@@ -150,10 +156,11 @@ footer{
   }
 }
 
-#erro-flag{
-  color: red;
-  display: none;
-  text-align: center;
+.show-error{
+  display: block !important;
+}
+.hide-error{
+  display: none !important;
 }
 .input-error-border{
   border: 2px solid red !important;
@@ -161,6 +168,7 @@ footer{
 .errors {
   color: red;
   text-align: center;
+  display: block;
 }
 
 @media only screen and (max-width: 890px){

@@ -6,44 +6,51 @@ const redirect = (response) => {
   }
 };
 
-const hideErrors = () => {
-  [...document.querySelectorAll('.errors')]
-    .forEach((inputField) => {
-      inputField.nextElementSibling.addEventListener('focus', (event) => {
-        inputField.classList.toggle('show');
-        event.target.classList.toggle('input-error-border');
-      });
-    });
+const hideErrors = (form, inputField, errorFlag) => {
+  inputField.addEventListener('focus', (event) => {
+    errorFlag.classList.add('hide-error');
+    event.target.classList.remove('input-error-border');
+  });
 };
 
 const showErrors = (errors, action) => {
   // const errorFlag = document.querySelector('#erro-flag');
-  const emailError = document.querySelector('#email-error');
-  const singupError = document.querySelector('#signup-error');
-
+  const loginErrorFlag = document.querySelector('#email-error');
+  const singupErrorFlag = document.querySelector('#signup-error');
   if (action === 'login') {
-    if (errors.email) {
-      emailError.textContent = errors.email;
-      const inputField = emailError.nextElementSibling;
-      inputField.classList.toggle('input-error-border');
-      hideErrors();
-    }
+    const fieldError = errors[0][1];
+    loginErrorFlag.textContent = fieldError;
+    loginErrorFlag.classList.remove('hide-error');
+    loginErrorFlag.classList.add('show-error');
+    const inputField = document.querySelector(`#login input[name=${errors[0][0]}]`);
+    inputField.classList.add('input-error-border');
+    hideErrors('login', inputField, loginErrorFlag);
   } else if (action === 'signup') {
     const fieldError = errors[0][1];
-    singupError.textContent = `${fieldError.toLowerCase()} `;
-    console.log(errors);
+    singupErrorFlag.textContent = fieldError;
+    singupErrorFlag.classList.remove('hide-error');
+    singupErrorFlag.classList.add('show-error');
+    const inputField = document.querySelector(`#signup input[name=${errors[0][0]}]`);
+    inputField.classList.add('input-error-border');
+    hideErrors('signup', inputField, singupErrorFlag);
   }
-
-  if (action === 'response') {
-    emailError.textContent = errors.message;
+  if (action === 'loginResponse') {
+    loginErrorFlag.classList.remove('hide-error');
+    loginErrorFlag.classList.add('show-error');
+    loginErrorFlag.textContent = errors.message;
   }
-  if (action === 'signup') {
-    emailError.textContent = errors.message;
+  if (action === 'singupResponse') {
+    singupErrorFlag.classList.remove('hide-error');
+    singupErrorFlag.classList.add('show-error');
+    singupErrorFlag.textContent = errors.message;
   }
 };
 
 
 const MakeNetworkRequest = (input = { url: '', method: '', data: '' }) => {
+  const serverErrors = [404, 400, 401, 422, 419, 200, 201];
+  const loadingIndicator = document.querySelector('.loading-indicator');
+  loadingIndicator.style.display = 'block';
   const reqObject = {
     method: input.method,
     mode: 'cors',
@@ -61,8 +68,20 @@ const MakeNetworkRequest = (input = { url: '', method: '', data: '' }) => {
     reqObject.body = JSON.stringify(input.data);
   }
   return fetch(input.url, reqObject)
-    .then(response => response.json())
-    .catch(err => err);
+    .then((response) => {
+      loadingIndicator.style.display = 'none';
+      if (serverErrors.indexOf(response.status) === -1) {
+        throw new Error(response);
+      } else {
+        console.log(response);
+        return response.json();
+      }
+    })
+    .catch((err) => {
+      console.log(err.message);
+      loadingIndicator.style.display = 'none';
+      throw new Error('Problem loading request');
+    });
 };
 
 const getFormInput = (input, action) => {
@@ -116,7 +135,7 @@ const validateInput = (data) => {
       errors[key] = `Please enter a valid ${key}`;
     }
   });
-  if (fields[3].password !== fields[4].confirmPassword) {
+  if (fields[3].password !== fields[4].confirmPassword && fields[4].confirmPassword) {
     errors.password = "password dosen't match";
   }
   return errors;
@@ -135,8 +154,8 @@ class AuthClient {
       const url = 'https://my-diary-dev.herokuapp.com/auth/login';
       const data = getFormInput(event.target);
       const errors = validateInput(data);
-      if (errors.length > 0) {
-        showErrors(errors, 'login');
+      if (Object.entries(errors).length > 0) {
+        showErrors(Object.entries(errors), 'login');
         return;
       }
       const method = 'post';
@@ -145,11 +164,14 @@ class AuthClient {
           if (response.message === 'success') {
             redirect(response);
           } else {
-            showErrors(response, 'response');
+            console.log(response);
+            showErrors(response, 'loginResponse');
           }
         })
         .catch((err) => {
           console.log(err);
+          const errorMeaage = { message: `${err.message}, please check your network connection and try again` };
+          showErrors(errorMeaage, 'loginResponse');
         });
     });
   }
@@ -170,13 +192,16 @@ class AuthClient {
       MakeNetworkRequest({ url, method, data })
         .then((response) => {
           if (response.message === 'success') {
-            redirect(response); // Successful sign up should redirect to dashboard
+            redirect(response);
           } else {
-            showErrors(response, 'response');
+            console.log(response);
+            showErrors(response, 'singupResponse');
           }
         })
         .catch((err) => {
           console.log(err);
+          const errorMeaage = { message: `${err.message}, please check your network connection and try again` };
+          showErrors(errorMeaage, 'singupResponse');
         });
     });
   }
