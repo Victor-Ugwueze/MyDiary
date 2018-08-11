@@ -1,5 +1,5 @@
 import pool from '../helpers/dbHelper';
-import formartEntry from '../helpers/entryHelper';
+import { formatEntryDate, trimeSpaces } from '../helpers/entryHelper';
 
 class Entry {
   constructor() {
@@ -17,7 +17,7 @@ class Entry {
     return this.pool.query(query)
       .then((result) => {
         if (result.rows[0]) {
-          return formartEntry(result.rows[0]);
+          return formatEntryDate(result.rows[0]);
         }
         return false;
       })
@@ -29,7 +29,8 @@ class Entry {
       text: `UPDATE entries SET title = $1, 
       body = $2 WHERE user_id = $3 and id = $4 
       `,
-      values: [request.body.title, request.body.body, this.userId, request.params.id],
+      values: [trimeSpaces(request.body.title),
+        trimeSpaces(request.body.body), this.userId, request.params.id],
     };
     let date = null;
     this.find(request.params.id)
@@ -69,11 +70,9 @@ class Entry {
       query.text = 'SELECT * FROM entries where user_id = $1 ORDER BY DESC LIMIT $2 OFFSET $3';
       query.values = [this.userId, entryPerPage, start];
     }
-
-
     return this.pool.query(query)
       .then((result) => {
-        const entries = result.rows.map(entry => formartEntry(entry));
+        const entries = result.rows.map(entry => formatEntryDate(entry));
         return entries;
       })
       .catch(err => err);
@@ -83,7 +82,7 @@ class Entry {
   save(input) {
     const query = {
       text: 'INSERT INTO entries (title,body,user_id) VALUES($1, $2, $3) RETURNING id,title,body,created_at',
-      values: [input.title, input.body, input.userId],
+      values: [trimeSpaces(input.title), trimeSpaces(input.body), input.userId],
     };
 
     return this.pool.query(query)
@@ -99,20 +98,6 @@ class Entry {
     return this.pool.query(query)
       .then(result => result)
       .catch(err => err);
-  }
-
-  findWere(condition) {
-    const query = `${condition}`;
-    const thisObj = this;
-    return new Promise((resolve, reject) => {
-      thisObj.pool.query(query)
-        .then((result) => {
-          resolve(result);
-        })
-        .catch((err) => {
-          reject(err);
-        });
-    });
   }
 }
 

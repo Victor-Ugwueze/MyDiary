@@ -9,4 +9,9 @@ const formatEntryDate = (entry) => {
   return formatedEntry;
 };
 
-export default formatEntryDate;
+const trimeSpaces = (input) => {
+  const trimedString = input.replace(/^\s+|\s+$/g, '');
+  return trimedString;
+};
+
+export { formatEntryDate, trimeSpaces };

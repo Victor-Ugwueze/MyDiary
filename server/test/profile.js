@@ -15,7 +15,7 @@ describe('User Profile Details', () => {
   const tokenObjec = {};
   before((done) => {
     const user = {
-      email: 'test9@gmail.com',
+      email: 'test999@gmail.com',
       password: 'test123',
     };
     chai.request(server)
@@ -36,8 +36,8 @@ describe('User Profile Details', () => {
           res.should.have.status(200);
           res.body.should.be.a('object');
           res.body.should.have.property('user').be.a('object');
-          res.body.user.should.have.property('email').eql('test9@gmail.com');
-          res.body.should.have.property('message').eql('success');
+          res.body.user.should.have.property('email').eql('test999@gmail.com');
+          res.body.should.have.property('status').eql('Success');
           done();
         });
     });
@@ -51,7 +51,7 @@ describe('User Profile Details', () => {
         .end((err, res) => {
           res.should.have.status(200);
           res.body.should.be.a('object');
-          res.body.should.have.property('message').eql('success');
+          res.body.should.have.property('status').eql('Success');
           res.body.should.have.property('entries').eql(0);
           done();
         });
@@ -59,22 +59,22 @@ describe('User Profile Details', () => {
   });
 
   describe('GET /api/v1/users/profile', () => {
-    it('Should get user profile /api/v1/users/profile', (done) => {
+    it('Should update user profile /api/v1/users/profile', (done) => {
       chai.request(server)
-        .post('/api/v1/users/profile')
+        .put('/api/v1/users/profile')
         .send({
           token: tokenObjec.token,
-          firstName: 'gozman',
+          firstName: 'gozmanU',
           lastName: 'chigozie',
-          email: 'test9@gmail.com',
+          email: 'test999@gmail.com',
           location: 'Lagos Nigeria',
         })
         .end((err, res) => {
           res.should.have.status(200);
           res.body.should.be.a('object');
           res.body.should.have.property('user').be.a('object');
-          res.body.user.should.have.property('rowCount').eql(1);
-          res.body.should.have.property('message').eql('success');
+          res.body.user.should.have.property('first_name').eql('gozmanU');
+          res.body.should.have.property('status').eql('Success');
           done();
         });
     });
