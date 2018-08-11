@@ -60,7 +60,12 @@ class User {
   updateUser(request) {
     const id = this.userId;
     const query = {
-      text: 'UPDATE users SET first_name = $1, last_name = $2, email = $3, location = $4 WHERE id = $5',
+      text: `UPDATE users 
+      SET first_name = $1, 
+      last_name = $2, 
+      email = $3, 
+      location = $4 WHERE id = $5
+       RETURNING first_name, last_name, email, created_at, location`,
       values: [
         request.body.firstName,
         request.body.lastName,

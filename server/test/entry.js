@@ -15,7 +15,7 @@ describe('Entries', () => {
   const tokenObjec = {};
   before((done) => {
     const user = {
-      email: 'test9@gmail.com',
+      email: 'test999@gmail.com',
       password: 'test123',
     };
     chai.request(server)
@@ -48,7 +48,7 @@ describe('Entries', () => {
           req.body.should.have.property('createdEntry').be.a('object');
           req.body.createdEntry.should.have.property('title').not.eql('');
           req.body.createdEntry.should.have.property('id').be.a('number');
-          req.body.should.have.property('message').eql('success');
+          req.body.should.have.property('message').eql('Entry created');
           done(err);
         });
     });
@@ -97,21 +97,22 @@ describe('Entries', () => {
           res.should.have.status(200);
           res.body.should.be.a('object');
           res.body.should.have.property('entries').be.a('array');
-          res.body.should.have.property('message').eql('success');
+          res.body.entries[0].should.have.property('title').eql('The man');
+          res.body.should.have.property('status').eql('success');
           done();
         });
     });
   });
 
   describe('GEt /api/entries/:id', () => {
-    it('Should not get a book with id not equall to request id', (done) => {
+    it('Should not get an entry with id not equall to request id', (done) => {
       const id = 100;
       chai.request(server)
         .get(`/api/v1/entries/${id}`)
         .send({ token: tokenObjec.token })
         .end((err, res) => {
           res.should.have.status(404);
-          res.body.should.property('message').eql('entry not found');
+          res.body.should.property('message').eql('Entry not found');
           done();
         });
     });
@@ -124,7 +125,7 @@ describe('Entries', () => {
         .end((err, res) => {
           res.should.have.status(200);
           res.body.should.be.a('object');
-          res.body.should.have.property('message').eql('success');
+          res.body.should.have.property('status').eql('success');
           done();
         });
     });
@@ -144,8 +145,8 @@ describe('Entries', () => {
         .end((err, req) => {
           req.should.have.status(200);
           req.body.should.be.a('object');
-          req.body.should.have.property('message').eql('success');
-          console.log(req.body);
+          req.body.should.have.property('status').eql('success');
+          req.body.should.have.property('message').eql('Entry updated successfully');
           done(err);
         });
     });
@@ -163,7 +164,7 @@ describe('Entries', () => {
         .end((err, req) => {
           req.should.have.status(404);
           req.body.should.be.a('object');
-          req.body.should.have.property('message').eql('entry not found');
+          req.body.should.have.property('message').eql('Entry not found');
           done(err);
         });
     });
@@ -176,11 +177,12 @@ describe('Entries', () => {
       };
       chai.request(server)
         .put(`/api/v1/entries/${id}`)
-        .send(entry) // tying to update entry with empty value
+        .send(entry) // tying to update entry with tile field missing
         .end((err, req) => {
           req.should.have.status(422);
           req.body.should.be.a('object');
-          req.body.should.have.property('message').eql('failed');
+          req.body.should.have.property('message').eql('Title is required');
+          req.body.should.have.property('status').eql('failed');
           done(err);
         });
     });
@@ -195,7 +197,7 @@ describe('Entries', () => {
         .end((err, req) => {
           req.should.have.status(404);
           req.body.should.be.a('object');
-          req.body.should.have.property('message').eql('entry not found');
+          req.body.should.have.property('message').eql('Entry not found');
           done(err);
         });
     });
@@ -208,7 +210,7 @@ describe('Entries', () => {
         .end((err, req) => {
           req.should.have.status(200);
           req.body.should.be.a('object');
-          req.body.should.have.property('message').eql('success');
+          req.body.should.have.property('status').eql('success');
           done(err);
         });
     });
