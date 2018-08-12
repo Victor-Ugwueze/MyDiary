@@ -147,7 +147,7 @@ class DiaryClient {
       .forEach((profilemenu) => {
         profilemenu.addEventListener('click', DiaryClient.getUserDetails);
       });
-    DiaryClient.getAllEntries();
+    DiaryClient.getAllEntries(1);
   }
 
   static logout() {
@@ -155,11 +155,11 @@ class DiaryClient {
     window.location.href = 'index.html';
   }
 
-  static getAllEntries() {
+  static getAllEntries(currentPage) {
     spinner.style.display = 'block';
     const token = DiaryClient.checkToken();
     const method = 'get';
-    const url = 'https://my-diary-dev.herokuapp.com/api/v1/entries';
+    const url = `https://my-diary-dev.herokuapp.com/api/v1/entries?page=${currentPage}&perPage=${5}`;
     const data = {
       token,
     };
@@ -207,8 +207,7 @@ class DiaryClient {
     };
     makeNetworkRequest({ url, method, data })
       .then((response) => {
-        if (response.message === 'success') {
-          console.log(response);
+        if (response.status === 'success') {
           window.location.reload();
         }
       })
@@ -326,7 +325,6 @@ class DiaryClient {
     makeNetworkRequest({ url, method, data })
       .then((response) => {
         if (response.status === 'Success') {
-          console.log(response);
           const showEntryCount = document.querySelector('#entries_created');
           if (page !== 'main') {
             if (response.entries > 1) {
@@ -339,12 +337,49 @@ class DiaryClient {
             }
           }
         }
+        document.querySelector('#entryCount').value = response.entries;
+        DiaryClient.paginateListEntry();
       })
       .catch(err => err);
   }
+
+  static paginateListEntry() {
+    const rowCount = document.querySelector('#entryCount').value;
+    const paginationContainer = document.querySelector('.pagination');
+    // const firstPage= paginationContainer.querySelector('.page-1');
+    loadPageNumbers(paginationContainer, rowCount);
+  }
 }
 
+const loadPageNumbers = (paginationContainer, count) => {
+  let i = 1;
+  let rowCount = count;
+  const container = paginationContainer;
+  container.innerHTML = '<a href="#" id="prev">&laquo;</a>';
+  container.innerHTML += `<a id="${1}"href="#" class="page-1 active">1</a>`;
+  while (rowCount > 5) {
+    rowCount -= 5;
+    i += 1;
+    container.innerHTML += `<a id="${i}" href="#" class="page-${i}">${i}</a>`;
+  }
+  if (rowCount > 5) {
+    i += 1;
+    container.innerHTML += `<a id="${i}" href="#" class="page-${i}">${i}</a>`;
+  }
+  container.innerHTML += '<a href="#" id="next">&raquo;</a>';
+  addEventListenerTopaginate(container);
+};
 
+const addEventListenerTopaginate = (paginationContainer) => {
+  const container = paginationContainer;
+  const pagesButton = container.querySelectorAll('a');
+  [...pagesButton].forEach((button) => {
+    button.addEventListener('click', (event) => {
+      event.preventDefault();
+      DiaryClient.getAllEntries(event.target.id);
+    });
+  });
+};
 const bindEntryData = (entry) => {
   let EntryTitle = entry.title;
   let EntryBody = entry.body;
@@ -383,6 +418,5 @@ const displayListEntries = (response) => {
   });
 };
 // Add EventListener to element after loading
-
 
 DiaryClient.init();

@@ -13,7 +13,7 @@ class LoginForm {
 
   bindDomVars() {
     [...this.selectLogin].forEach((loginTuggleButton) => {
-      loginTuggleButton.addEventListener('click',this.changeForm)
+      loginTuggleButton.addEventListener('click', this.changeForm);
     });
   }
 
@@ -22,13 +22,13 @@ class LoginForm {
     const  hideFormElement = document.querySelector('.modal .active');
     SelectElement(event.target, [hideFormElement],'active'); 
     
-  //  Select Tab content
+  // Select Tab content
     const elements = document.querySelectorAll('.modal .tab-pane');
     const elementToshow = document.querySelector("#"+event.target.dataset.target);
     SelectElement(elementToshow,[...elements],'selected');
     }
 
-    showLoginModal(){
+    showLoginModal() {
       [...document.querySelectorAll('.nav-link')].forEach((element)=>{
         element.addEventListener('click', (event) => {
           const showModalButton = event.target.parentNode;
@@ -46,26 +46,25 @@ class LoginForm {
     })
   }
 
-    closeLoginForm() {
-        // Click outside modal to close it
-      document.addEventListener('click', (event) => {
-        const loginmodal = document.querySelector('#sign-up-login');
-        if(event.target === loginmodal){
-          modal.hide(loginmodal, 'show');
-        }
-      })
-    }
+  closeLoginForm() {
+      // Click outside modal to close it
+    document.addEventListener('click', (event) => {
+      const loginmodal = document.querySelector('#sign-up-login');
+      if(event.target === loginmodal){
+        modal.hide(loginmodal, 'show');
+      }
+    })
+  }
 
 }
 
 new LoginForm();
 
 
-//Toggle menu bar
+// Toggle menu bar
 
 const iconbar = document.querySelector('.icon-bar');
 iconbar.addEventListener('click', () => {
-    const naMenu = document.querySelector('header nav');
-    naMenu.classList.toggle('show');
-
-})
+  const naMenu = document.querySelector('header nav');
+  naMenu.classList.toggle('show');
+});
