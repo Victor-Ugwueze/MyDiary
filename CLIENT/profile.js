@@ -1,4 +1,4 @@
-/* global validateInput, displayUserdetails, hideErrors */
+/* global validateInput, displayUserdetails, hideErrors, getFormInput */
 
 
 const showErrors = (errors, action) => {
@@ -63,21 +63,6 @@ const MakeNetworkRequest = (input = { url: '', method: '', data: '' }) => {
       loadingIndicator.style.display = 'none';
       throw new Error('Problem loading request');
     });
-};
-
-const getFormInput = (input, action) => {
-  const formInput = new FormData(input);
-  const data = {
-    firstName: formInput.get('firstName'),
-    lastName: formInput.get('lastName'),
-    email: formInput.get('email'),
-    location: formInput.get('location'),
-    currentPassword: formInput.get('currentPassword'),
-    password: formInput.get('password'),
-    confirmPassword: formInput.get('confirmPassword'),
-    action,
-  };
-  return data;
 };
 
 
