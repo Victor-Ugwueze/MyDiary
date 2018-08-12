@@ -130,25 +130,27 @@
             </div> -->
               <div class="profile-details">
                 <div>
+                  <form enctype="application/x-www-form-urlencoded"  id="update-profiele">
                   <h4>Profile Details</h4>
                     <div class="item">
                       <label for="firstname">First Name</label>
-                      <input id="firstname"  type="text" class="form-input" name="firstname">
+                      <input id="firstname"  type="text" class="form-input" name="firstName">
                     </div>
                     <div class="item">
                         <label for="lastname">Last Name</label>
-                      <input id="lastname"  type="text" class="form-input" name="lastname">
+                      <input id="lastname"  type="text" class="form-input" name="lastName">
                     </div>
                     <div class="item">
                         <label for="email">Email</label>
-                        <input id="email"  type="text" class="form-input" name="email">
+                        <input id="email"  type="email" class="form-input" name="email">
                     </div>
                     <div class="item">
                         <label for="location">Location</label>
                         <input id="location"  type="text" class="form-input" name="location">
                     </div>
-                    <button id="change-password" class="btn btn-primary">Change password</button>
-                    <button id="save" class="btn btn-primary" disabled>Save</button>
+                    <button data-target="update-password" type="button" class="btn btn-primary change-password">Change password</button>
+                    <button id="save" type="submit" class="btn btn-primary" disabled>Save</button>
+                  </form>
                 </div>
                 <div id="total-entry-created">
                     <h4>Activity</h4>
@@ -215,10 +217,10 @@
                     </div>
                     <div class="close close-btn" data-target="view-single-diary">X</div>
                 </div>
-                <img src="Resources/images/loading_spinner.gif" class="loading_spinner_edit">
                 <div id="diary-content">
                    <h4></h4>
-                    <p></p>
+                   <textarea name="body" id="body" cols="30" rows="10" disabled></textarea>
+                   <!-- <img src="Resources/images/loading_spinner.gif" class="loading_spinner_edit"> -->
                    <div class="date-row">
                       <span class="date"></span>
                    </div>
@@ -243,9 +245,33 @@
                     </div>
                 </div>
             </div>
+        <!-- Change password modal -->
+          <div class="modal" id="update-password">
+              <div class="modal-content col-2">
+                  <div class="modal-heading row">
+                      <div id="title"><h4>Change password</h4></div>
+                      <div class="close close-btn" data-target="update-password">X</div>
+                  </div>
+                <form enctype="application/x-www-form-urlencoded"  id="change-password">
+                    <div class="item">
+                      <label for="firstname">Current password</label>
+                      <input id="firstname"  type="password" class="form-input" name="currentPassword">
+                    </div>
+                    <div class="item">
+                        <label for="lastname">New password</label>
+                      <input id="lastname"  type="password" class="form-input" name="password">
+                    </div>
+                    <div class="item">
+                        <label for="lastname">New password</label>
+                      <input id="lastname"  type="password" class="form-input" name="confirmPassword">
+                    </div>
+                    <button id="save" type="submit" class="btn btn-primary">Change</button>
+                  </form>
+          </div>
     </section>
     <script src="Resources/js/app.js"></script>
     <script src="Resources/js/dashboard.js"></script>
     <script src="../CLIENT/diary.js"></script>
+    <script src="../CLIENT/profile.js"></script>
 </body>
 </html>

@@ -42,6 +42,13 @@ newEntrybuttons.forEach((button) => {
   });
 });
 
+// show change password modal
+const changePasswordButton = document.querySelector('.change-password');
+changePasswordButton.addEventListener('click', (event) => {
+  const modalToshow = document.querySelector(`#${event.target.dataset.target}`);
+  SelectElement(modalToshow, null, 'show');
+});
+
 
 const closeModal = (event) => {
   const modalToshow = document.querySelector(`#${event.target.dataset.target}`);

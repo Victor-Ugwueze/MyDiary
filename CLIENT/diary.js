@@ -30,16 +30,16 @@ const spinnerEdit = document.querySelector('.loading_spinner_edit');
 
 
 // Populate Edit button
-const populateModalFoEdit = (targetEditButton, EditModal) => {
+const populateModalFoEdit = (targetEditButton, editModal) => {
   DiaryClient.getSingleEntry(targetEditButton.dataset.id.split('-')[1])
     .then((entry) => {
       // get refrence to modal and ppulate conten
-      const editModalTitle = EditModal.querySelector('#diary-title');
-      const editModalBody = EditModal.querySelector('#diary-body');
-      const entryInputId = EditModal.querySelector('#entry-id');
-      editModalTitle.value = entry.result.title;
-      editModalBody.textContent = entry.result.body;
-      entryInputId.value = entry.result.id;
+      const editModalTitle = editModal.querySelector('#diary-title');
+      const editModalBody = editModal.querySelector('#diary-body');
+      const entryInputId = editModal.querySelector('#entry-id');
+      editModalTitle.value = entry.dairyEntry.title;
+      editModalBody.textContent = entry.dairyEntry.body;
+      entryInputId.value = entry.dairyEntry.id;
     });
 };
 
@@ -61,13 +61,14 @@ const showDiaryEntry = (containerDiv) => {
   const viewEntryModal = document.querySelector(`#${containerDiv.dataset.target}`);
   // get refrence to elements
   const titleContainer = viewEntryModal.querySelector('#diary-content h4');
-  const bodyContainer = viewEntryModal.querySelector('#diary-content p');
+  const bodyContainer = viewEntryModal.querySelector('#diary-content #body');
   const dateContainer = viewEntryModal.querySelector('.date');
   DiaryClient.getSingleEntry(itemId)
     .then((response) => {
-      titleContainer.textContent = response.result.title;
-      bodyContainer.textContent = response.result.body;
-      dateContainer.textContent = new Date(response.result.created_at).toDateString();
+      console.log(dateContainer);
+      titleContainer.textContent = response.dairyEntry.title;
+      bodyContainer.textContent = response.dairyEntry.body;
+      dateContainer.textContent = new Date(response.dairyEntry.created_at).toDateString();
     })
     .catch(() => {
 
@@ -117,8 +118,8 @@ const addEventListenerToDeleteButton = () => {
 };
 const displayUserdetails = (userDetails) => {
   const detailsContainer = document.querySelector('.profile-details');
-  const firstName = detailsContainer.querySelector("input[name='firstname']");
-  const lasttName = detailsContainer.querySelector("input[name='lastname']");
+  const firstName = detailsContainer.querySelector("input[name='firstName']");
+  const lasttName = detailsContainer.querySelector("input[name='lastName']");
   const email = detailsContainer.querySelector("input[name='email']");
   const location = detailsContainer.querySelector("input[name='location']");
   const joinedDate = document.querySelector('#date-registered');
@@ -146,7 +147,6 @@ class DiaryClient {
       .forEach((profilemenu) => {
         profilemenu.addEventListener('click', DiaryClient.getUserDetails);
       });
-    // document.querySelector('.get-profile')
     DiaryClient.getAllEntries();
   }
 
@@ -168,7 +168,7 @@ class DiaryClient {
         console.log(response);
         //  updatePaginate(response);
         if (response.err === 'Session expired') {
-          window.location.href = 'index.html';
+          DiaryClient.logout();
         }
         displayListEntries(response);
         addEventListenerToEditButton();
@@ -190,7 +190,9 @@ class DiaryClient {
     const inputData = new FormData(event.target);
     const title = inputData.get('title');
     const body = inputData.get('body');
-    const regx = /[0-9]/;
+    // console.log(body);
+    // /^[0-9]+$/
+    const regx = /^[0-9]/;
     if (title === '' || regx.test(title) || regx.test(body) || body === '') {
       console.log('yes');
       return;
@@ -239,7 +241,7 @@ class DiaryClient {
     };
     return makeNetworkRequest({ url, method, data })
       .then((response) => {
-        if (response.message === 'success') {
+        if (response.status === 'success') {
           spinnerEdit.style.display = 'none';
           return response;
         }
@@ -258,7 +260,7 @@ class DiaryClient {
     const id = form.get('entry-id');
     const title = form.get('title');
     const body = form.get('body');
-    const regx = /[0-9]/;
+    const regx = /^[0-9]/;
     if (title === '' || regx.test(title) || regx.test(body) || body === '') {
       console.log('yes');
       return;
@@ -301,32 +303,20 @@ class DiaryClient {
     };
     makeNetworkRequest({ url, method, data })
       .then((response) => {
-        if (response.message === 'success') {
-          console.log(response);
-          displayUserdetails(response);
-          DiaryClient.getNumberEntriesCeated();
+        if (response.status === 'Success') {
+          if (page === 'main') {
+            const menuFirstName = document.querySelector('#menu-firstname');
+            menuFirstName.textContent = response.user.first_name;
+          } else {
+            displayUserdetails(response);
+          }
+          DiaryClient.getNumberEntriesCeated(page);
         }
       })
       .catch(err => err);
   }
 
-  static updateProfile() {
-    const token = DiaryClient.checkToken();
-    const method = 'get';
-    const url = 'https://my-diary-dev.herokuapp.com/api/v1//users/profile';
-    const data = {
-      token,
-    };
-    makeNetworkRequest({ url, method, data })
-      .then((response) => {
-        if (response.message === 'success') {
-          console.log(response);
-        }
-      })
-      .catch(err => err);
-  }
-
-  static getNumberEntriesCeated() {
+  static getNumberEntriesCeated(page) {
     const token = DiaryClient.checkToken();
     const method = 'get';
     const url = 'https://my-diary-dev.herokuapp.com/api/v1/users/profile/entries';
@@ -335,13 +325,18 @@ class DiaryClient {
     };
     makeNetworkRequest({ url, method, data })
       .then((response) => {
-        if (response.message === 'success') {
+        if (response.status === 'Success') {
           console.log(response);
           const showEntryCount = document.querySelector('#entries_created');
-          if (response.entries > 1) {
-            showEntryCount.textContent = `${response.entries} entries created`;
-          } else {
-            showEntryCount.textContent = `${response.entries} entry created`;
+          if (page !== 'main') {
+            if (response.entries > 1) {
+              showEntryCount.textContent = ` You have created ${response.entries} entries`;
+            } else if (response.entries === 1) {
+              showEntryCount.textContent = ` You have created ${response.entries} entry`;
+            } else {
+              showEntryCount.innerHTML = `You haven't created an entry, <br> 
+              Start creating entry now.`;
+            }
           }
         }
       })

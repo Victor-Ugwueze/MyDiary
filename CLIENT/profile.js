@@ -1,17 +1,5 @@
+/* global validateInput, displayUserdetails, hideErrors */
 
-const redirect = (response) => {
-  if (response.token) {
-    localStorage.setItem('token', response.token);
-    window.location.href = 'dashboard.html';
-  }
-};
-
-const hideErrors = (form, inputField, errorFlag) => {
-  inputField.addEventListener('focus', (event) => {
-    errorFlag.classList.add('hide-error');
-    event.target.classList.remove('input-error-border');
-  });
-};
 
 const showErrors = (errors, action) => {
   // const errorFlag = document.querySelector('#erro-flag');
@@ -46,27 +34,20 @@ const showErrors = (errors, action) => {
   }
 };
 
-
 const MakeNetworkRequest = (input = { url: '', method: '', data: '' }) => {
   const serverErrors = [404, 400, 401, 422, 419, 200, 201];
-  const loadingIndicator = document.querySelector('.loading-indicator');
+  const loadingIndicator = document.querySelector('.loading_spinner');
   loadingIndicator.style.display = 'block';
   const reqObject = {
     method: input.method,
     mode: 'cors',
-  };
-
-  if (input.method === 'get') {
-    reqObject.headers = {
+    headers: {
       'content-type': 'application/json',
       'x-access-token': input.data.token,
-    };
-  } else {
-    reqObject.headers = {
-      'content-type': 'application/json',
-    };
-    reqObject.body = JSON.stringify(input.data);
-  }
+    },
+    body: JSON.stringify(input.data),
+  };
+
   return fetch(input.url, reqObject)
     .then((response) => {
       loadingIndicator.style.display = 'none';
@@ -90,6 +71,8 @@ const getFormInput = (input, action) => {
     firstName: formInput.get('firstName'),
     lastName: formInput.get('lastName'),
     email: formInput.get('email'),
+    location: formInput.get('location'),
+    currentPassword: formInput.get('currentPassword'),
     password: formInput.get('password'),
     confirmPassword: formInput.get('confirmPassword'),
     action,
@@ -97,103 +80,58 @@ const getFormInput = (input, action) => {
   return data;
 };
 
-const validateEmail = (email) => {
-  /* This regex test for email is from
-          https://forum.freecodecamp.org/t/regular-expression-is-stupid-help/100055/9
-  */
-  const regex = /^[\w.]+\w+@\w+\.com(\.(ru|cn))?$/;
-  if (!regex.test(email)) return false;
-  return true;
-};
 
-const validateInput = (data, action) => {
-  const errors = {};
-  const fields = [
-    { firstName: data.firstName },
-    { lastName: data.lastName },
-    { email: data.email },
-    { password: data.password },
-    { confirmPassword: data.confirmPassword },
-  ];
-  fields.forEach((input) => {
-    const key = Object.keys(input)[0];
-    if (input[key] === '' && key !== 'confirmPassword' && action !== 'login') {
-      errors[key] = `${key} can't be empty`;
-    }
-    if (input[key] && key === 'email') {
-      if (!validateEmail(input[key])) {
-        errors[key] = `Please enter a valid ${key}`;
-      }
-    }
-    if (input[key] && key === 'firstName' && input[key].length < 2 && action !== 'login') {
-      errors[key] = `Please ${key} should be 2 characters and above`;
-    }
-    if (input[key] && key === 'lastName' && input[key].length < 2 && action !== 'login') {
-      errors[key] = `Please ${key} should be 2 characters and above`;
-    }
-    if (input[key] && key === 'password' && input[key].length < 6 && action !== 'login') {
-      errors[key] = `${key} must be a minimum of 6 chracters long or more`;
-    }
-  });
-  if (fields[3].password !== fields[4].confirmPassword && action !== 'login') {
-    errors.confirmPassword = "password dosen't match";
-  }
-  console.log(errors);
-  return errors;
-};
-
-class AuthClient {
+class ProfileClient {
   static init() {
-    AuthClient.doSingup();
-    AuthClient.doLogin();
+    ProfileClient.updateProfile();
+    ProfileClient.changePassword();
   }
 
-  static doLogin() {
-    const form = document.querySelector('#login');
+  static updateProfile() {
+    const form = document.querySelector('#update-profiele');
     form.addEventListener('submit', (event) => {
       event.preventDefault();
-      const url = 'https://my-diary-dev.herokuapp.com/auth/login';
+      const url = 'https://my-diary-dev.herokuapp.com/api/v1/users/profile';
       const data = getFormInput(event.target);
-      const errors = validateInput(data, 'login');
+      const errors = validateInput(data);
       if (Object.entries(errors).length > 0) {
-        showErrors(Object.entries(errors), 'login');
+        showErrors(Object.entries(errors), 'updateProfile');
         return;
       }
-      const method = 'post';
+      const token = ProfileClient.checkToken();
+      data.token = token;
+      const method = 'put';
       MakeNetworkRequest({ url, method, data })
         .then((response) => {
-          if (response.status === 'success') {
-            redirect(response);
+          if (response.status === 'Success') {
+            displayUserdetails(response);
           } else {
-            console.log(response);
-            showErrors(response, 'loginResponse');
+            showErrors(response, 'updateResponse');
           }
         })
         .catch((err) => {
-          console.log(err);
           const errorMeaage = { message: `${err.message}, please check your network connection and try again` };
           showErrors(errorMeaage, 'loginResponse');
         });
     });
   }
 
-  static doSingup() {
-    const form = document.querySelector('#signup');
+  static changePassword() {
+    const form = document.querySelector('#change-password');
     form.addEventListener('submit', (event) => {
       event.preventDefault();
-      const url = 'https://my-diary-dev.herokuapp.com/auth/signup';
+      const url = 'https://my-diary-dev.herokuapp.com/api/v1/users/profile/password';
       const data = getFormInput(event.target);
       const errors = validateInput(data);
-
       if (Object.entries(errors).length > 0) {
-        showErrors(Object.entries(errors), 'signup');
+        // showErrors(Object.entries(errors), 'signup');
         return;
       }
       const method = 'post';
       MakeNetworkRequest({ url, method, data })
         .then((response) => {
           if (response.status === 'success') {
-            redirect(response);
+            // redirect(response);
           } else {
             console.log(response);
             showErrors(response, 'singupResponse');
@@ -206,5 +144,14 @@ class AuthClient {
         });
     });
   }
+
+  static checkToken() {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      window.location.href = 'index.html';
+      return null;
+    }
+    return token;
+  }
 }
-AuthClient.init();
+ProfileClient.init();
