@@ -272,8 +272,8 @@ header #top-bar{
 .entry-item div{
     flex-basis: 60%;
 }
-#diary-body, #view-single-diary #body{
-    height: 400px;
+#diary-body, #view-single-diary #body,.entry-body{
+    height: 300px;
     padding: 4px 4%;
     background-image: linear-gradient(#fff, white 30px, rgb(53, 50, 228) 30px, rgb(53, 50, 228) 31px, white 31px);
     background-size: 100% 31px; 

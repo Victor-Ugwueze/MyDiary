@@ -134,22 +134,22 @@
                   <h4>Profile Details</h4>
                     <div class="item">
                       <label for="firstname">First Name</label>
-                      <input id="firstname"  type="text" class="form-input" name="firstName">
+                      <input type="text" class="form-input" name="firstName">
                     </div>
                     <div class="item">
                         <label for="lastname">Last Name</label>
-                      <input id="lastname"  type="text" class="form-input" name="lastName">
+                      <input type="text" class="form-input" name="lastName">
                     </div>
                     <div class="item">
                         <label for="email">Email</label>
-                        <input id="email"  type="email" class="form-input" name="email">
+                        <input  type="email" class="form-input" name="email">
                     </div>
                     <div class="item">
                         <label for="location">Location</label>
                         <input id="location"  type="text" class="form-input" name="location">
                     </div>
                     <button data-target="update-password" type="button" class="btn btn-primary change-password">Change password</button>
-                    <button id="save" type="submit" class="btn btn-primary" disabled>Save</button>
+                    <button type="submit" class="btn btn-primary" disabled>Save</button>
                   </form>
                 </div>
                 <div id="total-entry-created">
@@ -174,10 +174,10 @@
                 <form enctype="application/x-www-form-urlencoded" id="add-entry-form">
                     <div class="form-row">
                         <div class="row">
-                            <input type="text" name="title" id="diary-title" class="form-input" placeholder="What is on your mind ?">
+                            <input type="text" name="title" id="" class="form-input" placeholder="What is on your mind ?">
                         </div>
                         <div class="row">
-                            <textarea name="body" id="diary-body" cols="30" rows="10"></textarea>
+                            <textarea name="body" class="entry-body" cols="30" rows="10"></textarea>
                         </div>
                         <div>
                             <input id="add-entry-submit" type="submit" value="Create Entry" class="btn btn-primary">
@@ -255,17 +255,17 @@
                 <form enctype="application/x-www-form-urlencoded"  id="change-password">
                     <div class="item">
                       <label for="firstname">Current password</label>
-                      <input id="firstname"  type="password" class="form-input" name="currentPassword">
+                      <input type="password" class="form-input" name="currentPassword">
                     </div>
                     <div class="item">
                         <label for="lastname">New password</label>
-                      <input id="lastname"  type="password" class="form-input" name="password">
+                      <input type="password" class="form-input" name="password">
                     </div>
                     <div class="item">
                         <label for="lastname">New password</label>
-                      <input id="lastname"  type="password" class="form-input" name="confirmPassword">
+                      <input type="password" class="form-input" name="confirmPassword">
                     </div>
-                    <button id="save" type="submit" class="btn btn-primary">Change</button>
+                    <button type="submit" class="btn btn-primary">Change</button>
                   </form>
           </div>
     </section>
