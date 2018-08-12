@@ -57,9 +57,9 @@ class Entry {
       });
   }
 
-  findAll(req) {
-    const currentPage = req.query.page || 1;
-    const entryPerPage = req.query.perpage || 5;
+  findAll(page, perPage) {
+    const currentPage = page || 1;
+    const entryPerPage = perPage || 5;
     const query = {};
 
     if (Math.trunc(currentPage) === 1) {
