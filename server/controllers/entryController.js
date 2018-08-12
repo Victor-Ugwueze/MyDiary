@@ -11,8 +11,22 @@ const entry = new Entry();
 // get all diary entry
 router.get('/entries', (req, res) => {
   entry.userId = req.body.userId;
-  entry.findAll(req)
+  const { page } = req.query;
+  const { perPage } = req.query;
+  if (page || perPage) {
+    if ((page < 1) || (perPage < 1)
+      || Number.isNaN(parseInt(page, 10))
+      || Number.isNaN(parseInt(perPage, 10))
+    ) {
+      res.status(400).json({ status: 'failed', message: 'Problem in query construction' });
+      return;
+    }
+  }
+  entry.findAll(page, perPage)
     .then((entries) => {
+      if (entries.name) {
+        throw new Error();
+      }
       res.status(200).json({ status: 'success', entries });
     })
     .catch(() => {

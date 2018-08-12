@@ -57,9 +57,9 @@ class Entry {
       });
   }
 
-  findAll(req) {
-    const currentPage = req.params.page || 1;
-    const entryPerPage = req.params.perpage || 5;
+  findAll(page, perPage) {
+    const currentPage = page || 1;
+    const entryPerPage = perPage || 5;
     const query = {};
 
     if (Math.trunc(currentPage) === 1) {
@@ -67,7 +67,7 @@ class Entry {
       query.values = [this.userId, entryPerPage];
     } else {
       const start = ((currentPage * entryPerPage) - entryPerPage);
-      query.text = 'SELECT * FROM entries where user_id = $1 ORDER BY DESC LIMIT $2 OFFSET $3';
+      query.text = 'SELECT * FROM entries where user_id = $1 ORDER BY id DESC LIMIT $2 OFFSET $3';
       query.values = [this.userId, entryPerPage, start];
     }
     return this.pool.query(query)

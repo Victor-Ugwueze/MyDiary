@@ -89,9 +89,10 @@ describe('Entries', () => {
 
   describe('GET /api/v1/entries', () => {
     it('Should list all diary entry on /api/v1/entries', (done) => {
+      const page = 1;
+      const perPage = 5;
       chai.request(server)
-        .get('/api/v1/entries')
-        .set({ page: 1, perpage: 5 })
+        .get(`/api/v1/entries?page=${page}&perPage=${perPage}`)
         .send({ token: tokenObjec.token })
         .end((err, res) => {
           res.should.have.status(200);
@@ -99,6 +100,21 @@ describe('Entries', () => {
           res.body.should.have.property('entries').be.a('array');
           res.body.entries[0].should.have.property('title').eql('The man');
           res.body.should.have.property('status').eql('success');
+          done();
+        });
+    });
+
+    it('Should not list all diary entry on with malformed query /api/v1/entries', (done) => {
+      const page = 0;
+      const perPage = 5;
+      chai.request(server)
+        .get(`/api/v1/entries?page=${page}&perPage=${perPage}`)
+        .send({ token: tokenObjec.token })
+        .end((err, res) => {
+          res.should.have.status(400);
+          res.body.should.be.a('object');
+          res.body.should.have.property('message').eql('Problem in query construction');
+          res.body.should.have.property('status').eql('failed');
           done();
         });
     });
