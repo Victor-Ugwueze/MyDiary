@@ -11,8 +11,17 @@ const entry = new Entry();
 // get all diary entry
 router.get('/entries', (req, res) => {
   entry.userId = req.body.userId;
+  const { page } = req.query;
+  const { perPage } = req.query;
+  if (page < 1 || perPage < 1) {
+    res.status(400).json({ status: 'failed', message: 'Problem in query construction' });
+    return;
+  }
   entry.findAll(req)
     .then((entries) => {
+      if (entries.name) {
+        throw new Error();
+      }
       res.status(200).json({ status: 'success', entries });
     })
     .catch(() => {
