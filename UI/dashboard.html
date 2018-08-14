@@ -7,6 +7,7 @@
     <title>My Diary | Welcome</title>
     <link rel="stylesheet" type="text/css" media="screen" href="Resources/css/app.css" />
     <link rel="stylesheet" type="text/css" media="screen" href="Resources/css/dashboard.css" />
+    <link rel="icon" href="Resources/images/logo.png" />
 </head>
 <body>
   <header>
@@ -68,8 +69,8 @@
   </div>
   <div id="right-section">
     <section id="main-section">
-      <div class="error-flash">Welcome</div>
-      <div class="success-flash">go</div>
+      <div class="alert error-flash"></div>
+      <div class="alert success-flash"></div>
       <div id="diary" class="dashboard-section tab-pane selected container">
           <div id="add-entry">
               <button class="btn btn-primary add-entry" data-target="add-new-entry">New Entry</button>
@@ -131,6 +132,7 @@
                 <div>
                   <form enctype="application/x-www-form-urlencoded"  id="update-profiele">
                   <h4>Profile Details</h4>
+                  <div class="errors" id="profile-error"></div>
                     <div class="item">
                       <label for="firstname">First Name</label>
                       <input type="text" class="form-input" name="firstName">
@@ -252,6 +254,7 @@
                       <div class="close close-btn" data-target="update-password">X</div>
                   </div>
                 <form enctype="application/x-www-form-urlencoded"  id="change-password">
+                  <div class="errors" id="password-error"></div>
                     <div class="item">
                       <label for="firstname">Current password</label>
                       <input type="password" class="form-input" name="currentPassword">
@@ -270,6 +273,7 @@
     </section>
     <script src="Resources/js/app.js"></script>
     <script src="Resources/js/dashboard.js"></script>
+    <script src="../CLIENT/utils/utils.js"></script>
     <script src="../CLIENT/diary.js"></script>
     <script src="../CLIENT/profile.js"></script>
 </body>
