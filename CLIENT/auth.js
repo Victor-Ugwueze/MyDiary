@@ -1,4 +1,5 @@
-/* global  getFormInput, validateInput */
+/* global  getFormInput, validateInput, makeNetworkRequest, hideErrors */
+
 const redirect = (response) => {
   if (response.token) {
     localStorage.setItem('token', response.token);
@@ -6,12 +7,7 @@ const redirect = (response) => {
   }
 };
 
-const hideErrors = (form, inputField, errorFlag) => {
-  inputField.addEventListener('focus', (event) => {
-    errorFlag.classList.add('hide-error');
-    event.target.classList.remove('input-error-border');
-  });
-};
+const loadingIndicator = document.querySelector('.loading-indicator');
 
 const showErrors = (errors, action) => {
   // const errorFlag = document.querySelector('#erro-flag');
@@ -47,43 +43,6 @@ const showErrors = (errors, action) => {
 };
 
 
-const MakeNetworkRequest = (input = { url: '', method: '', data: '' }) => {
-  const serverErrors = [404, 400, 401, 422, 419, 200, 201];
-  const loadingIndicator = document.querySelector('.loading-indicator');
-  loadingIndicator.style.display = 'block';
-  const reqObject = {
-    method: input.method,
-    mode: 'cors',
-  };
-
-  if (input.method === 'get') {
-    reqObject.headers = {
-      'content-type': 'application/json',
-      'x-access-token': input.data.token,
-    };
-  } else {
-    reqObject.headers = {
-      'content-type': 'application/json',
-    };
-    reqObject.body = JSON.stringify(input.data);
-  }
-  return fetch(input.url, reqObject)
-    .then((response) => {
-      loadingIndicator.style.display = 'none';
-      if (serverErrors.indexOf(response.status) === -1) {
-        throw new Error(response);
-      } else {
-        console.log(response);
-        return response.json();
-      }
-    })
-    .catch((err) => {
-      console.log(err.message);
-      loadingIndicator.style.display = 'none';
-      throw new Error('Problem loading request');
-    });
-};
-
 class AuthClient {
   static init() {
     AuthClient.doSingup();
@@ -101,9 +60,11 @@ class AuthClient {
         showErrors(Object.entries(errors), 'login');
         return;
       }
+      loadingIndicator.style.display = 'block';
       const method = 'post';
-      MakeNetworkRequest({ url, method, data })
+      makeNetworkRequest({ url, method, data })
         .then((response) => {
+          loadingIndicator.style.display = 'none';
           if (response.status === 'success') {
             redirect(response);
           } else {
@@ -112,6 +73,7 @@ class AuthClient {
           }
         })
         .catch((err) => {
+          loadingIndicator.style.display = 'none';
           console.log(err);
           const errorMeaage = { message: `${err.message}, please check your network connection and try again` };
           showErrors(errorMeaage, 'loginResponse');
@@ -132,7 +94,7 @@ class AuthClient {
         return;
       }
       const method = 'post';
-      MakeNetworkRequest({ url, method, data })
+      makeNetworkRequest({ url, method, data })
         .then((response) => {
           if (response.status === 'success') {
             redirect(response);

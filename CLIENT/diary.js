@@ -1,28 +1,6 @@
-/* global SelectElement, modal */
+/* global SelectElement, modal, makeNetworkRequest, showResponse */
 
 // Function used to make network request
-const makeNetworkRequest = (input = { url: '', method: '', data: '' }) => {
-  const reqObject = {
-    method: input.method,
-    mode: 'cors',
-  };
-  if (input.method === 'get' || input.method === 'delete') {
-    reqObject.headers = {
-      'content-type': 'application/json',
-      'x-access-token': input.data.token,
-      page: 1,
-      perPage: 5,
-    };
-  } else {
-    reqObject.headers = {
-      'content-type': 'application/json',
-    };
-    reqObject.body = JSON.stringify(input.data);
-  }
-  return fetch(input.url, reqObject)
-    .then(response => response.json())
-    .catch(err => err);
-};
 
 
 const spinner = document.querySelector('.loading_spinner');
@@ -38,9 +16,17 @@ const populateModalFoEdit = (targetEditButton, editModal) => {
       const editModalBody = editModal.querySelector('#diary-body');
       const entryInputId = editModal.querySelector('#entry-id');
       editModalTitle.value = entry.dairyEntry.title;
-      editModalBody.textContent = entry.dairyEntry.body;
+      editModalBody.value = entry.dairyEntry.body;
       entryInputId.value = entry.dairyEntry.id;
     });
+};
+
+const updateEntryView = (entry) => {
+  const entryToUpdate = document.querySelector(`#diary-${entry.id}`);
+  const title = entryToUpdate.querySelector('.sing-diary-title');
+  const body = entryToUpdate.querySelector('.sing-diary-body');
+  title.textContent = entry.title;
+  body.textContent = entry.body;
 };
 
 // Edit Diary Add Event Method
@@ -100,7 +86,7 @@ const deleteModalItem = (targetDeleteButton) => {
     const diaryItem = diaryList.querySelector(`#${targetDeleteButton.dataset.target}`);
     DiaryClient.deleteEntry(entryId)
       .then((response) => {
-        diaryItem.style.display = 'none';
+        showResponse('success-flash', response.message);
       })
       .catch((err) => {
         console.log(err);
@@ -134,6 +120,14 @@ const displayUserdetails = (userDetails) => {
   spinner.style.display = 'none';
 };
 
+const addNewEntryToList = (element) => {
+  const html = bindEntryData(element);
+  const template = document.createElement('template');
+  template.innerHTML = html.trim();
+  const newItem = template.content.firstChild;
+  const list = document.querySelector('#dairy-entries');
+  list.insertBefore(newItem, list.childNodes[0]);
+};
 
 class DiaryClient {
   static init() {
@@ -147,7 +141,7 @@ class DiaryClient {
       .forEach((profilemenu) => {
         profilemenu.addEventListener('click', DiaryClient.getUserDetails);
       });
-    DiaryClient.getAllEntries();
+    DiaryClient.getAllEntries(1, 'paginate');
   }
 
   static logout() {
@@ -155,15 +149,15 @@ class DiaryClient {
     window.location.href = 'index.html';
   }
 
-  static getAllEntries() {
+  static getAllEntries(currentPage, action) {
     spinner.style.display = 'block';
     const token = DiaryClient.checkToken();
     const method = 'get';
-    const url = 'https://my-diary-dev.herokuapp.com/api/v1/entries';
+    const url = `https://my-diary-dev.herokuapp.com/api/v1/entries?page=${currentPage}&perPage=${3}`;
     const data = {
       token,
     };
-    makeNetworkRequest({ url, method, data })
+    return makeNetworkRequest({ url, method, data })
       .then((response) => {
         console.log(response);
         //  updatePaginate(response);
@@ -174,8 +168,9 @@ class DiaryClient {
         addEventListenerToEditButton();
         addEventListenerToviewEntry();
         addEventListenerToDeleteButton();
-        DiaryClient.getUserDetails('main');
+        DiaryClient.getUserDetails('main', action);
         spinner.style.display = 'none';
+        return true;
       })
       .catch((err) => {
         console.log(err);
@@ -207,9 +202,9 @@ class DiaryClient {
     };
     makeNetworkRequest({ url, method, data })
       .then((response) => {
-        if (response.message === 'success') {
-          console.log(response);
-          window.location.reload();
+        if (response.status === 'success') {
+          addNewEntryToList(response.createdEntry);
+          showResponse('success-flash', response.message);
         }
       })
       .catch(err => err);
@@ -224,7 +219,7 @@ class DiaryClient {
     };
     return makeNetworkRequest({ url, method, data })
       .then((response) => {
-        if (response.message === 'success') {
+        if (response.status === 'success') {
           return response;
         }
       })
@@ -275,8 +270,9 @@ class DiaryClient {
     };
     makeNetworkRequest({ url, method, data })
       .then((response) => {
-        if (response.message === 'success') {
-          window.location.reload();
+        if (response.status === 'success') {
+          showResponse('success-flash', response.message);
+          updateEntryView(response.updatedEntry);
         }
       })
       .catch(err => err);
@@ -291,7 +287,7 @@ class DiaryClient {
     return token;
   }
 
-  static getUserDetails(page) {
+  static getUserDetails(page, action) {
     if (page !== 'main') {
       spinner.style.display = 'block';
     }
@@ -310,13 +306,13 @@ class DiaryClient {
           } else {
             displayUserdetails(response);
           }
-          DiaryClient.getNumberEntriesCeated(page);
+          DiaryClient.getNumberEntriesCeated(page, action);
         }
       })
       .catch(err => err);
   }
 
-  static getNumberEntriesCeated(page) {
+  static getNumberEntriesCeated(page, action) {
     const token = DiaryClient.checkToken();
     const method = 'get';
     const url = 'https://my-diary-dev.herokuapp.com/api/v1/users/profile/entries';
@@ -326,7 +322,6 @@ class DiaryClient {
     makeNetworkRequest({ url, method, data })
       .then((response) => {
         if (response.status === 'Success') {
-          console.log(response);
           const showEntryCount = document.querySelector('#entries_created');
           if (page !== 'main') {
             if (response.entries > 1) {
@@ -339,25 +334,97 @@ class DiaryClient {
             }
           }
         }
+        document.querySelector('#entryCount').value = response.entries;
+        if (action === 'paginate') {
+          DiaryClient.paginateListEntry();
+        }
       })
       .catch(err => err);
   }
+
+  static paginateListEntry() {
+    const rowCount = document.querySelector('#entryCount').value;
+    const paginationContainer = document.querySelector('.pagination');
+    // const firstPage= paginationContainer.querySelector('.page-1');
+    loadPageNumbers(paginationContainer, rowCount);
+  }
 }
+
+const checkPrevOrNext = (buttonsArray, currentTarget, event) => {
+  let current = currentTarget;
+  if (event.target.id === 'prev') {
+    const position = buttonsArray.querySelector('.active').id;
+    if (position !== 1 && position > 1) {
+      current = Number.parseInt(position, 10) - 1;
+      return current;
+    }
+  } else if (event.target.id === 'next') {
+    const position = buttonsArray.querySelector('.active').id;
+    const totlal = buttonsArray.querySelectorAll('a').length - 2;
+    if (position !== totlal && position < totlal) {
+      current = Number.parseInt(position, 10) + 1;
+      return current;
+    }
+  } else {
+    current = event.target.id;
+    return current;
+  }
+  return false;
+};
+
+const addEventListenerTopaginate = (paginationContainer) => {
+  const container = paginationContainer;
+  const pagesButton = container.querySelectorAll('a');
+  [...pagesButton].forEach((button) => {
+    button.addEventListener('click', (event) => {
+      event.preventDefault();
+      const currentTarget = container.querySelector('.active');
+      let current = currentTarget.id;
+      current = checkPrevOrNext(paginationContainer, currentTarget, event);
+      if (current) {
+        DiaryClient.getAllEntries(current, '')
+          .then(() => {
+            const currentPage = container.querySelector(`.page-${current}`);
+            SelectElement(currentPage, [...pagesButton], 'active');
+          });
+      }
+    });
+  });
+};
+
+const loadPageNumbers = (paginationContainer, count) => {
+  let i = 1;
+  let rowCount = count;
+  const container = paginationContainer;
+  container.innerHTML = '<a id="prev">&laquo;</a>';
+  container.innerHTML += `<a id="${1}" class="page-1 active">1</a>`;
+  while (rowCount > 3) {
+    rowCount -= 3;
+    i += 1;
+    container.innerHTML += `<a id="${i}" class="page-${i}">${i}</a>`;
+  }
+  if (rowCount > 3) {
+    i += 1;
+    container.innerHTML += `<a id="${i}" class="page-${i}">${i}</a>`;
+  }
+  container.innerHTML += '<a id="next">&raquo;</a>';
+  addEventListenerTopaginate(container);
+};
 
 
 const bindEntryData = (entry) => {
-  let EntryTitle = entry.title;
-  let EntryBody = entry.body;
+  let entryTitle = entry.title;
+  let entryBody = entry.body;
   if (entry.title.length > 40) {
-    EntryTitle = `${entry.title.substring(0, 40)} ...`;
+    entryTitle = `${entry.title.substring(0, 40)} ...`;
   }
   if (entry.body.length > 40) {
-    EntryBody = `${entry.body.substring(0, 40)} ...`;
+    entryBody = `${entry.body.substring(0, 40)} ...`;
   }
   const entryWrap = `<li class="entry-item" id="diary-${entry.id}">
                       <div class="" data-id="diary-${entry.id}" data-target="view-single-diary">
-                          <h4 class="sing-diary-title diary-text">${EntryTitle}</h4>
-                          <p class="sing-diary-body diary-text">${EntryBody}</p>
+                          <h4 class="sing-diary-title diary-text">${entryTitle}</h4>
+                          <p class="sing-diary-body diary-text">${entryBody}</p>
                       </div>
                       <p class="created-at">${entry.created_at}</p>
                       <a class="action">
@@ -365,7 +432,7 @@ const bindEntryData = (entry) => {
                           <img class="diary-edit icon-edit" src="Resources/images/edit.png">
                           <span class="edit-text">Edit</span>
                         </span>
-                         | 
+                          | 
                         <span data-target="diary-${entry.id}" class="btn btn-danger action-delete">
                           <img class="diary-edit icon-edit" src="Resources/images/delete-button.png">
                           <span class="delete-text">Delete</span>
@@ -378,11 +445,14 @@ const bindEntryData = (entry) => {
 
 const displayListEntries = (response) => {
   const listContainer = document.querySelector('#dairy-entries');
-  response.entries.forEach((element) => {
-    listContainer.innerHTML += (bindEntryData(element));
+  response.entries.forEach((element, index) => {
+    if (index === 0) {
+      listContainer.innerHTML = (bindEntryData(element));
+    } else {
+      listContainer.innerHTML += (bindEntryData(element));
+    }
   });
 };
 // Add EventListener to element after loading
-
 
 DiaryClient.init();
