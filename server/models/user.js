@@ -86,7 +86,7 @@ class User {
       `SELECT email, 
       first_name, 
       last_name, 
-      location, 
+      location,
       created_at FROM users 
       WHERE id = $1`, [id],
     )
@@ -109,6 +109,40 @@ class User {
         return 0;
       })
       .catch(err => err);
+  }
+
+  checkPassword(req) {
+    const id = this.userId;
+    this.password = req.body.password;
+    return this.pool.query('SELECT * FROM users WHERE id = $1', [id])
+      .then((result) => {
+        if (!result.rows[0]) {
+          throw new Error();
+        }
+        const passwordMatch = bcrypt.compareSync(req.body.currentPassword, result.rows[0].password);
+        return passwordMatch;
+      })
+      .catch(() => { throw new Error(); });
+  }
+
+  updatePassword() {
+    const id = this.userId;
+    const password = bcrypt.hashSync(this.password, 10);
+    const query = {
+      text: 'UPDATE users SET password = $1 WHERE id = $2',
+      values: [
+        password,
+        id,
+      ],
+    };
+    return this.pool.query(query)
+      .then((result) => {
+        if (!result.rowCount) {
+          throw new Error();
+        }
+        return { status: 'updated' };
+      })
+      .catch(() => { throw new Error(); });
   }
 }
 

@@ -12,6 +12,14 @@ class Profile extends User {
   getUserEntryCount() {
     return this.getEntryCount();
   }
+
+  changePassword(req) {
+    return this.updatePassword(req);
+  }
+
+  passwordMatch(req) {
+    return this.checkPassword(req);
+  }
 }
 
 export default Profile;

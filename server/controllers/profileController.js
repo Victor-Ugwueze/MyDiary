@@ -21,7 +21,7 @@ router.put('/users/profile', validateProfileUpdate.profileUpdate, (req, res) => 
         if (result.rowCount !== 1) {
           throw new Error('Problem updating profile');
         }
-        res.status(200).json({ status: 'Success', user: result.rows[0], message: 'Profile Updated SuccesFully'});
+        res.status(200).json({ status: 'Success', user: result.rows[0], message: 'Profile Updated SuccesFully' });
       })
       .catch((err) => {
         res.status(500).json({ status: 'failed', message: err.message });
@@ -62,6 +62,32 @@ router.get('/users/profile/entries', (req, res) => {
     .catch(() => {
       res.status(500).json({ status: 'failed', message: 'Problem getting number of entries' });
     });
+});
+
+router.put('/users/profile/password', validateProfileUpdate.passwordChange, (req, res) => {
+  const errors = validateProfileUpdate.validationResult(req);
+  if (errors.isEmpty()) {
+    const profile = new Profile();
+    profile.userId = req.body.userId;
+    profile.passwordMatch(req)
+      .then((match) => {
+        if (!match) {
+          res.status(401).json({ status: 'Failed', message: 'Wrong Password provided' });
+          return { status: 'failed' };
+        }
+        return profile.changePassword(req);
+      })
+      .then((result) => {
+        if (result.status === 'updated') {
+          res.status(200).json({ status: 'Success', message: 'Password updated succesfully' });
+        }
+      })
+      .catch(() => {
+        res.status(500).json({ status: 'Failed', message: 'Problem updating password' });
+      });
+  } else {
+    res.status(400).json({ status: 'Failed', message: errors.array()[0].msg });
+  }
 });
 
 export default router;

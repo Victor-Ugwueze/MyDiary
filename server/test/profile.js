@@ -79,4 +79,60 @@ describe('User Profile Details', () => {
         });
     });
   });
+
+  describe('GET /api/v1/users/profile/password, change user password', () => {
+    it('Should change user password, with matched current password', (done) => {
+      chai.request(server)
+        .put('/api/v1/users/profile/password')
+        .send({
+          token: tokenObjec.token,
+          currentPassword: 'test123',
+          password: 'test1234',
+          confirmPassword: 'test1234',
+        })
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.body.should.be.a('object');
+          res.body.should.have.property('message').eql('Password updated succesfully');
+          res.body.should.have.property('status').eql('Success');
+          done();
+        });
+    });
+
+    it('Should not change user password when current password is wrong', (done) => {
+      chai.request(server)
+        .put('/api/v1/users/profile/password')
+        .send({
+          token: tokenObjec.token,
+          currentPassword: 'test123',
+          password: 'test1234',
+          confirmPassword: 'test1234',
+        })
+        .end((err, res) => {
+          res.should.have.status(401);
+          res.body.should.be.a('object');
+          res.body.should.have.property('message').eql('Wrong Password provided');
+          res.body.should.have.property('status').eql('Failed');
+          done();
+        });
+    });
+
+    it('Should not change user password when password length is < 6', (done) => {
+      chai.request(server)
+        .put('/api/v1/users/profile/password')
+        .send({
+          token: tokenObjec.token,
+          currentPassword: 'test1234',
+          password: 'test',
+          confirmPassword: 'test',
+        })
+        .end((err, res) => {
+          res.should.have.status(400);
+          res.body.should.be.a('object');
+          res.body.should.have.property('message').eql('password should be a minimum of 6 chracters');
+          res.body.should.have.property('status').eql('Failed');
+          done();
+        });
+    });
+  });
 });
