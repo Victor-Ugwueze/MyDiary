@@ -22,7 +22,7 @@ router.post('/login', validateAuth.login, (req, res) => {
               const payload = {
                 userId: result.id,
               };
-              const token = jwt.sign(payload, 'secret', { expiresIn: '1hr' });
+              const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1hr' });
               res.status(200).json({ status: 'success', message: 'You are logged in!', token });
             }
             break;
@@ -51,7 +51,7 @@ router.post('/signup', validateAuth.singUp, (req, res) => {
             .then((userId) => {
               console.log(userId);
               const payload = { userId };
-              const token = jwt.sign(payload, 'secret', { expiresIn: '1hr' });
+              const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1hr' });
               res.status(200).json(
                 {
                   status: 'success',

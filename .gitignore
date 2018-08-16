@@ -3,4 +3,4 @@
 .coveralls.yml
 /coverage/
 .nyc_output/
-/server/helpers/config.js
+.env
