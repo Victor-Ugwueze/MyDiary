@@ -41,6 +41,9 @@ const validateAuth = {
     check('password', 'password should be a minimum of 6 chracters')
       .isLength({ min: 6 })
       .custom((value, { req }) => {
+        if (trimeSpaces(value).length < 6) {
+          throw new Error('First name should be a minimum of 6 characters');
+        }
         if (value !== req.body.confirmPassword) {
           throw new Error("Password doesn't match");
         } else {

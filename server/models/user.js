@@ -37,9 +37,19 @@ class User {
       text: 'INSERT INTO users(first_name, last_name,email,password) VALUES($1, $2, $3, $4) RETURNING id',
       values: [this.firstName, this.lastName, this.email, hash],
     };
+    const userObj = this;
     return this.pool.query(query)
-      .then(result => result.rows[0].id)
-      .catch(err => err);
+      .then((result) => {
+        const title = 'journal';
+        const userId = result.rows[0].id;
+        if (!userId) throw new Error();
+        return userObj.createDefaultReminder(userId, title, 'signup');
+      })
+      .then((result) => {
+        if (!result.rows[0]) return 'created only account';
+        return result.rows[0].id;
+      })
+      .catch(() => { throw new Error(); });
   }
 
   checkIfEmailExists(input) {
@@ -86,7 +96,7 @@ class User {
       `SELECT email, 
       first_name, 
       last_name, 
-      location, 
+      location,
       created_at FROM users 
       WHERE id = $1`, [id],
     )
@@ -109,6 +119,60 @@ class User {
         return 0;
       })
       .catch(err => err);
+  }
+
+  checkPassword(req) {
+    const id = this.userId;
+    this.password = req.body.password;
+    return this.pool.query('SELECT * FROM users WHERE id = $1', [id])
+      .then((result) => {
+        if (!result.rows[0]) {
+          throw new Error();
+        }
+        const passwordMatch = bcrypt.compareSync(req.body.currentPassword, result.rows[0].password);
+        return passwordMatch;
+      })
+      .catch(() => { throw new Error(); });
+  }
+
+  updatePassword() {
+    const id = this.userId;
+    const password = bcrypt.hashSync(this.password, 10);
+    const query = {
+      text: 'UPDATE users SET password = $1 WHERE id = $2',
+      values: [
+        password,
+        id,
+      ],
+    };
+    return this.pool.query(query)
+      .then((result) => {
+        if (!result.rowCount) {
+          throw new Error();
+        }
+        return { status: 'updated' };
+      })
+      .catch(() => { throw new Error(); });
+  }
+
+  createDefaultReminder(userId, title, action) {
+    let text = 'INSERT INTO notifications (title, user_id) VALUES($1, $2) RETURNING id';
+    if (action === 'signup') {
+      text = `INSERT INTO notifications (title, user_id) VALUES
+              ($1, $2), ('newsletter', $2) RETURNING id`;
+    }
+    const query = {
+      text,
+      values: [title, userId],
+    };
+    return this.pool.query(query)
+      .then((result) => {
+        if (!result.rows[0]) {
+          throw new Error();
+        }
+        return result;
+      })
+      .catch(() => { throw new Error(); });
   }
 }
 

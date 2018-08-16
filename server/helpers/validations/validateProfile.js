@@ -31,10 +31,8 @@ const validateProfileUpdate = {
       .isEmail(),
   ],
 
-  passwordUpdate: [
-    check('currentPassword', 'password should be a minimum of 6 chracters')
-      .isLength({ min: 6 }),
-    check('newPassword', 'password should be a minimum of 6 chracters')
+  passwordChange: [
+    check('password', 'password should be a minimum of 6 chracters')
       .isLength({ min: 6 })
       .custom((value, { req }) => {
         if (trimeSpaces(value).length < 6) {
