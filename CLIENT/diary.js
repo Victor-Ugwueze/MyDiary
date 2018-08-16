@@ -153,7 +153,7 @@ class DiaryClient {
     spinner.style.display = 'block';
     const token = DiaryClient.checkToken();
     const method = 'get';
-    const url = `https://my-diary-dev.herokuapp.com/api/v1/entries?page=${currentPage}&perPage=${3}`;
+    const url = `/api/v1/entries?page=${currentPage}&perPage=${3}`;
     const data = {
       token,
     };
@@ -180,7 +180,7 @@ class DiaryClient {
 
   static addEntry(event) {
     const addEntryModal = document.querySelector('#add-new-entry');
-    addEntryModal.classList.toggle('show');
+    modal.hide(addEntryModal,  'show');
     event.preventDefault();
     const inputData = new FormData(event.target);
     const title = inputData.get('title');
@@ -194,7 +194,7 @@ class DiaryClient {
     }
     const token = DiaryClient.checkToken();
     const method = 'post';
-    const url = 'https://my-diary-dev.herokuapp.com/api/v1/entries';
+    const url = '/api/v1/entries';
     const data = {
       token,
       title,
@@ -213,7 +213,7 @@ class DiaryClient {
   static deleteEntry(id) {
     const token = DiaryClient.checkToken();
     const method = 'delete';
-    const url = `https://my-diary-dev.herokuapp.com/api/v1/entries/${id}`;
+    const url = `/api/v1/entries/${id}`;
     const data = {
       token,
     };
@@ -230,7 +230,7 @@ class DiaryClient {
     spinnerEdit.style.display = 'block';
     const token = DiaryClient.checkToken();
     const method = 'get';
-    const url = `https://my-diary-dev.herokuapp.com/api/v1/entries/${id}`;
+    const url = `/api/v1/entries/${id}`;
     const data = {
       token,
     };
@@ -262,7 +262,7 @@ class DiaryClient {
     }
     const token = DiaryClient.checkToken();
     const method = 'put';
-    const url = `https://my-diary-dev.herokuapp.com/api/v1/entries/${id}`;
+    const url = `/api/v1/entries/${id}`;
     const data = {
       token,
       title,
@@ -293,7 +293,7 @@ class DiaryClient {
     }
     const token = DiaryClient.checkToken();
     const method = 'get';
-    const url = 'https://my-diary-dev.herokuapp.com/api/v1/users/profile';
+    const url = '/api/v1/users/profile';
     const data = {
       token,
     };
@@ -315,7 +315,7 @@ class DiaryClient {
   static getNumberEntriesCeated(page, action) {
     const token = DiaryClient.checkToken();
     const method = 'get';
-    const url = 'https://my-diary-dev.herokuapp.com/api/v1/users/profile/entries';
+    const url = '/api/v1/users/profile/entries';
     const data = {
       token,
     };

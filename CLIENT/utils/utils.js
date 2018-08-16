@@ -12,7 +12,8 @@ const makeNetworkRequest = (input = { url: '', method: '', data: '' }) => {
   if (input.method === 'post' || input.method === 'put') {
     reqObject.body = JSON.stringify(input.data);
   }
-  return fetch(input.url, reqObject)
+  const url = `https://my-diary-dev.herokuapp.com${input.url}`;
+  return fetch(url, reqObject)
     .then((response) => {
       if (serverErrors.indexOf(response.status) === -1) {
         throw new Error(response);

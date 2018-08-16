@@ -53,7 +53,7 @@ class AuthClient {
     const form = document.querySelector('#login');
     form.addEventListener('submit', (event) => {
       event.preventDefault();
-      const url = 'https://my-diary-dev.herokuapp.com/auth/login';
+      const url = '/auth/login';
       const data = getFormInput(event.target);
       const errors = validateInput(data, 'login');
       if (Object.entries(errors).length > 0) {
@@ -85,7 +85,7 @@ class AuthClient {
     const form = document.querySelector('#signup');
     form.addEventListener('submit', (event) => {
       event.preventDefault();
-      const url = 'https://my-diary-dev.herokuapp.com/auth/signup';
+      const url = '/auth/signup';
       const data = getFormInput(event.target);
       const errors = validateInput(data);
 
