@@ -49,9 +49,8 @@ router.post('/signup', validateAuth.singUp, (req, res) => {
         if (!emailExists) { // Email doesn't exist so signup user;
           user.doSignup()
             .then((userId) => {
-              const payload = {
-                userId,
-              };
+              console.log(userId);
+              const payload = { userId };
               const token = jwt.sign(payload, 'secret', { expiresIn: '1hr' });
               res.status(200).json(
                 {
@@ -60,6 +59,9 @@ router.post('/signup', validateAuth.singUp, (req, res) => {
                   message: 'Account created ',
                 },
               );
+            })
+            .catch(() => {
+              res.status(500).json({ status: 'failed', message: 'Problem signing up' });
             });
         } else {
           res.status(422).json({ status: 'failed', message: 'email exist', email: emailExists.email });

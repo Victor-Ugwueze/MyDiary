@@ -37,9 +37,19 @@ class User {
       text: 'INSERT INTO users(first_name, last_name,email,password) VALUES($1, $2, $3, $4) RETURNING id',
       values: [this.firstName, this.lastName, this.email, hash],
     };
+    const userObj = this;
     return this.pool.query(query)
-      .then(result => result.rows[0].id)
-      .catch(err => err);
+      .then((result) => {
+        const title = 'journal';
+        const userId = result.rows[0].id;
+        if (!userId) throw new Error();
+        return userObj.createDefaultReminder(userId, title, 'signup');
+      })
+      .then((result) => {
+        if (!result.rows[0]) return 'created only account';
+        return result.rows[0].id;
+      })
+      .catch(() => { throw new Error(); });
   }
 
   checkIfEmailExists(input) {
@@ -141,6 +151,26 @@ class User {
           throw new Error();
         }
         return { status: 'updated' };
+      })
+      .catch(() => { throw new Error(); });
+  }
+
+  createDefaultReminder(userId, title, action) {
+    let text = 'INSERT INTO notifications (title, user_id) VALUES($1, $2) RETURNING id';
+    if (action === 'signup') {
+      text = `INSERT INTO notifications (title, user_id) VALUES
+              ($1, $2), ('newsletter', $2) RETURNING id`;
+    }
+    const query = {
+      text,
+      values: [title, userId],
+    };
+    return this.pool.query(query)
+      .then((result) => {
+        if (!result.rows[0]) {
+          throw new Error();
+        }
+        return result;
       })
       .catch(() => { throw new Error(); });
   }

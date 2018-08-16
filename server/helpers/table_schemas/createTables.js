@@ -15,9 +15,9 @@ export default class CreateTableSchema {
     this.createNotificationsTable = `CREATE TABLE IF NOT EXISTS notifications(
       id serial PRIMARY KEY NOT NULL,
       title varchar(255) NOT NULL,
-      user_id varchar(255) NOT NULL,
+      user_id integer NOT NULL,
       created_at timestamp DEFAULT NOW(),
-      time timestamp NOT NULL
+      reminder bool DEFAULT TRUE
     )`;
 
     this.createUsersTable = `CREATE TABLE IF NOT EXISTS users(
