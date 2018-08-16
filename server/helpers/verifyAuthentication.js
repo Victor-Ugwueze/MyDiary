@@ -6,7 +6,7 @@ const verifyToken = (router) => {
     if (!token) {
       res.status(403).json({ message: 'No Token' });
     } else {
-      jwt.verify(token, 'secret', (err, decoded) => {
+      jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
         if (err) {
           res.status(401).json({ message: 'Failed to authenticate', err: 'Session expired' });
           return;

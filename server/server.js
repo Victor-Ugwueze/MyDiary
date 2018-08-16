@@ -1,8 +1,11 @@
-
+import dotenv from 'dotenv';
 import app from './app';
+import registerCronJob from './helpers/cron-jobs/email-schedule';
 
-const port = process.env.PORT || 3000;
+dotenv.config();
+const port = process.env.PORT;
 app.listen(port, () => {
+  registerCronJob();
   console.log(`Server startted on port: ${port}`);
 });
 
