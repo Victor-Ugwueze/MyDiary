@@ -30,7 +30,7 @@ const registerCronJob = () => {
     },
   });
 
-  cron.schedule('20 * * * *', () => {
+  cron.schedule('* * * * *', () => {
     console.log('Running cron job every minuites');
     const notification = new Notification();
     notification.getNotification('journal')
