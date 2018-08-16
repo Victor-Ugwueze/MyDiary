@@ -27,6 +27,7 @@ describe('Authenticate User', () => {
         .end((err, res) => {
           res.should.have.status(200);
           res.body.should.be.a('object');
+          console.log(res.body);
           res.body.should.have.property('status').eql('success');
           res.body.should.have.property('message').eql('Account created ');
           res.body.should.have.property('token').be.a('string');
