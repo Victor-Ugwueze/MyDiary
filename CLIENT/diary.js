@@ -1,4 +1,4 @@
-/* global SelectElement, modal, makeNetworkRequest, showResponse */
+/* global SelectElement, modal, makeNetworkRequest, showResponse, showErrors */
 
 // Function used to make network request
 
@@ -22,10 +22,11 @@ const populateModalFoEdit = (targetEditButton, editModal) => {
 };
 
 const updateEntryView = (entry) => {
+  const { entryTitle, entryBody } = getMaxEntryLenght(entry);
   const entryToUpdate = document.querySelector(`#diary-${entry.id}`);
   const title = entryToUpdate.querySelector('.sing-diary-title');
   const body = entryToUpdate.querySelector('.sing-diary-body');
-  title.textContent = entry.title;
+  title.textContent = entryTitle;
   body.textContent = entry.body;
 };
 
@@ -87,6 +88,7 @@ const deleteModalItem = (targetDeleteButton) => {
     DiaryClient.deleteEntry(entryId)
       .then((response) => {
         showResponse('success-flash', response.message);
+        window.location.reload();
       })
       .catch((err) => {
         console.log(err);
@@ -127,8 +129,40 @@ const addNewEntryToList = (element) => {
   const newItem = template.content.firstChild;
   const list = document.querySelector('#dairy-entries');
   list.insertBefore(newItem, list.childNodes[0]);
+  addEventListenerToEditButton();
+  addEventListenerToviewEntry();
+  addEventListenerToDeleteButton();
 };
-
+const validateEntry = (title, body) => {
+  const errors = [];
+  if (title === '') {
+    errors.push({ message: 'Entry title should not be empty' });
+  } else if (body === '') {
+    errors.push({ message: 'Entry body should not be empty' });
+  }
+  if (title.trim().length < 6) {
+    errors.push({ message: 'Entry title should be 6 characters or more' });
+  }
+  if (body.trim().length < 6) {
+    errors.push({ message: 'Entry body should be 6 characters or more' });
+  }
+  const regx = /^[0-9]/;
+  if (regx.test(title)) {
+    errors.push({ message: 'Entry title should not be digits' });
+  }
+  if (regx.test(body)) {
+    errors.push({ message: 'Entry body should not be digits' });
+  }
+  return errors;
+};
+const clearEntryModal = (modal) => {
+  const errorFlag = modal.querySelector('.error-flash');
+  const titleInput = modal.querySelector("input[name='title']");
+  const titleBody = modal.querySelector("textarea[name='body']");
+  titleInput.value = '';
+  titleBody.value = '';
+  errorFlag.classList.add('hide-error');
+};
 class DiaryClient {
   static init() {
     document.querySelector('#add-entry-form')
@@ -180,18 +214,17 @@ class DiaryClient {
 
   static addEntry(event) {
     const addEntryModal = document.querySelector('#add-new-entry');
-    modal.hide(addEntryModal,  'show');
     event.preventDefault();
     const inputData = new FormData(event.target);
     const title = inputData.get('title');
     const body = inputData.get('body');
-    // console.log(body);
-    // /^[0-9]+$/
-    const regx = /^[0-9]/;
-    if (title === '' || regx.test(title) || regx.test(body) || body === '') {
-      console.log('yes');
+    const errors = validateEntry(title, body);
+    if (errors.length > 0) {
+      showErrors(errors, 'addEntry');
       return;
     }
+    clearEntryModal(addEntryModal);
+    modal.hide(addEntryModal, 'show');
     const token = DiaryClient.checkToken();
     const method = 'post';
     const url = '/api/v1/entries';
@@ -203,8 +236,8 @@ class DiaryClient {
     makeNetworkRequest({ url, method, data })
       .then((response) => {
         if (response.status === 'success') {
-          addNewEntryToList(response.createdEntry);
           showResponse('success-flash', response.message);
+          DiaryClient.getAllEntries(1, 'paginate');
         }
       })
       .catch(err => err);
@@ -247,19 +280,20 @@ class DiaryClient {
       });
   }
 
-  static updateEntry(event) {
-    const addEntryModal = document.querySelector('#edit-diary-entry');
-    addEntryModal.classList.toggle('show');
+  static updateEntry(event) { 
+    const editEntryModal = document.querySelector('#edit-diary-entry');
     event.preventDefault();
     const form = new FormData(event.target);
     const id = form.get('entry-id');
     const title = form.get('title');
     const body = form.get('body');
-    const regx = /^[0-9]/;
-    if (title === '' || regx.test(title) || regx.test(body) || body === '') {
-      console.log('yes');
+    const errors = validateEntry(title, body);
+    if (errors.length > 0) {
+      showErrors(errors, 'editEntry');
       return;
     }
+    clearEntryModal(editEntryModal);
+    modal.hide(editEntryModal, 'show');
     const token = DiaryClient.checkToken();
     const method = 'put';
     const url = `/api/v1/entries/${id}`;
@@ -275,7 +309,7 @@ class DiaryClient {
           updateEntryView(response.updatedEntry);
         }
       })
-      .catch(err => err);
+      .catch(() => spinner.style.display = 'none');
   }
 
   static checkToken() {
@@ -309,7 +343,7 @@ class DiaryClient {
           DiaryClient.getNumberEntriesCeated(page, action);
         }
       })
-      .catch(err => err);
+      .catch(() => { spinner.style.display = 'none'; });
   }
 
   static getNumberEntriesCeated(page, action) {
@@ -411,8 +445,7 @@ const loadPageNumbers = (paginationContainer, count) => {
   addEventListenerTopaginate(container);
 };
 
-
-const bindEntryData = (entry) => {
+const getMaxEntryLenght = (entry) => {
   let entryTitle = entry.title;
   let entryBody = entry.body;
   if (entry.title.length > 40) {
@@ -421,6 +454,11 @@ const bindEntryData = (entry) => {
   if (entry.body.length > 40) {
     entryBody = `${entry.body.substring(0, 40)} ...`;
   }
+  return { entryTitle, entryBody };
+};
+
+const bindEntryData = (entry) => {
+  const { entryTitle, entryBody } = getMaxEntryLenght(entry);
   const entryWrap = `<li class="entry-item" id="diary-${entry.id}">
                       <div class="" data-id="diary-${entry.id}" data-target="view-single-diary">
                           <h4 class="sing-diary-title diary-text">${entryTitle}</h4>

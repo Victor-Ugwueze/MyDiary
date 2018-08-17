@@ -10,7 +10,6 @@ const redirect = (response) => {
 const loadingIndicator = document.querySelector('.loading-indicator');
 
 const showErrors = (errors, action) => {
-  // const errorFlag = document.querySelector('#erro-flag');
   const loginErrorFlag = document.querySelector('#email-error');
   const singupErrorFlag = document.querySelector('#signup-error');
   if (action === 'login') {
@@ -19,6 +18,7 @@ const showErrors = (errors, action) => {
     loginErrorFlag.classList.remove('hide-error');
     loginErrorFlag.classList.add('show-error');
     const inputField = document.querySelector(`#login input[name=${errors[0][0]}]`);
+    console.log(inputField);
     inputField.classList.add('input-error-border');
     hideErrors('login', inputField, loginErrorFlag);
   } else if (action === 'signup') {

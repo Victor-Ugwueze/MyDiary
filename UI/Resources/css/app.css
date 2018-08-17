@@ -243,7 +243,24 @@ textarea{
     cursor: pointer;
     margin-left: 8px;
 }
-
+.alert {
+  height: 40px;
+  width: 80%;
+  margin: 8px auto;
+  display: none;
+  padding-left: 4%;
+  padding-top: 8px;
+ }
+ .error-flash{
+  color: #691e1d;
+  background-color: #f8d7da;
+  border-color: #ebccd1;
+ }
+ .success-flash{
+  color: #155724;
+  background-color: #d4edda;
+  border-color: #d6e9c6;
+ }
 .icon-bar:after{
     content: "";
     display: block;

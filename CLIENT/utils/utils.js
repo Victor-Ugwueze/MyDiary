@@ -24,6 +24,10 @@ const makeNetworkRequest = (input = { url: '', method: '', data: '' }) => {
     })
     .catch((err) => {
       console.log(err.message);
+      const errorFlag = document.querySelector('#main-section .error-flash');
+      errorFlag.classList.remove('hide-error');
+      errorFlag.classList.add('show-error');
+      errorFlag.textContent = 'Problem loading request, check your connection and try again';
       throw new Error('Problem loading request');
     });
 };
@@ -42,5 +46,8 @@ const showResponse = (action, message) => {
   responseFlash.textContent = message;
   setTimeout(() => {
     responseFlash.classList.add('hide-error');
+    if (message === 'Failed to authenticate') {
+      window.location.href = 'index.html';
+    }
   }, 5000);
 };

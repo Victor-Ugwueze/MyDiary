@@ -50,9 +50,9 @@
             </div>
           </li>
           <li>
-            <div class="nav-item-row nav-it" data-target="settings" >
+            <div class="nav-item-row nav-it settings-page" data-target="settings" >
                 <img class="icon" src="Resources/images/icons/settings_icon.png">
-                 <h3 class="text set-page" role="tab">Settings</h3>
+                 <h3 class="text" role="tab">Settings</h3>
           </li>
           <li>
             <div class="nav-item-row nav-it get-profile" data-target="profile">
@@ -103,7 +103,7 @@
                             </div>
                             <div class="Notification-item">
                                 <p class="title">We will remind you to write your journal</p>
-                                <input type="checkbox">
+                                <input type="checkbox" id="reminder-journal" class="email-subscribe-update">
                             </div>
                       </div>
                   </li>
@@ -111,7 +111,7 @@
                       <h4>News Letter</h4>
                       <div id="news-letter">
                           <p class="title">Receive monthly news Letter</p>
-                          <input type="checkbox">
+                          <input type="checkbox" id="receive-newsletter" class="email-subscribe-update">
                       </div>
                   </li>
               </ul>
@@ -130,7 +130,7 @@
             </div> -->
               <div class="profile-details">
                 <div>
-                  <form enctype="application/x-www-form-urlencoded"  id="update-profiele">
+                  <form enctype="application/x-www-form-urlencoded"  id="update-profile">
                   <h4>Profile Details</h4>
                   <div class="errors" id="profile-error"></div>
                     <div class="item">
@@ -171,6 +171,7 @@
                 <div class="modal-heading">
                     <div id="title"><h4>Add Entry</h4></div>
                     <div class="close close-btn" data-target="add-new-entry">X</div>
+                    <div class="alert error-flash"></div>
                 </div>
                 <form enctype="application/x-www-form-urlencoded" id="add-entry-form">
                     <div class="form-row">
@@ -192,6 +193,7 @@
                 <div class="modal-heading">
                     <div id="title"><h4>Edit Entry</h4></div>
                     <div class="close close-btn" data-target="edit-diary-entry">X</div>
+                    <div class="alert error-flash"></div>
                 </div>
                 <img src="Resources/images/loading_spinner.gif" class="loading_spinner_edit">
                 <form enctype="application/x-www-form-urlencoded"  id="edit-diary-entry-form">
@@ -276,5 +278,6 @@
     <script src="../CLIENT/utils/utils.js"></script>
     <script src="../CLIENT/diary.js"></script>
     <script src="../CLIENT/profile.js"></script>
+    <script src="../CLIENT/settings.js"></script>
 </body>
 </html>

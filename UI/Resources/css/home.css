@@ -166,7 +166,7 @@ footer{
   border: 2px solid red !important;
 }
 .errors {
-  color: red;
+  /* color: red; */
   text-align: center;
   display: block;
 }

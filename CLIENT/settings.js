@@ -1,62 +1,76 @@
-/* global validateInput, displayUserdetails, getFormInput, makeNetworkRequest */
+/* global makeNetworkRequest, showResponse, showErrors */
 
+const displaySettings = (response) => {
+  const journalCheckBox = document.querySelector('#reminder-journal');
+  const newsletterCheckBox = document.querySelector('#receive-newsletter');
+  const userSettings = response.notifications;
+  userSettings.forEach((settings) => {
+    if (settings.title === 'journal') {
+      journalCheckBox.checked = settings.reminder || '';
+    } else {
+      newsletterCheckBox.checked = settings.reminder || '';
+    }
+  });
+};
 
 class SettingsClient {
   static init() {
-    SettingsClient.updateProfile();
-    SettingsClient.changePassword();
+    const settingsMenu = document.querySelector('.settings-page');
+    const updateReminderSettings = document.querySelectorAll('.email-subscribe-update');
+    settingsMenu.addEventListener('click', SettingsClient.getUserSettings);
+    [...updateReminderSettings].forEach((checkBox) => {
+      checkBox.addEventListener('click', SettingsClient.updateReminder);
+    });
+    // SettingsClient.updateProfile();
+    // SettingsClient.changePassword();
   }
 
-  static updateProfile() {
-    const form = document.querySelector('#update-profiele');
-    form.addEventListener('submit', (event) => {
-      event.preventDefault();
-      const url = 'https://my-diary-dev.herokuapp.com/api/v1/users/profile';
-      const data = getFormInput(event.target);
-      const errors = validateInput(data);
-      if (Object.entries(errors).length > 0) {
-        // showErrors(Object.entries(errors), 'updateProfile');
-        return;
-      }
-      const token = SettingsClient.checkToken();
-      data.token = token;
-      const method = 'put';
-      makeNetworkRequest({ url, method, data })
-        .then((response) => {
-          if (response.status === 'Success') {
-            displayUserdetails(response);
-          } else {
-            // showErrors(response, 'updateResponse');
-          }
-        })
-        .catch(() => {
-          // const errorMeaage = { message: `${err.message},
-          // please check your network connection and try again` };
-          // showErrors(errorMeaage, 'loginResponse');
-        });
-    });
+  static getUserSettings() {
+    const url = '/api/v1/settings/notifications';
+    const token = SettingsClient.checkToken();
+    const data = {};
+    data.token = token;
+    const method = 'get';
+    makeNetworkRequest({ url, method, data })
+      .then((response) => {
+        if (response.status === 'Success') {
+          displaySettings(response);
+        } else {
+          showErrors(response, 'updateResponse');
+        }
+      })
+      .catch((err) => {
+        const errorMeaage = {
+          message: `${err.message},
+          please check your network connection and try again`,
+        };
+        showErrors(errorMeaage, 'updateResponse');
+      });
   }
 
-  static changePassword() {
-    const form = document.querySelector('#change-password');
-    form.addEventListener('submit', (event) => {
-      event.preventDefault();
-      const url = 'https://my-diary-dev.herokuapp.com/api/v1/users/profile/password';
-      const data = getFormInput(event.target);
-      const errors = validateInput(data);
-      if (Object.entries(errors).length > 0) {
-        // showErrors(Object.entries(errors), 'signup');
-        return;
-      }
-      const method = 'post';
-      makeNetworkRequest({ url, method, data })
-        .then()
-        .catch(() => {
-          /* const errorMeaage = { message: `${err.message},
-           please check your network connection and try again` };
-          */
-        });
-    });
+  static updateReminder(event) {
+    const token = SettingsClient.checkToken();
+    const data = {};
+    const title = event.target.id.split('-')[1];
+    const reminder = event.target.checked;
+
+    data.token = token;
+    data.title = title;
+    data.reminder = reminder;
+    const url = '/api/v1/settings/notifications';
+    const method = 'put';
+    makeNetworkRequest({ url, method, data })
+      .then((response) => {
+        if (response.status === 'Success') {
+          showResponse('success-flash', response.message);
+        } else {
+          showResponse('error-flash', response.message);
+        }
+      })
+      .catch((err) => {
+        console.log(err.message);
+        const errorMeaage = { message: `${err.message},please check your network connection and try again` };
+      });
   }
 
   static checkToken() {
