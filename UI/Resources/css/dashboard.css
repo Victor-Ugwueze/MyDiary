@@ -64,8 +64,19 @@ header #top-bar{
   display: none;
 }
 .loading_spinner_edit{
-  margin-left: 30%;
+  margin-left: 25%;
   display: none;
+}
+#edit-diary-entry .loading_spinner_edit{
+  height: 200px;
+  width: 200px;
+}
+.loading-indicator {
+  width: 150px;
+  height: 100px;
+  border-radius: 50%;
+  top: -4%;
+  background: transparent;
 }
 @keyframes animateleft {
   from {
@@ -287,6 +298,10 @@ header #top-bar{
   height: auto;
   padding: 4px 4%;
 }
+#edit-diary-entry input[type='submit'], 
+#add-new-entry #add-entry-submit{
+  width: 100%;
+}
 .action-edit,.action-delete{
     font-size: 12px;
     padding: 2px 4px;
@@ -297,8 +312,9 @@ header #top-bar{
     width: 30%;
     height: 200px;
 }
-#view-single-diary .modal-content{
-  margin-top: 2%;
+#view-single-diary .modal-content,
+#add-new-entry .modal-content{
+  margin-top: 4%;
   overflow-y: auto;
 }
 #confirm-delete .modal-body{
@@ -371,10 +387,7 @@ header #top-bar{
 .date{
     font-size: 14px;
 }
-.loading-indicator {
-  width: 20px;
-  height: 20px;
-}
+
 .dashboard-section{
     width: 80%;
     margin-left: auto;

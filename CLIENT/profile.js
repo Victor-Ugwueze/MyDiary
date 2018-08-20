@@ -30,7 +30,7 @@ const showErrors = (errors, action) => {
   inputField.classList.add('input-error-border');
   hideErrors('change-password', inputField, singupErrorFlag);
 };
-
+const loadingIndicator = document.querySelector('.loading-indicator');
 
 class ProfileClient {
   static init() {
@@ -42,6 +42,7 @@ class ProfileClient {
     const form = document.querySelector('#update-profile');
     form.addEventListener('submit', (event) => {
       event.preventDefault();
+      loadingIndicator.style.display = 'block';
       const url = '/api/v1/users/profile';
       const data = getFormInput(event.target);
       const errors = validateInput(data);
@@ -60,10 +61,12 @@ class ProfileClient {
           } else {
             showResponse('error-flash', response.message);
           }
+          loadingIndicator.style.display = 'none';
         })
         .catch((err) => {
           const errorMeaage = { message: `${err.message}, please check your network connection and try again` };
           showErrors(errorMeaage, 'loginResponse');
+          loadingIndicator.style.display = 'none';
         });
     });
   }

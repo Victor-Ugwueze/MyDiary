@@ -1,4 +1,10 @@
-/* global makeNetworkRequest, showResponse, showErrors */
+/* global makeNetworkRequest,
+showResponse,
+showErrors,
+showPageContent,
+loadingIndicator */
+
+// const lo = document.querySelector('.loading-indicator');
 
 const displaySettings = (response) => {
   const journalCheckBox = document.querySelector('#reminder-journal');
@@ -31,6 +37,7 @@ class SettingsClient {
     const data = {};
     data.token = token;
     const method = 'get';
+    loadingIndicator.style.display = 'block';
     makeNetworkRequest({ url, method, data })
       .then((response) => {
         if (response.status === 'Success') {
@@ -38,12 +45,15 @@ class SettingsClient {
         } else {
           showErrors(response, 'updateResponse');
         }
+        showPageContent('settings');
+        loadingIndicator.style.display = 'none';
       })
       .catch((err) => {
         const errorMeaage = {
           message: `${err.message},
           please check your network connection and try again`,
         };
+        loadingIndicator.style.display = 'none';
         showErrors(errorMeaage, 'updateResponse');
       });
   }

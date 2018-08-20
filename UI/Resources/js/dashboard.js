@@ -12,24 +12,6 @@ const rightSection = document.querySelector('#right-section');
   });
 });
 
-const navigationMenuButtons = document.querySelectorAll('.nav-it');
-// console.log(document.querySelector('.nav-it').hasAttribute('data-target'));
-
-[...navigationMenuButtons].forEach((element) => {
-  element.addEventListener('click', (event) => {
-    let navMenuitem = event.target;
-    if (!navMenuitem.classList.contains('nav-it')) {
-      navMenuitem = navMenuitem.parentNode;
-    }
-    const allItems = document.querySelectorAll('.nav-it');
-    // Change Active Navigation tab
-    SelectElement(navMenuitem, [...allItems], 'active');
-    // Select tab content
-    const targetPageSection = document.querySelector(`#main-section #${navMenuitem.dataset.target}`);
-    const allPageSections = document.querySelectorAll('.tab-pane');
-    SelectElement(targetPageSection, [...allPageSections], 'selected');
-  });
-});
 
 // Show add entry modal
 const addNewEntryButtons = document.querySelectorAll('.add-entry');

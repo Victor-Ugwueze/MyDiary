@@ -14,13 +14,6 @@ header .container-fluid{
     z-index: 1;
     justify-content: space-between;
 }
-.loading-indicator {
-  width: 64px;
-  display: none;
-  height: 56px;
-  position: absolute;
-  left: 50%;
-}
 header .brand{
     display: flex;
     color: var(--primary);

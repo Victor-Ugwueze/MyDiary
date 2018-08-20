@@ -243,6 +243,13 @@ textarea{
     cursor: pointer;
     margin-left: 8px;
 }
+.loading-indicator {
+  width: 64px;
+  display: none;
+  height: 56px;
+  position: absolute;
+  left: 50%;
+}
 .alert {
   height: 40px;
   width: 80%;

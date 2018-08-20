@@ -51,3 +51,10 @@ const showResponse = (action, message) => {
     }
   }, 5000);
 };
+
+const showPageContent = (currentPage) => {
+  console.log(currentPage);
+  const targetPageSection = document.querySelector(`#main-section #${currentPage}`);
+  const allPageSections = document.querySelectorAll('.tab-pane');
+  SelectElement(targetPageSection, [...allPageSections], 'selected');
+};

@@ -1,14 +1,30 @@
-/* global SelectElement, modal, makeNetworkRequest, showResponse, showErrors */
+/* global SelectElement, modal, makeNetworkRequest, showResponse, showErrors, showPageContent */
 
 // Function used to make network request
 
 
-const spinner = document.querySelector('.loading_spinner');
-const spinnerEdit = document.querySelector('.loading_spinner_edit');
-
+const spinner = document.querySelector('.loading-indicator');
 
 // Populate Edit button
+
+const hideModalLayout = (modal, action) => {
+  const modalLayout = modal.querySelectorAll('.modal-content>div');
+  const loadingSpinner = document.querySelector('.loading_spinner_edit');
+  [...modalLayout].forEach((divElement) => {
+    const element = divElement;
+    element.style.display = action;
+  });
+  loadingSpinner.style.marginLeft = '34%';
+  if (action === 'block') {
+    loadingSpinner.style.display = 'none';
+  } else {
+    loadingSpinner.style.display = 'block';
+  }
+};
+
+
 const populateModalFoEdit = (targetEditButton, editModal) => {
+  hideModalLayout(editModal, 'none');
   DiaryClient.getSingleEntry(targetEditButton.dataset.id.split('-')[1])
     .then((entry) => {
       // get refrence to modal and ppulate conten
@@ -18,6 +34,7 @@ const populateModalFoEdit = (targetEditButton, editModal) => {
       editModalTitle.value = entry.dairyEntry.title;
       editModalBody.value = entry.dairyEntry.body;
       entryInputId.value = entry.dairyEntry.id;
+      hideModalLayout(editModal, 'block');
     });
 };
 
@@ -27,7 +44,7 @@ const updateEntryView = (entry) => {
   const title = entryToUpdate.querySelector('.sing-diary-title');
   const body = entryToUpdate.querySelector('.sing-diary-body');
   title.textContent = entryTitle;
-  body.textContent = entry.body;
+  body.textContent = entryBody;
 };
 
 // Edit Diary Add Event Method
@@ -87,8 +104,8 @@ const deleteModalItem = (targetDeleteButton) => {
     const diaryItem = diaryList.querySelector(`#${targetDeleteButton.dataset.target}`);
     DiaryClient.deleteEntry(entryId)
       .then((response) => {
-        showResponse('success-flash', response.message);
         window.location.reload();
+        showResponse('success-flash', response.message);
       })
       .catch((err) => {
         console.log(err);
@@ -163,6 +180,25 @@ const clearEntryModal = (modal) => {
   titleBody.value = '';
   errorFlag.classList.add('hide-error');
 };
+/*   Select Page content after making network request */
+
+const navigationMenuButtons = document.querySelectorAll('.nav-it');
+// console.log(document.querySelector('.nav-it').hasAttribute('data-target'));
+
+[...navigationMenuButtons].forEach((element) => {
+  element.addEventListener('click', (event) => {
+    let navMenuitem = event.target;
+    if (!navMenuitem.classList.contains('nav-it')) {
+      navMenuitem = navMenuitem.parentNode;
+    }
+    const allItems = document.querySelectorAll('.nav-it');
+    // Change Active Navigation tab
+    SelectElement(navMenuitem, [...allItems], 'active');
+    // Select tab conten
+  });
+});
+
+
 class DiaryClient {
   static init() {
     document.querySelector('#add-entry-form')
@@ -171,10 +207,10 @@ class DiaryClient {
       .addEventListener('submit', DiaryClient.updateEntry);
     document.querySelector('#logout')
       .addEventListener('click', DiaryClient.logout);
-    [...document.querySelectorAll('.prof-page')]
-      .forEach((profilemenu) => {
-        profilemenu.addEventListener('click', DiaryClient.getUserDetails);
-      });
+    document.querySelector('.dairy-page')
+      .addEventListener('click', DiaryClient.getAllEntries);
+    document.querySelector('.get-profile')
+      .addEventListener('click', DiaryClient.getUserDetails);
     DiaryClient.getAllEntries(1, 'paginate');
   }
 
@@ -183,7 +219,11 @@ class DiaryClient {
     window.location.href = 'index.html';
   }
 
-  static getAllEntries(currentPage, action) {
+  static getAllEntries(current = 1, action = '') {
+    let currentPage = current;
+    if (Number.isNaN(parseInt(currentPage, 10))) {
+      currentPage = 1;
+    }
     spinner.style.display = 'block';
     const token = DiaryClient.checkToken();
     const method = 'get';
@@ -204,6 +244,7 @@ class DiaryClient {
         addEventListenerToDeleteButton();
         DiaryClient.getUserDetails('main', action);
         spinner.style.display = 'none';
+        showPageContent('diary');
         return true;
       })
       .catch((err) => {
@@ -260,7 +301,6 @@ class DiaryClient {
   }
 
   static getSingleEntry(id) {
-    spinnerEdit.style.display = 'block';
     const token = DiaryClient.checkToken();
     const method = 'get';
     const url = `/api/v1/entries/${id}`;
@@ -270,12 +310,10 @@ class DiaryClient {
     return makeNetworkRequest({ url, method, data })
       .then((response) => {
         if (response.status === 'success') {
-          spinnerEdit.style.display = 'none';
           return response;
         }
       })
       .catch((err) => {
-        spinnerEdit.style.display = 'none';
         return err;
       });
   }
@@ -341,6 +379,9 @@ class DiaryClient {
             displayUserdetails(response);
           }
           DiaryClient.getNumberEntriesCeated(page, action);
+        }
+        if (page !== 'main') {
+          showPageContent('profile');
         }
       })
       .catch(() => { spinner.style.display = 'none'; });

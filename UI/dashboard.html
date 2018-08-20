@@ -11,6 +11,7 @@
 </head>
 <body>
   <header>
+      <img class="loading-indicator" src="Resources/images/icons/loading_spinner3.gif">
     <span class="icon-bar menu-icon"></span>
     <div id="top-bar">
       <div class="brand">
@@ -44,7 +45,7 @@
             </div>
           </li>
           <li>
-            <div class="nav-item-row nav-it active" data-target="diary">
+            <div class="nav-item-row nav-it active dairy-page" data-target="diary">
                 <img class="icon" src="Resources/images/icons/diary_icon_list_white.png"> 
                 <h3 class="text" role="tab" >My Diary</h3>
             </div>
@@ -56,8 +57,8 @@
           </li>
           <li>
             <div class="nav-item-row nav-it get-profile" data-target="profile">
-                <img class="icon prof-page" src="Resources/images/icons/profile_icon_white.png">
-                <h3 class="text prof-page" role="tab">Profile</h3>
+                <img class="icon" src="Resources/images/icons/profile_icon_white.png">
+                <h3 class="text" role="tab">Profile</h3>
             </div>
           </li>
           <div id="logout" class="nav-item-row nav-it">
@@ -190,12 +191,13 @@
         </div>
     <div class="modal" id="edit-diary-entry" >
             <div class="modal-content col-2">
-                <div class="modal-heading">
-                    <div id="title"><h4>Edit Entry</h4></div>
-                    <div class="close close-btn" data-target="edit-diary-entry">X</div>
-                    <div class="alert error-flash"></div>
-                </div>
-                <img src="Resources/images/loading_spinner.gif" class="loading_spinner_edit">
+              <img src="Resources/images/icons/loading_spinner3.gif" class="loading_spinner_edit">
+              <div class="modal-heading">
+                  <div id="title"><h4>Edit Entry</h4></div>
+                  <div class="close close-btn" data-target="edit-diary-entry">X</div>
+                  <div class="alert error-flash"></div>
+              </div>
+              <div>
                 <form enctype="application/x-www-form-urlencoded"  id="edit-diary-entry-form">
                     <div class="form-row">
                         <div class="row">
@@ -210,6 +212,7 @@
                         </div>
                     </div>
                 </form>
+              </div>
             </div>
         </div>
         <div class="modal" id="view-single-diary">
