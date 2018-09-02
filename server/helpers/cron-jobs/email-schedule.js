@@ -3,11 +3,11 @@ import nodeMailer from 'nodemailer';
 import Notification from '../../models/notification';
 
 
-const sendMail = (user, transporter) => {
+const sendMail = (user, transporter, jobTitle) => {
   const mailOptions = {
     from: '<Noreply@mydairyonline.com>',
     to: `${user.email}`,
-    subject: 'This is a cron job email testing',
+    subject: `This is an email ${jobTitle}`,
     text: `Hi ${user.first_name} we want to remind you to write your journal`,
   };
   transporter.sendMail(mailOptions, (error, info) => {
@@ -17,6 +17,20 @@ const sendMail = (user, transporter) => {
     } else {
       console.log(info);
     }
+  });
+};
+
+const dispatchJob = (schedule, jobTitle, transporter) => {
+  cron.schedule('* 0 * * *', () => {
+    console.log(`Running cron job for ${jobTitle}:`);
+    const notification = new Notification();
+    notification.getNotification(jobTitle)
+      .then((result) => {
+        result.forEach((user) => {
+          sendMail(user, transporter, jobTitle);
+        });
+      })
+      .catch(err => console.log(err.message));
   });
 };
 
@@ -30,17 +44,11 @@ const registerCronJob = () => {
     },
   });
 
-  cron.schedule('20 * * * *', () => {
-    console.log('Running cron job every minuites');
-    const notification = new Notification();
-    notification.getNotification('journal')
-      .then((result) => {
-        result.forEach((user) => {
-          sendMail(user, transporter);
-        });
-      })
-      .catch(err => console.log(err.message));
-  });
+  // Write journal reminder
+  dispatchJob('* 0 * * *', transporter, 'journal');
+
+  // Send newsletter
+  dispatchJob('0 0 1 * *', transporter, 'mewsletter');
 };
 
 
