@@ -2,6 +2,12 @@ import pool from '../helpers/dbHelper';
 import { formatEntryDate, trimeSpaces } from '../helpers/entryHelper';
 
 class Entry {
+  /**
+ * Represents an entry.
+ * @constructor
+ *
+ */
+
   constructor() {
     this.title = null;
     this.pool = pool;
@@ -9,6 +15,12 @@ class Entry {
     this.userId = null;
   }
 
+  /**
+   * This function finds entry by id.
+   * @constructor
+   * @param {integer} id - The id of the dairy entry.
+   *
+   */
   find(requestId) {
     const query = {
       text: 'SELECT * FROM entries WHERE user_id = $1 AND id = $2',
@@ -52,8 +64,7 @@ class Entry {
         }
         return false;
       })
-      .catch((err) => {
-        console.log(err);
+      .catch(() => {
       });
   }
 
