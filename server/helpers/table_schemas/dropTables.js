@@ -2,6 +2,11 @@ import pool from '../dbHelper';
 
 
 class SetupTestDb {
+  /**
+ * Represents an database schemma.
+ * @constructor
+ *
+ */
   constructor() {
     this.pool = pool;
     this.dropEntreiesTable = 'DROP TABLE IF EXISTS entries';
@@ -34,6 +39,11 @@ class SetupTestDb {
     )`;
   }
 
+  /**
+ * This method creates database tables as defined.
+ * @method
+ *
+ */
   up() {
     this.pool.query(this.createUsersTable)
       .then(() => this.pool.query(this.createEntriesTable))
@@ -42,6 +52,11 @@ class SetupTestDb {
       .catch(err => err);
   }
 
+  /**
+ * This method drops database tables as defined.
+ * @method
+ *
+ */
   down() {
     return this.pool.query(this.dropUsersTable)
       .then(() => this.pool.query(this.dropEntreiesTable))

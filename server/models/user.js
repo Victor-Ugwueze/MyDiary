@@ -3,6 +3,15 @@ import pool from '../helpers/dbHelper';
 
 
 class User {
+  /**
+ * Represents a user.
+ * @constructor
+ * @param {string} firstName - The user first name.
+ * @param {string} lastName - The user last name.
+ * @param {string} email - The user email.
+ * @param {string} password - The user passord.
+ *
+ */
   constructor(firstName, lastName, email, password) {
     this.firstName = firstName;
     this.lastName = lastName;
@@ -11,6 +20,10 @@ class User {
     this.password = password;
   }
 
+  /**
+   * This method logs the user in.
+   * @method
+   */
   doLogin() {
     const query = {
       text: 'SELECT * FROM users WHERE email = $1',
@@ -31,6 +44,10 @@ class User {
       .catch(err => err);
   }
 
+  /**
+   * This method logs the user in.
+   * @method
+   */
   doSignup() {
     const hash = bcrypt.hashSync(this.password, 10);
     const query = {
@@ -52,6 +69,12 @@ class User {
       .catch(() => { throw new Error(); });
   }
 
+  /**
+   * This method check if email exist on database.
+   * @method
+   * @param {object} input - The user details object.
+   */
+
   checkIfEmailExists(input) {
     this.firstName = input.firstName;
     this.lastName = input.lastName;
@@ -67,6 +90,11 @@ class User {
       .catch(err => err);
   }
 
+  /**
+   * This method updates user details.
+   * @method
+   * @param {object} request - The request object.
+   */
   updateUser(request) {
     const id = this.userId;
     const query = {
@@ -90,6 +118,10 @@ class User {
       .catch(err => err);
   }
 
+  /**
+   * This method finds a logged in user.
+   * @method
+   */
   getUser() {
     const id = this.userId;
     return this.pool.query(
@@ -109,6 +141,10 @@ class User {
       .catch(err => err);
   }
 
+  /**
+   * This method returnes total number of entries created by user.
+   * @method
+   */
   getEntryCount() {
     const id = this.userId;
     return this.pool.query('SELECT * FROM entries WHERE user_id = $1', [id])
@@ -121,6 +157,11 @@ class User {
       .catch(err => err);
   }
 
+  /**
+   * This method compares password of a logged user to password sent along with request.
+   * @method
+   * @param {object} req - The request object.
+   */
   checkPassword(req) {
     const id = this.userId;
     this.password = req.body.password;
@@ -135,6 +176,10 @@ class User {
       .catch(() => { throw new Error(); });
   }
 
+  /**
+   * This method updates user password.
+   * @method
+   */
   updatePassword() {
     const id = this.userId;
     const password = bcrypt.hashSync(this.password, 10);
@@ -155,6 +200,12 @@ class User {
       .catch(() => { throw new Error(); });
   }
 
+  /**
+   * This method subscribe user to receive, daily reminder and monthly newsletter,
+     after signup.
+   * @method
+   * @param {object} input - The user details object.
+   */
   createDefaultReminder(userId, title, action) {
     let text = 'INSERT INTO notifications (title, user_id) VALUES($1, $2) RETURNING id';
     if (action === 'signup') {

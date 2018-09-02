@@ -16,8 +16,8 @@ class Entry {
   }
 
   /**
-   * This function finds entry by id.
-   * @constructor
+   * This method finds entry by id.
+   * @method
    * @param {integer} id - The id of the dairy entry.
    *
    */
@@ -36,6 +36,12 @@ class Entry {
       .catch(err => err);
   }
 
+  /**
+     * This method finds updates an entry.
+     * @method
+     * @param {object} request - The request object.
+     *
+     */
   update(request) {
     const query = {
       text: `UPDATE entries SET title = $1, 
@@ -68,6 +74,13 @@ class Entry {
       });
   }
 
+  /**
+   * This method returns a list of all entries.
+   * @method
+   * @param {integer} page - The current page of list entry.
+   * @param {integer} perPage - The number of entry that should be return per page.
+   *
+   */
   findAll(page, perPage) {
     const currentPage = page || 1;
     const entryPerPage = perPage || 5;
@@ -89,7 +102,12 @@ class Entry {
       .catch(err => err);
   }
 
-
+  /**
+ * This method saves a new entry.
+ * @method
+ * @param {object} input - It conatains details of new entry to be saved.
+ *
+ */
   save(input) {
     const query = {
       text: 'INSERT INTO entries (title,body,user_id) VALUES($1, $2, $3) RETURNING id,title,body,created_at',
@@ -101,6 +119,12 @@ class Entry {
       .catch(err => err);
   }
 
+  /**
+   * This method deletes an entry.
+   * @method
+   * @param {integer} requestId - Id of the entry to be deleted.
+   *
+   */
   delete(requestId) {
     const query = {
       text: 'DELETE FROM entries WHERE id = $1 AND user_id = $2',

@@ -2,6 +2,11 @@ import pool from '../dbHelper';
 
 
 export default class CreateTableSchema {
+/**
+ * Represents an database schemma.
+ * @constructor
+ *
+ */
   constructor() {
     this.pool = pool;
     this.createEntriesTable = `CREATE TABLE IF NOT EXISTS entries(
@@ -31,6 +36,11 @@ export default class CreateTableSchema {
     )`;
   }
 
+  /**
+ * This method creates database tables as defined.
+ * @method
+ *
+ */
   run() {
     return this.pool.query(this.createUsersTable)
       .then(() => this.pool.query(this.createEntriesTable))
