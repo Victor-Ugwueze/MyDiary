@@ -67,7 +67,8 @@ header #top-bar{
   margin-left: 25%;
   display: none;
 }
-#edit-diary-entry .loading_spinner_edit{
+#edit-diary-entry .loading_spinner_edit,
+#view-single-diary .loading_spinner_edit{
   height: 200px;
   width: 200px;
 }
@@ -278,10 +279,12 @@ header #top-bar{
     padding-right: 2em;
     min-height: 70px;
     padding-top: 12px;
-    cursor: pointer;
 }
 .entry-item div{
     flex-basis: 60%;
+}
+.sing-diary-title {
+  cursor: pointer;
 }
 #diary-body, #view-single-diary #body,.entry-body{
     height: 300px;
@@ -313,7 +316,8 @@ header #top-bar{
     height: 200px;
 }
 #view-single-diary .modal-content,
-#add-new-entry .modal-content{
+#add-new-entry .modal-content,
+#edit-diary-entry .modal-content{
   margin-top: 4%;
   overflow-y: auto;
 }
@@ -340,7 +344,13 @@ header #top-bar{
     color: rgb(0, 0, 0);
 }
 #diary-content h4{
-    padding-bottom: 4%;
+   font-size: 18px;
+   line-height: 1.2em;
+   font-family: Lora,georgia,serif;
+   font-weight: 300;
+}
+#diary-content textarea{
+  margin-top: 20px;
 }
 .pagination {
   display: inline-block;

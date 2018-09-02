@@ -9,7 +9,7 @@ const spinner = document.querySelector('.loading-indicator');
 
 const hideModalLayout = (modal, action) => {
   const modalLayout = modal.querySelectorAll('.modal-content>div');
-  const loadingSpinner = document.querySelector('.loading_spinner_edit');
+  const loadingSpinner = modal.querySelector('.loading_spinner_edit');
   [...modalLayout].forEach((divElement) => {
     const element = divElement;
     element.style.display = action;
@@ -63,21 +63,21 @@ const addEventListenerToEditButton = () => {
 const showDiaryEntry = (containerDiv) => {
   const itemId = (containerDiv.dataset.id).split('-')[1];
   const viewEntryModal = document.querySelector(`#${containerDiv.dataset.target}`);
+  // Hide modal layout
+  hideModalLayout(viewEntryModal, 'none');
   // get refrence to elements
   const titleContainer = viewEntryModal.querySelector('#diary-content h4');
   const bodyContainer = viewEntryModal.querySelector('#diary-content #body');
   const dateContainer = viewEntryModal.querySelector('.date');
   DiaryClient.getSingleEntry(itemId)
     .then((response) => {
-      console.log(dateContainer);
       titleContainer.textContent = response.dairyEntry.title;
       bodyContainer.textContent = response.dairyEntry.body;
       dateContainer.textContent = new Date(response.dairyEntry.created_at).toDateString();
+      hideModalLayout(viewEntryModal, 'block');
     })
     .catch(() => {
-
     });
-
   modal.show(viewEntryModal, 'show');
 };
 
@@ -233,7 +233,6 @@ class DiaryClient {
     };
     return makeNetworkRequest({ url, method, data })
       .then((response) => {
-        console.log(response);
         //  updatePaginate(response);
         if (response.err === 'Session expired') {
           DiaryClient.logout();
@@ -247,8 +246,7 @@ class DiaryClient {
         showPageContent('diary');
         return true;
       })
-      .catch((err) => {
-        console.log(err);
+      .catch(() => {
         spinner.style.display = 'none';
       });
   }
@@ -347,7 +345,7 @@ class DiaryClient {
           updateEntryView(response.updatedEntry);
         }
       })
-      .catch(() => spinner.style.display = 'none');
+      .catch(() => { spinner.style.display = 'none'; });
   }
 
   static checkToken() {
@@ -511,7 +509,7 @@ const bindEntryData = (entry) => {
                           <img class="diary-edit icon-edit" src="Resources/images/edit.png">
                           <span class="edit-text">Edit</span>
                         </span>
-                          | 
+                        &nbsp;| 
                         <span data-target="diary-${entry.id}" class="btn btn-danger action-delete">
                           <img class="diary-edit icon-edit" src="Resources/images/delete-button.png">
                           <span class="delete-text">Delete</span>

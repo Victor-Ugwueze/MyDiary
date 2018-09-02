@@ -1,10 +1,11 @@
 /* global makeNetworkRequest,
 showResponse,
 showErrors,
+SelectElement,
 showPageContent,
 loadingIndicator */
 
-// const lo = document.querySelector('.loading-indicator');
+const loadingIndicator = document.querySelector('.loading-indicator');
 
 const displaySettings = (response) => {
   const journalCheckBox = document.querySelector('#reminder-journal');
@@ -59,6 +60,8 @@ class SettingsClient {
   }
 
   static updateReminder(event) {
+    const indicator = event.target.nextElementSibling;
+    SelectElement(indicator, null, 'show-inline');
     const token = SettingsClient.checkToken();
     const data = {};
     const title = event.target.id.split('-')[1];
@@ -76,9 +79,10 @@ class SettingsClient {
         } else {
           showResponse('error-flash', response.message);
         }
+        SelectElement(indicator, null, 'show-inline');
       })
       .catch((err) => {
-        console.log(err.message);
+        SelectElement(indicator, null, 'show-inline');
         const errorMeaage = { message: `${err.message},please check your network connection and try again` };
       });
   }

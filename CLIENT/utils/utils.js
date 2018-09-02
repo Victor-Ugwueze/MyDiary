@@ -1,4 +1,4 @@
-
+/* global SelectElement */
 const makeNetworkRequest = (input = { url: '', method: '', data: '' }) => {
   const serverErrors = [404, 400, 401, 422, 419, 200, 201];
   const reqObject = {
@@ -18,12 +18,10 @@ const makeNetworkRequest = (input = { url: '', method: '', data: '' }) => {
       if (serverErrors.indexOf(response.status) === -1) {
         throw new Error(response);
       } else {
-        console.log(response);
         return response.json();
       }
     })
-    .catch((err) => {
-      console.log(err.message);
+    .catch(() => {
       const errorFlag = document.querySelector('#main-section .error-flash');
       errorFlag.classList.remove('hide-error');
       errorFlag.classList.add('show-error');
@@ -53,7 +51,6 @@ const showResponse = (action, message) => {
 };
 
 const showPageContent = (currentPage) => {
-  console.log(currentPage);
   const targetPageSection = document.querySelector(`#main-section #${currentPage}`);
   const allPageSections = document.querySelectorAll('.tab-pane');
   SelectElement(targetPageSection, [...allPageSections], 'selected');

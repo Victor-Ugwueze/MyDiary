@@ -89,6 +89,5 @@ const validateInput = (data, action) => {
   if (fields[3].password !== fields[4].confirmPassword && action !== 'login') {
     errors.confirmPassword = "password dosen't match";
   }
-  console.log(errors);
   return errors;
 };

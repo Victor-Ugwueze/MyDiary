@@ -219,6 +219,9 @@ textarea{
 .show{
     display: block !important;
 }
+.show-inline{
+  display: inline-block !important;
+}
 .close{
     position: absolute;
     right: 0;

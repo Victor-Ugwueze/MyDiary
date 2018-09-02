@@ -21,7 +21,7 @@
           <ul class="navbar">
             <div id="notification-icon">
               <img src="Resources/images/icons/notification_white_1.png">
-              <span id="number-of-notifications">7</span>
+              <!-- <span id="number-of-notifications">7</span> -->
             </div>
               <li class="nav-link">
                   <div class="dropdown">
@@ -100,11 +100,12 @@
                      
                       <div class="Notification-list">
                             <div id="add-notification-item">
-                              <a href="">+ Add new reminnder</a>
+                              <!-- <a href="">+ Add new reminnder</a> -->
                             </div>
                             <div class="Notification-item">
                                 <p class="title">We will remind you to write your journal</p>
                                 <input type="checkbox" id="reminder-journal" class="email-subscribe-update">
+                                <span class="hide saving-settings-indicator">Saving...</span>
                             </div>
                       </div>
                   </li>
@@ -113,6 +114,7 @@
                       <div id="news-letter">
                           <p class="title">Receive monthly news Letter</p>
                           <input type="checkbox" id="receive-newsletter" class="email-subscribe-update">
+                          <span class="hide saving-settings-indicator">Saving...</span>
                       </div>
                   </li>
               </ul>
@@ -152,6 +154,7 @@
                     </div>
                     <button data-target="update-password" type="button" class="btn btn-primary change-password">Change password</button>
                     <button id="save" type="submit" class="btn btn-primary" disabled>Save</button>
+                    <span class="hide saving-settings-indicator">Saving...</span>
                   </form>
                 </div>
                 <div id="total-entry-created">
@@ -217,6 +220,7 @@
         </div>
         <div class="modal" id="view-single-diary">
             <div class="modal-content col-2">
+                <img src="Resources/images/icons/loading_spinner3.gif" class="loading_spinner_edit">
                 <div class="modal-heading">
                     <div id="user">
                         
@@ -225,11 +229,11 @@
                 </div>
                 <div id="diary-content">
                    <h4></h4>
+                 
+                      <span class="date"></span>
+                
                    <textarea name="body" id="body" cols="30" rows="10" disabled></textarea>
                    <!-- <img src="Resources/images/loading_spinner.gif" class="loading_spinner_edit"> -->
-                   <div class="date-row">
-                      <span class="date"></span>
-                   </div>
                 </div>
                 
                
@@ -273,6 +277,7 @@
                       <input type="password" class="form-input" name="confirmPassword">
                     </div>
                     <button type="submit" class="btn btn-primary">Change</button>
+                    <span class="hide saving-settings-indicator">Updating...</span>
                   </form>
           </div>
     </section>
