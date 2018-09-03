@@ -20,8 +20,6 @@ after_script:
 deploy:
   provider: heroku
   app: my-diary-dev
-  api_key:
-    secure: On15Wd6frGuo5W2WCmCQL4zw7t9GdeOcy1bTtTRHWJCc0Mb5hzoMaDxvfzaS0xXfZxKA9eTipj8qMdwUzcH93M14OzVU7X1GgZP4DuZvNsmMa0e6vYJm3aq5ZaQq6haBEqN6CwcosbClPApM0E0ogOxYPQs58c9YaMSuJ07mBW7K8YkdXjgShPD5BxU/lKA8Vw9+qZQf3Znin1f/FZcW/Q6Q9shrvl36cwfxQ+i4mN2ZgSoc7EdFIb+5EZ9faG+1Z6DUMt71IXvz6znQVJm+ps39RAjDbdIHNkLNPtXvzzpXD5FTIbkWyf1grOWIAYyyp+v8ACU3Z7OpCqVD/h+pMUgT4cCQlwFMZK/PKQgx2KU50NjcHj8lI4ULlh9ddor9vJQtsHFTnCn14s0sMwVOf+/0wohD7klBJ7EjnIrldD4sg6mWkmbLYdzF+7ai9g3NZhRJgA3Lxx12CAGAT02SoXN2Hut6xi5LxxymzWKVoPXWrxUj/ttMb7pEENCp4N1YuPQbcOz3gXbcIpG37sSZ024yJPJtXy9Gxi2Xc4HhcWJChZiU2/ovu9ZrhAxuBGeoHWs12k35LbFq8Lu3hyDrk5O9fGDlOC9GRXYKQEfzliE9/2vctUoWQwx3kE2e9p4c70IPNrwONTnVuJy8mpl5BGFAnH4s0RQOF1ZH5PitV04=
   on:
     repo: Victor-Ugwueze/MyDiary
     branch: develop
