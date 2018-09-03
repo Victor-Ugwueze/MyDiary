@@ -12,17 +12,13 @@ const sendMail = (user, transporter, jobTitle) => {
   };
   transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
-      console.log(error);
       throw (error);
-    } else {
-      console.log(info);
     }
   });
 };
 
 const dispatchJob = (schedule, jobTitle, transporter) => {
   cron.schedule('* 0 * * *', () => {
-    console.log(`Running cron job for ${jobTitle}:`);
     const notification = new Notification();
     notification.getNotification(jobTitle)
       .then((result) => {
@@ -30,7 +26,7 @@ const dispatchJob = (schedule, jobTitle, transporter) => {
           sendMail(user, transporter, jobTitle);
         });
       })
-      .catch(err => console.log(err.message));
+      .catch();
   });
 };
 
