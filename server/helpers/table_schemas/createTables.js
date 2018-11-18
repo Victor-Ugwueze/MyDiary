@@ -43,10 +43,16 @@ export default class CreateTableSchema {
  */
   run() {
     return this.pool.query(this.createUsersTable)
-      .then(() => this.pool.query(this.createEntriesTable))
-      .then(() => this.pool.query(this.createNotificationsTable))
+      .then((e) => {
+        console.log(e);
+        return this.pool.query(this.createEntriesTable);
+      })
+      .then((e) => {
+        console.log(e);
+        return this.pool.query(this.createNotificationsTable);
+      })
       .then(() => this.pool.end())
-      .catch(err => err);
+      .catch(err => console.log(err));
   }
 }
 

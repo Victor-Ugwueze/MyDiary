@@ -37,7 +37,16 @@ class User {
         // User found
         const passwordMatch = bcrypt.compareSync(this.password, result.rows[0].password);
         if (passwordMatch) {
-          return ({ code: 2, id: result.rows[0].id });
+          const user = result.rows[0];
+          return ({
+            code: 2,
+            user: {
+              id: user.id,
+              email: user.email,
+              firstName: user.first_name,
+              lastName: user.last_name,
+            },
+          });
         }
         return ({ code: 3, id: null });
       })
@@ -51,7 +60,8 @@ class User {
   doSignup() {
     const hash = bcrypt.hashSync(this.password, 10);
     const query = {
-      text: 'INSERT INTO users(first_name, last_name,email,password) VALUES($1, $2, $3, $4) RETURNING id',
+      text: `INSERT INTO users(first_name, last_name,email,password) VALUES($1, $2, $3, $4) RETURNING id,
+      email, first_name, last_name`,
       values: [this.firstName, this.lastName, this.email, hash],
     };
     const userObj = this;
@@ -60,11 +70,17 @@ class User {
         const title = 'journal';
         const userId = result.rows[0].id;
         if (!userId) throw new Error();
-        return userObj.createDefaultReminder(userId, title, 'signup');
+        userObj.createDefaultReminder(userId, title, 'signup');
+        return result;
       })
       .then((result) => {
         if (!result.rows[0]) return 'created only account';
-        return result.rows[0].id;
+        return {
+          email: result.rows[0].email,
+          id: result.rows[0].id,
+          firstname: result.rows[0].first_name,
+          lastname: result.rows[0].last_name,
+        };
       })
       .catch(() => { throw new Error(); });
   }

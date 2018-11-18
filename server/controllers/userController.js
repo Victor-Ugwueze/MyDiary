@@ -20,10 +20,15 @@ router.post('/login', validateAuth.login, (req, res) => {
           case 2:
             {
               const payload = {
-                userId: result.id,
+                userId: result.user.id,
               };
               const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1hr' });
-              res.status(200).json({ status: 'success', message: 'You are logged in!', token });
+              res.status(200).json({
+                status: 'success',
+                message: 'You are logged in!',
+                token,
+                user: result.user,
+              });
             }
             break;
           default:
@@ -48,14 +53,14 @@ router.post('/signup', validateAuth.singUp, (req, res) => {
       .then((emailExists) => {
         if (!emailExists) { // Email doesn't exist so signup user;
           user.doSignup()
-            .then((userId) => {
-              console.log(userId);
-              const payload = { userId };
+            .then((createdUser) => {
+              const payload = { userId: createdUser.id };
               const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1hr' });
               res.status(200).json(
                 {
                   status: 'success',
                   token,
+                  user: createdUser,
                   message: 'Account created ',
                 },
               );
