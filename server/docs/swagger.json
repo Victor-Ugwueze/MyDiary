@@ -282,7 +282,7 @@
           "description": "Created user object",
           "required": true,
           "schema": {
-            "$ref": "#/definitions/User"
+            "$ref": "#/definitions/SingUpPayload"
           }
         }
       ],
@@ -516,6 +516,29 @@
       },
       "xml": {
         "name": "Entry"
+      }
+    },
+    "SingUpPayload": {
+      "type": "object",
+      "properties": {
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "SingUpPayload"
       }
     },
     "User": {
