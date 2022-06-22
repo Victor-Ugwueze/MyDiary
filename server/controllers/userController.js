@@ -32,14 +32,14 @@ router.post('/login', validateAuth.login, (req, res) => {
             }
             break;
           default:
-            res.status(401).json({ status: 'failed', message: 'credentials mismatch' });
+            res.status(401).json({ status: 'failed', message: 'Authentication failed' });
         }
       })
       .catch(() => {
         res.status(500).json({ status: 'failed', message: 'internal server error' });
       });
   } else {
-    res.status(400).json({ status: 'failed', message: errors.array()[0].msg });
+    res.status(400).json({ status: 'failed', message: 'Authentication failed' });
   }
 });
 
