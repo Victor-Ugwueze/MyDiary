@@ -74,15 +74,17 @@ class User {
         return result;
       })
       .then((result) => {
-        if (!result.rows[0]) return 'created only account';
         return {
           email: result.rows[0].email,
           id: result.rows[0].id,
-          firstname: result.rows[0].first_name,
-          lastname: result.rows[0].last_name,
+          firstName: result.rows[0].first_name,
+          lastName: result.rows[0].last_name,
         };
       })
-      .catch(() => { throw new Error(); });
+      .catch((err) => {
+        console.log(err)
+        throw new Error(); 
+      });
   }
 
   /**
@@ -103,7 +105,9 @@ class User {
         }
         return false;
       })
-      .catch(err => err);
+      .catch(err => {
+        console.log(err);
+      });
   }
 
   /**

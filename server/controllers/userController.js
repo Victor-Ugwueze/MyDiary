@@ -71,7 +71,7 @@ router.post('/signup', validateAuth.singUp, (req, res) => {
         } else {
           res.status(422).json({ status: 'failed', message: 'email exist', email: emailExists.email });
         }
-      });
+      }).catch(r => console.log(r));
   } else {
     res.status(400).json({ status: 'failed', message: errors.array()[0].msg });
   }

@@ -1,49 +1,32 @@
-import { check, validationResult } from 'express-validator/check';
+import { body, validationResult } from 'express-validator';
 
-const trimeSpaces = (input) => {
-  const trimedString = input.replace(/^\s+|\s+$/g, '');
-  return trimedString;
-};
+
 
 const validateAuth = {
 
   login: [
-    check('email', 'email is required')
-      .exists(),
-    check('email', 'please, enter a valid email')
+    body('email')
+      .notEmpty()
+    .withMessage('email', 'please, enter a valid email')
       .isEmail(),
-    check('password', 'password is required')
+      body('password', 'password is required')
       .exists(),
   ],
   singUp: [
-    check('firstName', 'firstaname is required and should be a minimum of 2 characters')
-      .isLength({ min: 3 })
-      .custom((value) => {
-        if (trimeSpaces(value).length < 3) {
-          throw new Error('First name should be a minimum of 3 characters');
-        } else {
-          return value;
-        }
-      }),
-    check('lastName', 'lastname is required and should be a minimum of 2 characters')
-      .isLength({ min: 3 })
-      .custom((value) => {
-        if (trimeSpaces(value).length < 3) {
-          throw new Error('Last name should be a minimum of 3 characters');
-        } else {
-          return value;
-        }
-      }),
-    check('email', 'email is required')
-      .exists(),
-    check('email', 'please, enter a valid email')
+    body('firstName', 'firstName is required and should be a minimum of 2 characters')
+    .notEmpty()
+    .trim()
+    .isLength({ min: 3 }),
+      body('lastName', 'lastName is required and should be a minimum of 2 characters')
+      .trim()
+      .isLength({ min: 3 }),
+      body('email', 'email is required')
+      .exists()
       .isEmail(),
-    check('password', 'password should be a minimum of 6 chracters')
+      body('password', 'password and should be a minimum of 6 characters')
+    .trim()
       .isLength({ min: 6 })
       .custom((value, { req }) => {
-        if (trimeSpaces(value).length < 6) {
-          throw new Error('First name should be a minimum of 6 characters');
-        }
         if (value !== req.body.confirmPassword) {
           throw new Error("Password doesn't match");
         } else {

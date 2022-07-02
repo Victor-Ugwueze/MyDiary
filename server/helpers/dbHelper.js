@@ -11,6 +11,15 @@ const connectionString = process.env.DATABASE_URL;
  */
 const pool = new Pool({
   connectionString,
+  ssl: {
+    rejectUnauthorized: false
+  },
+    dialectOptions: {
+        ssl: {
+            require: true,
+            rejectUnauthorized: false
+        }
+    }
 });
 
 export default pool;
