@@ -1,0 +1,62 @@
+{
+  "name": "my-dairy",
+  "version": "1.0.0",
+  "description": "MyDiary is an online journal where users can pen down their thoughts and feelings. ",
+  "main": "server.js",
+  "scripts": {
+    "start": "node -r dotenv/config server/helpers/www",
+    "create-table": "node --require babel-register server/helpers/table_schemas/createTables --require 'dotenv/config'",
+    "start-dev": "nodemon server/helpers/www --require 'dotenv/config'",
+    "drop-test-table": "node --require babel-register server/helpers/table_schemas/dropTables",
+    "test": "npm run drop-test-table && nyc --reporter=text --reporter=html mocha --require @babel/register server/test/* --exit",
+    "coverage": "nyc --reporter=html --reporter=text --reporter=lcov mocha --reporter spec --require @babel/register server/test/* --exit",
+    "coveralls": "npm run drop-test-table && npm run coverage -- --report lcovonly && cat coverage/lcov.info | coveralls"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Victor-Ugwueze/MyDiary.git"
+  },
+  "author": "Victor Ugwueze",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Victor-Ugwueze/MyDiary/issues"
+  },
+  "homepage": "https://github.com/Victor-Ugwueze/MyDiary#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.17.10",
+    "@babel/core": "^7.18.5",
+    "@babel/eslint-parser": "^7.18.2",
+    "@babel/register": "^7.17.7",
+    "babel-eslint": "^10.1.0",
+    "babel-loader": "^8.2.5",
+    "babel-preset-airbnb": "^5.0.0",
+    "chai": "^4.1.2",
+    "chai-http": "^4.0.0",
+    "eslint": "^8.18.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.13.0",
+    "mocha": "^10.0.0",
+    "nyc": "^15.1.0"
+  },
+  "dependencies": {
+    "airbnb-browser-shims": "^3.0.0",
+    "bcrypt": "^5.0.1",
+    "body-parser": "^1.18.3",
+    "cors": "^2.8.5",
+    "coveralls": "^3.0.2",
+    "dotenv": "^16.0.1",
+    "errorhandler": "^1.5.0",
+    "express": "^4.16.3",
+    "express-session": "^1.15.6",
+    "express-validator": "^6.14.2",
+    "favicons": "^7.0.0-beta.4",
+    "jsonwebtoken": "^8.3.0",
+    "method-override": "^3.0.0",
+    "morgan": "^1.9.0",
+    "node-cron": "^3.0.1",
+    "nodemailer": "^6.7.5",
+    "nodemon": "^2.0.16",
+    "pg": "^8.7.3",
+    "swagger-ui-express": "^4.4.0"
+  }
+}

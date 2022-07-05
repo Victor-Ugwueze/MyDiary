@@ -1,0 +1,451 @@
+.wrapper{
+    display: flex;
+    flex-direction: row-reverse;
+}
+header{
+    min-height: 70px;
+    display: flex;
+    -webkit-box-shadow: 0 2px 4px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
+    -moz-box-shadow: 0 2px 4px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
+    box-shadow: 0 2px 4px 0 rgba(248, 113, 113, 0.16),0 2px 10px 0 rgba(0,0,0,0.12);
+}
+header #top-bar{
+    display: flex;
+    flex : 1;
+    padding-left: 5%;
+    justify-content: space-between;
+}
+.profile-img{
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    background: #bbbbe6;
+}
+#right-section{
+    flex: 1;
+    margin-left: 20%;
+    height: 100vh;
+}
+
+#left-section{
+    height: 100vh;
+    background: #1c262f;
+    /* flex-shrink: 0; */
+    min-width: 300px;
+    /* display: flex; */
+    z-index: 1;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+.menu-icon{
+    display: none;
+    margin-top: 24px;
+}
+.navbar-toggle{
+    background-color: white;
+}
+.navbar-toggle:after{
+    background-color: white;
+}
+.navbar-toggle:before{
+    background-color: white;
+}
+.nav-show{
+    display: block !important;
+}
+@-moz-keyframes slidemenu {
+    0% {
+        height: 0px;
+    }
+    100% {
+        height: 90px;
+    }
+}
+
+@-webkit-keyframes slidemenu {
+    0% {
+        height: 0px;
+    }
+    100% {
+        height: 90px;
+    }
+}
+.nav-tabs li{
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+}
+
+.nav-tabs #last-item{
+    margin-top: auto;
+}
+.nav-tabs li a{
+    font-weight: 400;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+
+
+#add-entry{
+    display: flex;
+    margin-top:30px;
+    justify-content: flex-end;
+}
+#dairy-content{
+    border: 2px solid #ececec;
+    margin-top: 30px;
+    padding: 4px 0;
+    background-color: transparent;
+}
+#diary-heading{
+    display: flex;
+    justify-content: space-between;
+    padding-left: 2em; 
+    padding-top: 13px;
+    min-height: 60px;
+    font-size: 14px;
+    border-bottom: 1px solid #ececec;
+    align-items: stretch;
+}
+
+#diary-heading .entry-head{
+    flex-grow: 1;
+}
+#diary-heading #title{
+    flex-grow: 8;
+}
+
+#diary-heading  #created-at{
+    margin-right: 2.6%;
+}
+#dairy-entries{
+    display: flex;
+    flex-direction: column;
+}
+.entry-item{
+    display: flex;
+    justify-content: space-between;
+    padding: 4px 0;
+    border-bottom: 1px solid #ececec;
+    padding-left: 2em;
+    font-size: 14px;
+    padding-right: 2em;
+    min-height: 70px;
+    padding-top: 12px;
+    cursor: pointer;
+}
+.entry-item div{
+    flex-basis: 60%;
+}
+#diary-body{
+    height: 400px;
+    background-image: linear-gradient(#fff, white 30px, rgb(53, 50, 228) 30px, rgb(53, 50, 228) 31px, white 31px);
+    background-size: 100% 31px; 
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+    line-height: 31px;
+    font-family: Arial, Helvetica, Sans-serif;
+}
+.action-edit,.action-delete{
+    font-size: 12px;
+    padding: 2px 4px;
+}
+.action-edit:hover .icon-edit{
+    /* display: inline; */
+}
+/* .action-edit:hover .edit-text{
+    display: none;
+} */
+
+
+
+#confirm-delete .modal-content{
+    margin-top: 15%;
+    width: 30%;
+    height: 200px;
+}
+#confirm-delete .modal-body{
+    margin-bottom: 100px;
+}
+#confirm-delete .modal-footer{
+    width: 100%;
+}
+#confirm-delete .modal-heading h4{
+    text-align: center;
+}
+.modal-footer div{
+    display: flex;
+    justify-content: space-between;
+}
+#diary-content{
+    padding: 3%;
+}
+.entry-item h4:hover{
+    text-decoration: underline;
+    color: rgb(0, 0, 0);
+}
+#diary-content h4{
+    padding-bottom: 4%;
+}
+#user{
+    position: relative;
+}
+#user-profile-name{
+    position: absolute;
+    top: 8px;
+    left:8%;
+    color: #14171a;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+}
+#user-profile-name:hover{
+    color: var(--primary);
+    text-decoration: underline;
+}
+.date{
+    font-size: 12px;
+}
+
+
+.dashboard-section{
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+.profile-section{
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+#settings{
+    margin-top: 20px;
+    border: 2px solid #ccc;
+}
+#profile{
+    justify-content: center;
+}
+#activity-breakdown ul {
+    list-style: none;
+    display: flex;
+}
+.profie-details{
+    margin-left: 10%;
+    display: flex;
+    width: 80%;
+    margin-top: 20px;
+    padding-top: 10px;
+    justify-content: space-around;
+}
+.profie-details p,.profie-details h4,.profie-details button{
+    margin-top: 20px;
+}
+#account{
+    height: 250px;
+    background: #1c262f;
+    margin-left: 2.8%;
+    border-left: 2px solid #fff;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12)!important;
+}
+#settings ul {
+    list-style: none;
+    padding: 10px 4%;
+    width: 90%;
+}
+#settings ul li{
+    cursor: pointer;
+    border-bottom: 1px solid #ccc;
+    display: flex;
+    justify-content: space-between;
+}
+.setting-current{
+    color: var(--primary);
+}
+.icon-edit {
+    width: 24px;
+    height: 24px;
+    margin-top: 5px;
+    display: none;
+}
+.settings-change:hover .icon-edit{
+  display: inline-block;
+}
+.settings-change:hover{
+    text-decoration: underline;
+}
+#settings ul>li{
+    padding-bottom: 20px;
+}
+#setting ul:last-child{
+    padding-top: 0;
+}
+ #account img{
+    width: 200px;
+    height: 200px;
+    margin-left: 15%;
+    margin-top: 6%;
+    border-radius: 4px;
+} 
+#account #full-name{
+    padding-top:20px;
+    padding-bottom: 20px;
+}
+.dropdown-content{
+    width: 55px;
+    height: 50px;
+    position: fixed;
+    top:8%;
+    background: rgb(255, 255, 255);
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    right: 2%;
+    z-index: 6000;
+}
+.arrow-up {
+    width: 0; 
+    height: 0; 
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 5px solid #ccc;
+    position: absolute;
+    right: 1%;
+    top: -14%;
+  }
+  .dropdown-content a{
+      position: absolute;
+     margin-left: 20%;
+     font-size: 12px;
+     top: 30%;
+  }
+@media only screen and (max-width : 1245px){
+    #right-section{
+        margin-left: 22%;
+    }
+}
+
+@media only screen and (max-width : 1112px){
+    #right-section{
+        margin-left: 28%;
+    }
+    #confirm-delete .modal-body{
+        margin-bottom: 70px;
+    }
+}
+@media only screen and (max-width: 890px){
+    .modal-content{
+        width: 80%;
+    }
+    #confirm-delete .modal-content{
+        width: 50%;
+    }
+    .dropdown-content{
+        right: 3%;
+    }
+    header #top-bar{
+        padding-left: 0;
+    }
+    header #top-bar .brand{
+        padding-left: 1%;
+        padding-right: 4%;
+    }
+    .menu-icon{
+        display: inline-block;
+    }
+    #left-section{
+        display: none;
+    } 
+    #right-section{
+        margin-left: 0;
+    } 
+}
+
+@media only screen and (max-width: 640px){
+    #diary-heading  #created-at{
+        margin-right: 8%;
+    }
+    #confirm-delete .modal-content{
+        width: 70%;
+    }
+    #diary-heading {
+        display: none;
+    }
+    .settings-change .icon-edit{
+        display: inline;
+    }
+    .change-text{
+        display: none;
+    }
+    .btn.action-edit{
+        background: #fff;
+    }
+    .btn.action-edit .edit-text{
+        display: none;
+    }
+    .btn.action-delete{
+        background: #fff; 
+    }
+    .btn.action-edit .delete-text{
+        display: none;
+    }
+    .diary-edit{
+        display: inline;
+    }
+    .entry-item{
+        flex-direction: column;
+        justify-content: space-around;
+    }
+    .entry-item a,.entry-item p{
+        padding: 10px 4%;
+    }
+    .entry-item div h4{
+        padding-left: 4%;
+    }
+    #dairy-entries .arrow-up{
+        display: block;
+    }
+    
+    .dropdown-content{
+        right: 4%;
+    }
+    #diary-heading #action{
+        margin-right: 10%;
+    }
+    .entry-item div{
+        flex-basis: 40%;
+    }
+    .modal-content{
+        width: 90%;
+    }
+    #user-profile-name{
+        left:10%; 
+    }
+
+     .user-profile{
+        flex-direction: column;
+    }
+    .user-profile #account,.user-profile #diary-entries{
+        justify-content: center;
+        margin: 2px auto;
+        padding-top: 10px;
+        text-align: center;
+    }
+
+}
+@media only screen and (max-width: 480px){
+    .dropdown-content{
+        right: 8%;
+    }
+}
+@media only screen and (max-width: 280px){
+    .dropdown-content{
+        right: 8%;
+    }
+    #account img{
+        width: 150px;
+        height: 150px;
+    }
+}
