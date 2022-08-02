@@ -1,6 +1,5 @@
 import pool from '../dbHelper';
 
-
 export default class CreateTableSchema {
 /**
  * Represents an database schemma.
@@ -34,6 +33,17 @@ export default class CreateTableSchema {
       password varchar(255) NOT NULL,
       created_at timestamp DEFAULT NOW()
     )`;
+
+    this.createTodoTable = `CREATE TABLE IF NOT EXISTS todos(
+      id serial PRIMARY KEY NOT NULL,
+      user_id integer NOT NULL,
+      completed BOOLEAN DEFAULT true,
+      title varchar(255) NOT NULL,
+      content varchar(255) NOT NULL,
+      status varchar(255),
+      created_at timestamp DEFAULT NOW()
+      updated_at timestamp DEFAULT NOW()
+    )`;
   }
 
   /**
@@ -42,17 +52,16 @@ export default class CreateTableSchema {
  *
  */
   run() {
-    return this.pool.query(this.createUsersTable)
-      .then((e) => {
-        console.log(e);
-        return this.pool.query(this.createEntriesTable);
-      })
-      .then((e) => {
-        console.log(e);
-        return this.pool.query(this.createNotificationsTable);
-      })
-      .then(() => this.pool.end())
-      .catch(err => console.log(err));
+    try {
+      Promise.all([
+        this.pool.query(this.createUsersTable),
+        this.pool.query(this.createEntriesTable),
+        this.pool.query(this.createNotificationsTable),
+        this.pool.query(this.createTodoTable),
+      ]);
+    } catch (error) {
+      console.log('error encountered', error);
+    }
   }
 }
 
