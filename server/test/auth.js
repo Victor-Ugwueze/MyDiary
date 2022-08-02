@@ -13,7 +13,7 @@ chai.use(chaiHttp);
 
 describe('Authenticate User', () => {
   describe('POST /auth/signup', () => {
-    it('It should signup user, and asing token', (done) => {
+    it('It should signup user, and assign token', (done) => {
       const user = {
         firstName: 'gozman',
         lastName: 'The man',
